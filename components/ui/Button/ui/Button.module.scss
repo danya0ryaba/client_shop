@@ -1,0 +1,48 @@
+@use "../../../../styles/variables/variables.scss";
+
+.wrapper_button {
+  display: inline-block;
+}
+
+.Button {
+  height: 44px;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 19px;
+  font-weight: 600;
+  transition: 0.3s ease;
+  display: flex;
+  align-items: center;
+
+  .icon {
+    padding-right: 14px;
+    display: flex;
+    align-items: center;
+  }
+
+  .icon__only {
+    padding-right: 0;
+  }
+}
+
+.primary {
+  background-color: variables.$button-white;
+  color: variables.$button-green;
+  outline: 1px solid variables.$button-green;
+
+  &:hover {
+    color: variables.$button-hover;
+    outline: 1px solid variables.$button-hover;
+  }
+
+}
+
+.secondary {
+  color: variables.$button-white;
+  background-color: variables.$button-green;
+
+  &:hover {
+    background-color: variables.$button-hover;
+  }
+
+}
