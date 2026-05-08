@@ -1,29 +1,32 @@
+import { Header } from "@/components/shared/Header/Header";
 import { Button, ButtonTheme } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 import { SearchInput } from "@/components/ui/SearchIput";
+import { Title } from "@/components/ui/Title";
 import { User } from "lucide-react";
 import { ShoppingCart } from "lucide-react";
 
 export default function Home() {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "10px",
-      }}
-    >
-      {/* <Button theme={ButtonTheme.primary} icon={<User />}>
+    <div>
+      {/* <Header /> */}
+      {/* <SearchInput name="search" placeholder="Поиск товаров..." /> */}
+
+      {/* <Button theme={ButtonTheme.primary}>Войти</Button>
+      <Button theme={ButtonTheme.secondary} big>
         Войти
       </Button>
-      <Button theme={ButtonTheme.primary}>Войти</Button>
-      <Button theme={ButtonTheme.secondary} icon={<ShoppingCart />}>
-        Корзина
-      </Button>
-      <Button theme={ButtonTheme.secondary}>Корзина</Button>
-      <Button theme={ButtonTheme.secondary}>Все товары</Button>
-      <Button theme={ButtonTheme.secondary} icon={<ShoppingCart />} iconOnly /> */}
-      <SearchInput name="search" placeholder="Поиск товаров..." />
+
+      <Input text="Email" type="text" placeholder="example@mail.com" />
+
+      <Input text="Password" type="text" placeholder="Введите пароль" />
+
+      <Title as="h1">Заголовок h1</Title>
+      <Title as="h2">Заголовок h2</Title>
+      <Title as="h3">Заголовок h3</Title>
+      <Title as="h4">Заголовок h4</Title>
+      <Title as="h5">Заголовок h5</Title>
+      <Title as="h6">Заголовок h6</Title> */}
     </div>
   );
 }

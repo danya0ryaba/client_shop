@@ -4,7 +4,8 @@
   display: inline-block;
 }
 
-.Button {
+.button {
+  width: 100%;
   height: 44px;
   border-radius: 4px;
   padding: 10px;
@@ -15,14 +16,16 @@
   align-items: center;
 
   .icon {
-    padding-right: 14px;
+    width: 44px;
     display: flex;
     align-items: center;
   }
+}
 
-  .icon__only {
-    padding-right: 0;
-  }
+.big__btn {
+  font-size: 21px;
+  height: 56px;
+  justify-content: center;
 }
 
 .primary {
@@ -34,7 +37,6 @@
     color: variables.$button-hover;
     outline: 1px solid variables.$button-hover;
   }
-
 }
 
 .secondary {
@@ -44,5 +46,16 @@
   &:hover {
     background-color: variables.$button-hover;
   }
+}
 
+@media (max-width: variables.$tablet) {
+  .button {
+    height: 44px;
+    padding: 5px;
+    font-size: 14px;
+
+    .icon {
+      display: none;
+    }
+  }
 }

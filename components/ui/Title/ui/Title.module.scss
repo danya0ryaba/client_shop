@@ -1,0 +1,51 @@
+@use "../../../../styles/variables/variables.scss";
+
+.wrapper__title {
+  color: variables.$text-black;
+  font-weight: 900;
+  text-align: center;
+  h1 {
+    font-size: 34px;
+  }
+  h2 {
+    font-size: 30px;
+  }
+  h3 {
+    font-size: 26px;
+  }
+  h4 {
+    font-size: 24px;
+  }
+  h5 {
+    font-size: 22px;
+  }
+  h6 {
+    font-size: 20px;
+  }
+  .color__green {
+    color: variables.$button-green;
+  }
+}
+
+@media (max-width: variables.$tablet) {
+  .wrapper__title {
+    h1 {
+      font-size: 30px;
+    }
+    h2 {
+      font-size: 26px;
+    }
+    h3 {
+      font-size: 22px;
+    }
+    h4 {
+      font-size: 20px;
+    }
+    h5 {
+      font-size: 15px;
+    }
+    h6 {
+      font-size: 12px;
+    }
+  }
+}
