@@ -7,7 +7,7 @@ export const Category = () => {
     <div className={style.category}>
       <Title as="h4">Категории</Title>
       <div className={style.categoryes}>
-        <Button>Все категории</Button>
+        <Button active>Все категории</Button>
         <Button>Овощи</Button>
         <Button>Ягоды</Button>
         <Button>Зелень</Button>
@@ -15,5 +15,3 @@ export const Category = () => {
     </div>
   );
 };
-
-// добавить active на кнопку

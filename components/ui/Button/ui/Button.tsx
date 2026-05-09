@@ -13,6 +13,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: React.ReactNode;
   iconOnly?: boolean;
   big?: boolean;
+  active?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -22,14 +23,17 @@ export const Button: React.FC<ButtonProps> = ({
   icon,
   iconOnly = false,
   big,
+  active = false,
   ...otherProps
 }) => {
   const classBigBtn = big ? style.big__btn : "";
-  // const classOnlyIcon = icon && !iconOnly ? style.only_icon : style.only_icon;
+
+  const themaBtn = active ? ButtonTheme.secondary : theme;
+
   return (
     <div className={`${className} ${style.wrapper_button}`}>
       <button
-        className={`${style.button} ${style[theme]} ${classBigBtn}`}
+        className={`${style.button} ${style[themaBtn]} ${classBigBtn}`}
         {...otherProps}
       >
         {icon && !iconOnly && <span className={style.icon}>{icon}</span>}
