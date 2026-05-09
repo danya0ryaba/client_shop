@@ -5,7 +5,7 @@
 }
 
 .button {
-  width: 100%;
+  max-width: 100%;
   height: 44px;
   border-radius: 4px;
   padding: 10px;
@@ -17,6 +17,11 @@
 
   .icon {
     width: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .icon__only {
+    width: auto;
     display: flex;
     align-items: center;
   }
@@ -50,12 +55,21 @@
 
 @media (max-width: variables.$tablet) {
   .button {
-    height: 44px;
     padding: 5px;
     font-size: 14px;
 
     .icon {
-      display: none;
+      width: auto;
+      padding-right: 4px;
+      // display: none;
     }
+  }
+}
+
+@media (max-width: variables.$mini-phone) {
+  .button {
+    height: 34px;
+    padding: 3px;
+    font-size: 10px;
   }
 }

@@ -1,10 +1,10 @@
 import { SearchInput } from "@/components/ui/SearchIput";
 import { Button, ButtonTheme } from "@/components/ui/Button";
 import { ShoppingCart, User, Leaf } from "lucide-react";
+import { Title } from "@/components/ui/Title";
 import Link from "next/link";
 
 import style from "./Header.module.scss";
-import { Title } from "@/components/ui/Title";
 
 export const Header = () => {
   return (

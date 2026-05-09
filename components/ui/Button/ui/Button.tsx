@@ -20,11 +20,12 @@ export const Button: React.FC<ButtonProps> = ({
   theme = ButtonTheme.primary,
   children,
   icon,
-  iconOnly,
+  iconOnly = false,
   big,
   ...otherProps
 }) => {
   const classBigBtn = big ? style.big__btn : "";
+  // const classOnlyIcon = icon && !iconOnly ? style.only_icon : style.only_icon;
   return (
     <div className={`${className} ${style.wrapper_button}`}>
       <button

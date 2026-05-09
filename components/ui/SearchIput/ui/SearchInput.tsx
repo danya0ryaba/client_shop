@@ -10,20 +10,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   className?: string;
 }
 
-const array_product = [
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-];
+const array_product = ["1", "2", "3", "4", "5", "6"];
 
 export const SearchInput: React.FC<InputProps> = ({ className, ...props }) => {
   const [value, setValueInput] = useState("");
@@ -62,41 +49,47 @@ export const SearchInput: React.FC<InputProps> = ({ className, ...props }) => {
 
   return (
     <div className={`${style.wrapper__input} ${className}`}>
-      <Search className={style.icon} onClick={() => onHandlerSearche(value)} />
-      <input
-        ref={inputRef}
-        className={style.input}
-        onFocus={() => setIsOpenWindow(true)}
-        onBlur={onHandlerBlur}
-        type="text"
-        value={value}
-        onChange={onChangeInput}
-        {...props}
-      />
-      {isOpenWindow && (
-        <X
-          className={style.cross}
-          onMouseDown={handleCrossMouseDown}
-          onClick={(e) => e.preventDefault()}
+      <div className={style.wrapper__input_block}>
+        <Search
+          className={style.icon}
+          onClick={() => onHandlerSearche(value)}
         />
-      )}
-      {isOpenWindow && (
-        <div className={style.options__wrapper} style={{ left: 0 }}>
-          <div className={style.options}>
-            <ul className={style.options__options}>
-              {array_product.map((option, index) => (
-                <li
-                  className={style.option}
-                  key={option + index}
-                  onMouseDown={() => onHandlerOptionClick(option)}
-                >
-                  {option}
-                </li>
-              ))}
-            </ul>
+        <input
+          ref={inputRef}
+          className={style.input}
+          onFocus={() => setIsOpenWindow(true)}
+          onBlur={onHandlerBlur}
+          type="text"
+          value={value}
+          onChange={onChangeInput}
+          {...props}
+        />
+        {isOpenWindow && (
+          <X
+            className={style.cross}
+            onMouseDown={handleCrossMouseDown}
+            onClick={(e) => e.preventDefault()}
+          />
+        )}
+        {/* LIST */}
+        {isOpenWindow && (
+          <div className={style.options__wrapper} style={{ left: 0 }}>
+            <div className={style.options}>
+              <ul className={style.options__options}>
+                {array_product.map((option, index) => (
+                  <li
+                    className={style.option}
+                    key={option + index}
+                    onMouseDown={() => onHandlerOptionClick(option)}
+                  >
+                    {option}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

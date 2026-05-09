@@ -83,3 +83,19 @@
     padding-right: 20px;
   }
 }
+
+@media (max-width: variables.$phone) {
+  .logo__image {
+    display: none;
+  }
+}
+
+@media (max-width: variables.$mini-phone) {
+  .logo {
+    &__text {
+      span {
+        font-size: 10px;
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+@use "../../../styles/variables/variables.scss";
+
+.category {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 20px;
+  background-color: variables.$button-white;
+  padding: 22px;
+  border-radius: 10px;
+  -webkit-box-shadow: 1px 0px 10px 6px variables.$shadow;
+  -moz-box-shadow: 1px 0px 10px 6px variables.$shadow;
+  box-shadow: 1px 0px 10px 6px variables.$shadow;
+
+  .categoryes {
+    display: flex;
+    gap: 15px;
+  }
+}

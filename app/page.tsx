@@ -1,3 +1,5 @@
+import { CartProduct } from "@/components/shared/CartProduct/CartProduct";
+import { Category } from "@/components/shared/Category/Category";
 import { Header } from "@/components/shared/Header/Header";
 import { Button, ButtonTheme } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -27,6 +29,8 @@ export default function Home() {
       <Title as="h4">Заголовок h4</Title>
       <Title as="h5">Заголовок h5</Title>
       <Title as="h6">Заголовок h6</Title> */}
+      {/* <CartProduct /> */}
+      <Category />
     </div>
   );
 }
