@@ -10,6 +10,14 @@ body {
   padding: 0 15px;
   margin: 0 auto;
 }
+.info_category {
+  text-align-last: left;
+}
+
+.product {
+  display: flex;
+  gap: 30px;
+}
 
 // reset Link
 a {

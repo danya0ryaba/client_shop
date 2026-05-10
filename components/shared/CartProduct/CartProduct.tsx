@@ -10,7 +10,7 @@ interface CartProductI {
 
 export const CartProduct: React.FC<CartProductI> = ({ className }) => {
   return (
-    <div className={`${style.cart} ${className}`}>
+    <article className={`${style.cart} ${className}`}>
       <div className={style.image}>
         <img src="https://placehold.co/340x400" alt="Product" />
         <span className={style.name_product}>Клубника садовая</span>
@@ -42,6 +42,6 @@ export const CartProduct: React.FC<CartProductI> = ({ className }) => {
         {/*  */}
         {/*  */}
       </div>
-    </div>
+    </article>
   );
 };
