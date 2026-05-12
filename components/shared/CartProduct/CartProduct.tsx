@@ -1,8 +1,9 @@
 import { Title } from "@/components/ui/Title";
-import style from "./CartProduct.module.scss";
 import { Button, ButtonTheme } from "@/components/ui/Button";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
+
+import style from "./CartProduct.module.scss";
 
 interface CartProductI {
   className?: string;

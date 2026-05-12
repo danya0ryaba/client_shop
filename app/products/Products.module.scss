@@ -1,0 +1,11 @@
+.info_category {
+  text-align-last: left;
+  margin-bottom: 28px;
+}
+
+.list__product {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
