@@ -1,25 +1,36 @@
-import { Check, Leaf, ShoppingCart } from "lucide-react";
+import { Check, Leaf, ShoppingCart, Truck, Shield } from "lucide-react";
 import { Title } from "@/components/ui/Title";
 import { Button, ButtonTheme } from "@/components/ui/Button";
+import { SliderProduct } from "@/components/ui/SliderProduct";
 
 import style from "./CurrentProduct.module.scss";
+
+const icons = [
+  { name: "Органика", icon: <Leaf className={style.svg} /> },
+  { name: "Доставка за 1 день", icon: <Truck className={style.svg} /> },
+  { name: "Гарантия качества", icon: <Shield className={style.svg} /> },
+];
+
+// стили переписать, чтобы норм отображалась на всех экранах
 
 export const CurrentProduct = () => {
   return (
     <div className={style.wrapper__product}>
-      {/*  */}
       <div className={style.slider}>
-        <div className={style.slider__slider}></div>
+        <div className={style.slider__slider}>
+          <SliderProduct />
+        </div>
+
         <div className={style.slider__icons}>
-          <div className={style.icon}>
-            <div className={style.icon__svg}>
-              <Leaf className={style.svg} />
+          {icons.map((el, i) => (
+            <div className={style.icon} key={el.name + i}>
+              <div className={style.icon__svg}>{el.icon}</div>
+              <span className={style.icon__text}>{el.name}</span>
             </div>
-            <span className={style.icon__text}>Органика</span>
-          </div>
+          ))}
         </div>
       </div>
-      {/*  */}
+
       <div className={style.info}>
         <span className={style.info__category}>Овощи</span>
         <Title as="h2">Помидоры свежие</Title>

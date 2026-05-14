@@ -3,10 +3,37 @@
 .wrapper__product {
   display: flex;
   gap: 18px;
+  justify-content: space-between;
   color: variables.$text-black;
 
   .slider {
     width: 50%;
+
+    &__icons {
+      display: flex;
+      justify-content: space-around;
+      padding: 0 20px;
+
+      .icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+
+        &__svg {
+          .svg {
+            color: variables.$button-green;
+            width: 50px;
+            height: 50px;
+          }
+        }
+
+        &__text {
+          font-size: 16px;
+          font-weight: 400;
+        }
+      }
+    }
   }
 
   .info {
