@@ -34,6 +34,12 @@
       }
     }
   }
+
+  .error {
+    font-weight: 500;
+    font-size: 18px;
+    color: variables.$red;
+  }
 }
 
 @media (max-width: variables.$tablet) {
@@ -50,6 +56,10 @@
         font-size: 14px;
         padding: 8px 6px;
       }
+    }
+
+    .error {
+      font-size: 14px;
     }
   }
 }

@@ -4,33 +4,85 @@ import { Input } from "@/components/ui/Input";
 import { Button, ButtonTheme } from "@/components/ui/Button";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
+import { ROUTES } from "@/routers/routers";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formSchemaRegister } from "@/libs/schema";
 
 import style from "./Form.module.scss";
 
-export const FormRegister: React.FC = () => {
+type FormState = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export interface FormI {
+  changeAuth: () => void;
+}
+
+export const FormRegister: React.FC<FormI> = ({ changeAuth }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    reset,
+  } = useForm<FormState>({
+    resolver: zodResolver(formSchemaRegister),
+    mode: "onChange",
+  });
+
+  const onSubmit = (data: FormState) => {
+    console.log(data);
+    reset();
+  };
+
   return (
     <div className={style.wrapper}>
       <article className={style.wrapper__form}>
-        <Link href={"/"} className={style.link}>
+        <Link href={ROUTES.HOME} className={style.link}>
           <MoveLeft className={style.link__svg} /> На главную
         </Link>
-        <form className={style.form}>
+        <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={style.form__logo}>
             <Leaf className={style.form__logo_svg} />
           </div>
           <Title>Регистрация</Title>
           <span className={style.form__text}>Создайте аккаунт для покупок</span>
           <div className={style.form__inputs}>
-            <Input text="Имя" type="text" placeholder="Введите ваше имя" />
-            <Input text="Email" type="text" placeholder="example@mail.com" />
-            <Input text="Пароль" type="password" placeholder="Введите пароль" />
-            <Button big theme={ButtonTheme.secondary}>
+            <Input
+              text="Имя"
+              type="text"
+              placeholder="Введите ваше имя"
+              {...register("name")}
+              error={errors.name?.message}
+            />
+            <Input
+              text="Email"
+              type="text"
+              placeholder="example@mail.com"
+              {...register("email")}
+              error={errors.email?.message}
+            />
+            <Input
+              text="Пароль"
+              type="password"
+              placeholder="Введите пароль"
+              {...register("password")}
+              error={errors.password?.message}
+            />
+            <Button
+              disabled={!isValid}
+              type="submit"
+              big
+              theme={ButtonTheme.secondary}
+            >
               Войти
             </Button>
           </div>
-          <Link href={""} className={style.form__link}>
+          <button onClick={changeAuth} className={style.form__link}>
             Уже есть аккаунта? Войти
-          </Link>
+          </button>
         </form>
       </article>
     </div>

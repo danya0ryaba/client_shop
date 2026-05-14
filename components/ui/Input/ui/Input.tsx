@@ -10,6 +10,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   onCheckedInput?: (value: string) => boolean;
   width?: number;
   messageError?: string;
+  error?: string;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -20,17 +21,11 @@ export const Input: React.FC<InputProps> = ({
   onCheckedInput,
   width = 376,
   messageError,
+  error,
   ...props
 }) => {
-  const [value, setValueInput] = useState("");
-  const [isError, setIsError] = useState(true);
-
-  const classError = isError ? style.input__error : "";
-  const htmlFor = text + placeholder; //unique value
-
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValueInput(e.target.value);
-  };
+  const classError = error ? style.input__error : "";
+  const htmlFor = text + (placeholder || ""); //unique value
 
   return (
     <div className={style.wrapper_input}>
@@ -42,12 +37,10 @@ export const Input: React.FC<InputProps> = ({
           id={htmlFor}
           placeholder={placeholder}
           className={`${style.input} ${classError}`}
-          value={value}
-          onChange={onChangeInput}
           {...props}
         />
       </div>
-      {isError && <span className={style.error}>{messageError}</span>}
+      {error && <span className={style.error}>{error}</span>}
     </div>
   );
 };

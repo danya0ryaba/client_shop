@@ -3,13 +3,14 @@ import { Button, ButtonTheme } from "@/components/ui/Button";
 import { ShoppingCart, User, Leaf } from "lucide-react";
 import { Title } from "@/components/ui/Title";
 import Link from "next/link";
+import { ROUTES } from "@/routers/routers";
 
 import style from "./Header.module.scss";
 
 export const Header = () => {
   return (
     <header className={style.header}>
-      <Link href={""} className={style.logo}>
+      <Link href={ROUTES.HOME} className={style.logo}>
         <div className={style.logo__image}>
           <Leaf className={style.logo__image_svg} />
         </div>
@@ -24,10 +25,10 @@ export const Header = () => {
       <nav className={style.menu}>
         <ul>
           <li>
-            <Link href="/">Каталог</Link>
+            <Link href={ROUTES.HOME}>Каталог</Link>
           </li>
           <li>
-            <Link href="/">О нас</Link>
+            <Link href={ROUTES.ABOUT}>О нас</Link>
           </li>
         </ul>
       </nav>
@@ -39,8 +40,14 @@ export const Header = () => {
       />
 
       <div className={style.buttons}>
-        <Button icon={<User />}>Войти</Button>
-        <Button icon={<ShoppingCart />} theme={ButtonTheme.secondary}>
+        <Button icon={<User />} link={ROUTES.AUTH}>
+          Войти
+        </Button>
+        <Button
+          icon={<ShoppingCart />}
+          theme={ButtonTheme.secondary}
+          link={ROUTES.CART}
+        >
           Корзина
         </Button>
       </div>

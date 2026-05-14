@@ -1,6 +1,4 @@
 import { Metadata } from "next";
-import { Suspense } from "react";
-import { Slider } from "@/components/shared/Slider/Slider";
 
 export const metadata: Metadata = {
   title: "Садовый урожай",
@@ -13,12 +11,5 @@ export default function ProductsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <Suspense>
-        <Slider />
-      </Suspense>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }

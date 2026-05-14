@@ -1,0 +1,17 @@
+@use "../../../styles/variables/variables.scss";
+
+.product {
+  &__back {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &_svg {
+      color: variables.$grey;
+    }
+
+    &_text {
+      font-size: 24px;
+    }
+  }
+}
