@@ -67,7 +67,6 @@ export const Slider = () => {
           <ChevronLeft className={style.button__arrow} />
         </div>
 
-        {/*  */}
         <div className={style.wrapper__slider_slider} style={slideTransform}>
           {slides.map((el) => (
             <div className={style.slide} key={el.id}>
@@ -81,7 +80,6 @@ export const Slider = () => {
             </div>
           ))}
         </div>
-        {/*  */}
 
         <div
           role="button"

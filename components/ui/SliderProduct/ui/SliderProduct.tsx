@@ -1,7 +1,7 @@
 "use client";
 
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import style from "./SliderProduct.module.scss";
 
@@ -22,9 +22,6 @@ export const SliderProduct = () => {
     setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
-  const handleSelect = (idx: any) => {
-    setCurrent(idx);
-  };
   return (
     <div className={style.wrapper__slider}>
       <div className={style.slider}>
@@ -35,7 +32,7 @@ export const SliderProduct = () => {
           >
             <ArrowLeft className={style.svg} />
           </button>
-          <img src="https://placehold.co/600x400" alt="Photo product" />
+          <img src={`${images[current]}`} alt="Photo product" />
           <button
             className={`${style.arrow} ${style.arrow_right}`}
             onClick={handleNext}
@@ -45,15 +42,15 @@ export const SliderProduct = () => {
         </div>
 
         <div className={style.slider__other}>
-          {images.map((img, idx) => (
+          {images.map((img, i) => (
             <div
               key={img}
               className={style.slider__other_photo}
               style={{
-                border: idx === current ? "2px solid #333" : "none",
+                border: i === current ? "2px solid #076437" : "none",
                 cursor: "pointer",
               }}
-              onClick={() => handleSelect(idx)}
+              onClick={() => setCurrent(i)}
             >
               <img
                 src={img.replace("600x400", "180x120")}

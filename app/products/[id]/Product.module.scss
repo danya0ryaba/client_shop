@@ -1,6 +1,8 @@
 @use "../../../styles/variables/variables.scss";
 
 .product {
+  margin: 70px 0 30px;
+
   &__back {
     display: flex;
     align-items: center;

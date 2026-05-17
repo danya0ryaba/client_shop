@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { MoveLeft } from "lucide-react";
 import { ROUTES } from "@/routers/routers";
-import { CurrentProduct } from "@/components/shared/Product/CurrentProduct";
+import { CurrentProduct } from "@/components/shared/CurrentProduct/CurrentProduct";
+import { OtherProduct } from "@/components/shared/OtherProduct/OtherProduct";
 
 import style from "./Product.module.scss";
 
@@ -15,6 +16,7 @@ export default function Product() {
         </Link>
       </div>
       <CurrentProduct />
+      <OtherProduct />
     </>
   );
 }

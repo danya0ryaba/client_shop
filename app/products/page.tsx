@@ -1,4 +1,5 @@
 import { Title } from "@/components/ui/Title";
+
 import { Category } from "@/components/shared/Category/Category";
 import { CartProduct } from "@/components/shared/CartProduct/CartProduct";
 import { Suspense } from "react";
@@ -25,7 +26,7 @@ export default function Products() {
         <div className={style.list__product}>
           {products.map((_, i) => (
             <Link href={ROUTES.PRODUCT(i)} key={i}>
-              <CartProduct />
+              <CartProduct productId={i} />
             </Link>
           ))}
         </div>

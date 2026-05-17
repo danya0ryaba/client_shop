@@ -1,0 +1,25 @@
+.wrapper__other {
+  &_title {
+    margin: 40px 0;
+    text-align-last: left;
+  }
+
+  .other {
+    &__slider {
+      display: flex;
+
+      justify-content: space-between;
+      gap: 12px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .product {
+      }
+    }
+  }
+}

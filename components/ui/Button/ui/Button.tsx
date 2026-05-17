@@ -1,6 +1,14 @@
-import type { ButtonHTMLAttributes, AnchorHTMLAttributes } from "react";
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
+import { Check } from "lucide-react";
+import {
+  type ButtonHTMLAttributes,
+  type AnchorHTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import style from "./Button.module.scss";
 
 export enum ButtonTheme {
@@ -16,6 +24,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   big?: boolean;
   active?: boolean;
   link?: string;
+  revertMs?: number;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -27,29 +36,72 @@ export const Button: React.FC<ButtonProps> = ({
   big,
   active = false,
   link,
+  onClick,
+  revertMs = 1200,
   ...otherProps
 }) => {
+  const [iconView, setIconView] = useState<React.ReactNode>(icon);
+
+  const timerRef = useRef<number | null>(null);
+  const prevIconRef = useRef<React.ReactNode>(icon);
+
+  useEffect(() => {
+    if (timerRef.current === null) {
+      setIconView(icon);
+    }
+  }, [icon]);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current !== null) clearTimeout(timerRef.current);
+    };
+  }, []);
+
+  const showTempIcon = () => {
+    if (!iconOnly) {
+      return;
+    }
+
+    prevIconRef.current = icon;
+
+    setIconView(<Check />);
+
+    if (timerRef.current !== null) clearTimeout(timerRef.current);
+
+    timerRef.current = window.setTimeout(() => {
+      setIconView(prevIconRef.current);
+      timerRef.current = null;
+    }, revertMs);
+  };
+
   const classBigBtn = big ? style.big__btn : "";
   const classDisabled = otherProps.disabled ? style.disabled : "";
   const themaBtn = active ? ButtonTheme.secondary : theme;
 
+  const iconNode = iconView;
+
   if (link) {
-    const {
-      type,
-      // disabled,
-      ...anchorProps
-    } = otherProps as AnchorHTMLAttributes<HTMLAnchorElement>;
+    const { type, ...anchorProps } =
+      otherProps as AnchorHTMLAttributes<HTMLAnchorElement>;
 
     return (
       <div className={`${className} ${style.wrapper_button}`}>
         <Link
           href={link}
+          onClick={(e) => {
+            showTempIcon();
+            (onClick as any)?.(e);
+          }}
           className={`${style.button} ${style[themaBtn]} ${classBigBtn}`}
-          // {...anchorProps}
+          {...anchorProps}
         >
-          {icon && !iconOnly && <span className={style.icon}>{icon}</span>}
-          {icon && iconOnly && (
-            <span className={`${style.icon} ${style.icon__only}`}>{icon}</span>
+          {!!iconNode && !iconOnly && (
+            <span className={style.icon}>{iconNode}</span>
+          )}
+          {!!iconNode && iconOnly && (
+            <span className={`${style.icon} ${style.icon__only}`}>
+              {iconNode}
+            </span>
           )}
           {children}
         </Link>
@@ -60,12 +112,20 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <div className={`${className} ${style.wrapper_button}`}>
       <button
+        onClick={(e) => {
+          showTempIcon();
+          onClick?.(e);
+        }}
         className={`${style.button} ${style[themaBtn]} ${classBigBtn} ${classDisabled}`}
         {...otherProps}
       >
-        {icon && !iconOnly && <span className={style.icon}>{icon}</span>}
-        {icon && iconOnly && (
-          <span className={`${style.icon} ${style.icon__only}`}>{icon}</span>
+        {!!iconNode && !iconOnly && (
+          <span className={style.icon}>{iconNode}</span>
+        )}
+        {!!iconNode && iconOnly && (
+          <span className={`${style.icon} ${style.icon__only}`}>
+            {iconNode}
+          </span>
         )}
         {children}
       </button>

@@ -20,7 +20,6 @@ export const CurrentProduct = () => {
         <div className={style.slider__slider}>
           <SliderProduct />
         </div>
-
         <div className={style.slider__icons}>
           {icons.map((el, i) => (
             <div className={style.icon} key={el.name + i}>

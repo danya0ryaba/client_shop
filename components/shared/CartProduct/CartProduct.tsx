@@ -1,3 +1,5 @@
+"use client";
+
 import { Title } from "@/components/ui/Title";
 import { Button, ButtonTheme } from "@/components/ui/Button";
 import { ShoppingCart } from "lucide-react";
@@ -7,9 +9,19 @@ import style from "./CartProduct.module.scss";
 
 interface CartProductI {
   className?: string;
+  productId: number;
 }
 
-export const CartProduct: React.FC<CartProductI> = ({ className }) => {
+export const CartProduct: React.FC<CartProductI> = ({
+  className,
+  productId,
+}) => {
+  const onClickButton = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log("add to cart", productId);
+  };
+
   return (
     <article className={`${style.cart} ${className}`}>
       <div className={style.image}>
@@ -34,14 +46,12 @@ export const CartProduct: React.FC<CartProductI> = ({ className }) => {
             <span className={style.info__price_many}>/кг</span>
           </div>
           <Button
+            onClick={onClickButton}
             icon={<ShoppingCart />}
             theme={ButtonTheme.secondary}
             iconOnly
           />
         </div>
-        {/*  */}
-        {/*  */}
-        {/*  */}
       </div>
     </article>
   );
