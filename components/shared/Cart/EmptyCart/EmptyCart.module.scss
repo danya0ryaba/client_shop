@@ -1,0 +1,31 @@
+@use "../../../../styles/variables/variables.scss";
+
+.wrapper__cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  padding: 50px 70px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 4px 4px variables.$shadow;
+
+  .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &_svg {
+      width: 100px;
+      height: 100px;
+      color: variables.$button-hover;
+    }
+  }
+
+  .desc {
+    font-size: 18px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

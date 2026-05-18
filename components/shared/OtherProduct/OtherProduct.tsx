@@ -1,6 +1,11 @@
 import { Title } from "@/components/ui/Title";
-import style from "./OtherProduct.module.scss";
 import { CartProduct } from "../CartProduct/CartProduct";
+
+import style from "./OtherProduct.module.scss";
+import { ROUTES } from "@/routers/routers";
+import Link from "next/link";
+
+const products = Array.from({ length: 12 });
 
 export const OtherProduct = () => {
   return (
@@ -10,13 +15,11 @@ export const OtherProduct = () => {
       </Title>
       <div className={style.other}>
         <div className={style.other__slider}>
-          <CartProduct className={style.product} />
-          <CartProduct className={style.product} />
-          <CartProduct className={style.product} />
-          <CartProduct className={style.product} />
-          {/* <CartProduct className={style.product} />
-          <CartProduct className={style.product} />
-          <CartProduct className={style.product} /> */}
+          {products.map((_, i) => (
+            <Link href={ROUTES.PRODUCT(i)} key={i}>
+              <CartProduct className={style.product} productId={i} />
+            </Link>
+          ))}
         </div>
       </div>
     </div>

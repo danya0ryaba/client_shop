@@ -1,0 +1,36 @@
+@use "../../../../styles/variables/variables.scss";
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  &_btn {
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    font-weight: 800;
+    border: 1px solid variables.$grey;
+
+    &:hover {
+      box-shadow: 1px 0px 2px 1px rgba(0, 0, 0, 0.37);
+      background-color: variables.$grey;
+      color: variables.$light-green;
+    }
+  }
+
+  &_inp {
+    padding: 0 10px;
+    height: 30px;
+    max-width: 60px;
+    border-radius: 5px;
+    text-align: center;
+
+    &:focus {
+      -webkit-box-shadow: 1px 0px 10px 6px rgba(0, 0, 0, 0.37);
+      -moz-box-shadow: 1px 0px 10px 6px rgba(0, 0, 0, 0.37);
+      box-shadow: 1px 0px 10px 6px rgba(0, 0, 0, 0.37);
+    }
+  }
+}

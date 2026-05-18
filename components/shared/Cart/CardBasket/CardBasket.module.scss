@@ -1,0 +1,56 @@
+@use "../../../../styles/variables/variables.scss";
+
+.wrapper {
+  display: flex;
+  gap: 20px;
+  border-radius: 20px;
+  border: 2px solid green;
+  overflow: hidden;
+
+  .image {
+    flex: 0 0 auto;
+  }
+
+  .info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 30px 20px 0;
+    justify-content: space-between;
+
+    &__block {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      &_el {
+        display: flex;
+        flex-direction: column;
+
+        .price {
+          margin-top: 10px;
+          color: variables.$grey;
+        }
+
+        .icon {
+          cursor: pointer;
+
+          &__svg {
+            width: 30px;
+            height: 30px;
+            color: variables.$red;
+          }
+        }
+      }
+
+      &_price {
+        font-size: 20px;
+        color: variables.$button-green;
+        font-weight: 600;
+      }
+    }
+  }
+}

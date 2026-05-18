@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 
 import style from "./Input.module.scss";
 
@@ -8,7 +8,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   text: string;
   onCheckedInput?: (value: string) => boolean;
-  width?: number;
+  // width?: number;
   messageError?: string;
   error?: string;
 }
@@ -19,7 +19,6 @@ export const Input: React.FC<InputProps> = ({
   type = "text",
   placeholder,
   onCheckedInput,
-  width = 376,
   messageError,
   error,
   ...props

@@ -47,6 +47,7 @@ export const CurrentProduct = () => {
         </div>
 
         <Button
+          active
           className={style.info__btn}
           theme={ButtonTheme.secondary}
           big
