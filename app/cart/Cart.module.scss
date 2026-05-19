@@ -1,6 +1,37 @@
+@use "../../styles/variables/variables.scss";
+
 .wrapper {
+  &__back {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 10px;
+    color: variables.$button-green;
+    transition: 0.3s ease;
+
+    &:hover {
+      background-color: variables.$light-green;
+      color: variables.$text-black;
+    }
+  }
+
   &__title {
     padding: 50px 0;
     text-align-last: left;
+  }
+
+  .available {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    &__filled {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 65%;
+    }
   }
 }
