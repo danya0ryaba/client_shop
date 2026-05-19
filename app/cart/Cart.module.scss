@@ -35,3 +35,60 @@
     }
   }
 }
+
+@media (max-width: variables.$big-tablet) {
+  .wrapper {
+    &__back {
+      margin-top: 10px;
+      padding: 8px;
+    }
+
+    &__title {
+      padding: 30px 0;
+    }
+
+    .available {
+      gap: 10px;
+
+      &__filled {
+        gap: 6px;
+        width: 70%;
+      }
+    }
+  }
+}
+
+@media (max-width: variables.$tablet) {
+  .wrapper {
+    &__back {
+      margin-top: 55px;
+      padding: 6px;
+    }
+
+    &__title {
+      padding: 25px 0;
+    }
+
+    .available {
+      gap: 20px;
+      flex-direction: column-reverse;
+
+      &__filled {
+        gap: 6px;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: variables.$phone) {
+  .wrapper {
+    &__title {
+      padding: 15px 0;
+    }
+
+    .available {
+      gap: 10px;
+    }
+  }
+}

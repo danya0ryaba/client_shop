@@ -1,6 +1,7 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
+
 import style from "./Counter.module.scss";
 
 export const Counter = () => {

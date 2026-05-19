@@ -8,7 +8,7 @@ import { CartFilled } from "@/components/shared/Cart/CartFilled/CartFilled";
 
 import style from "./Cart.module.scss";
 
-const arr = [];
+const arr = [1];
 
 export default function Cart() {
   return (

@@ -8,7 +8,16 @@
   overflow: hidden;
 
   .image {
-    flex: 0 0 auto;
+    flex: 0 0 200px;
+    height: 150px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+    }
   }
 
   .info {
@@ -50,6 +59,68 @@
         font-size: 20px;
         color: variables.$button-green;
         font-weight: 600;
+      }
+    }
+  }
+}
+
+@media (max-width: variables.$big-tablet) {
+  .wrapper {
+    gap: 10px;
+
+    .image {
+      flex: 0 0 160px;
+    }
+
+    .info {
+      padding: 10px 20px 10px 0;
+
+      &__block {
+        &_el {
+          .price {
+            margin-top: 5px;
+          }
+
+          .icon {
+            &__svg {
+              width: 25px;
+              height: 25px;
+            }
+          }
+        }
+
+        &_price {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: variables.$phone) {
+  .wrapper {
+    gap: 10px;
+    height: 140px;
+
+    .image {
+      overflow: hidden;
+      flex: 0 0 150px;
+    }
+
+    .info {
+      &__block {
+        &_el {
+          .icon {
+            &__svg {
+              width: 20px;
+              height: 20px;
+            }
+          }
+        }
+
+        &_price {
+          font-size: 16px;
+        }
       }
     }
   }

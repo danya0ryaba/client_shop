@@ -1,9 +1,9 @@
 import { Title } from "@/components/ui/Title";
 import { Button, ButtonTheme } from "@/components/ui/Button";
 import { ShoppingBag } from "lucide-react";
+import { ROUTES } from "@/routers/routers";
 
 import style from "./EmptyCart.module.scss";
-import { ROUTES } from "@/routers/routers";
 
 export const EmptyCart = () => {
   return (

@@ -66,3 +66,43 @@
     }
   }
 }
+
+@media (max-width: variables.$small-screen) {
+  .wrapper__slider {
+    padding: 0;
+
+    .slider {
+      &__main {
+        .arrow {
+          width: 30px;
+          height: 30px;
+        }
+
+        .arrow_left {
+          left: 0;
+        }
+
+        .arrow_right {
+          right: 0;
+        }
+
+        img {
+          max-width: 440px;
+          max-height: 300px;
+        }
+      }
+
+      &__other {
+        margin: 10px 0;
+        gap: 8px;
+
+        &_photo {
+          img {
+            width: 140px;
+            height: 100px;
+          }
+        }
+      }
+    }
+  }
+}
