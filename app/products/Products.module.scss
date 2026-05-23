@@ -1,3 +1,5 @@
+@use "../../styles/variables/variables.scss";
+
 .info_category {
   text-align-last: left;
   margin-bottom: 28px;
@@ -8,4 +10,10 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 20px;
+}
+
+@media (max-width: variables.$big-screen) {
+  .list__product {
+    justify-content: center;
+  }
 }

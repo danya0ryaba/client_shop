@@ -18,3 +18,28 @@
     gap: 15px;
   }
 }
+
+@media (max-width: variables.$big-screen) {
+  .category {
+    gap: 10px;
+    padding: 12px;
+    margin: 18px 0;
+
+    .categoryes {
+      gap: 10px;
+    }
+  }
+}
+
+@media (max-width: variables.$phone) {
+  .category {
+    padding: 8px;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: variables.$mini-phone) {
+  .category {
+    margin-top: 60px;
+  }
+}

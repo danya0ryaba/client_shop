@@ -66,12 +66,19 @@ export const Slider = () => {
         >
           <ChevronLeft className={style.button__arrow} />
         </div>
-
         <div className={style.wrapper__slider_slider} style={slideTransform}>
           {slides.map((el) => (
             <div className={style.slide} key={el.id}>
               <div className={style.slide__image}>
                 <img src={el.image} alt={el.title} />
+                {/* <Image
+                  src={el.image}
+                  alt={el.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 1400px"
+                  style={{ objectFit: "cover" }}
+                  priority={el.id === 1}
+                /> */}
               </div>
               <div className={style.slide__info}>
                 <span className={style.slide__info_title}>{el.title}</span>
@@ -80,7 +87,6 @@ export const Slider = () => {
             </div>
           ))}
         </div>
-
         <div
           role="button"
           onClick={nextSlide}
@@ -88,7 +94,6 @@ export const Slider = () => {
         >
           <ChevronRight className={style.button__arrow} />
         </div>
-
         <div className={style.docs}>
           {slides.map((_, i) => (
             <div

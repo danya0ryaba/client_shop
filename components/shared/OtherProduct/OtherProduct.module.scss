@@ -1,3 +1,5 @@
+@use "../../../styles/variables/variables.scss";
+
 .wrapper__other {
   &_title {
     margin: 40px 0;
@@ -7,8 +9,8 @@
   .other {
     &__slider {
       display: flex;
-
       justify-content: space-between;
+      flex-wrap: wrap;
       gap: 12px;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
@@ -17,8 +19,19 @@
       &::-webkit-scrollbar {
         display: none;
       }
+    }
+  }
+}
 
-      .product {
+@media (max-width: variables.$tablet) {
+  .wrapper__other {
+    &_title {
+      margin: 20px 0;
+    }
+
+    .other {
+      &__slider {
+        flex-wrap: nowrap;
       }
     }
   }

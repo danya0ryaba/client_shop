@@ -13,7 +13,6 @@ export const Category = () => {
 
   const onHandlerChangeCategory = (category: string) => {
     setActiveCategory(category);
-    // alert(category);
   };
 
   return (

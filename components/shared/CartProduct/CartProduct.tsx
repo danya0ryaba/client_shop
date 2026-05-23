@@ -28,18 +28,14 @@ export const CartProduct: React.FC<CartProductI> = ({
         <img src="https://placehold.co/340x400" alt="Product" />
         <span className={style.name_product}>Клубника садовая</span>
       </div>
-
       <div className={style.info}>
         <span className={style.info__category}>Ягоды</span>
-
         <Title className={style.info__name} as="h6">
           Клубника садовая
         </Title>
-
         <span className={style.info__desc}>
           Ароматная спелая клубника с грядки
         </span>
-
         <div className={style.info__price}>
           <div className={style.info__price_block}>
             <Title as="h3">599 ₽</Title>

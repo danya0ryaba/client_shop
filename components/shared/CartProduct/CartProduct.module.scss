@@ -71,3 +71,53 @@
     }
   }
 }
+
+@media (max-width: variables.$tablet) {
+  .cart {
+    width: 220px;
+
+    .info {
+      margin-top: 5px;
+      padding: 8px;
+
+      &__category {
+        padding: 3px 5px;
+      }
+
+      &__name {
+        margin: 8px 0;
+      }
+
+      &__desc {
+        font-size: 12px;
+      }
+
+      &__price {
+        padding: 7px 0;
+
+        &_many {
+          padding-left: 5px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: variables.$phone) {
+  .cart {
+    width: 160px;
+
+    .info {
+      margin-top: 5px;
+      padding: 5px;
+
+      &__name {
+        margin: 5px 0;
+      }
+
+      &__price {
+        padding: 5px 0;
+      }
+    }
+  }
+}

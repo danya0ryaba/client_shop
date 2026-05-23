@@ -1,9 +1,9 @@
+import Link from "next/link";
+import { ROUTES } from "@/routers/routers";
 import { Title } from "@/components/ui/Title";
 import { CartProduct } from "../CartProduct/CartProduct";
 
 import style from "./OtherProduct.module.scss";
-import { ROUTES } from "@/routers/routers";
-import Link from "next/link";
 
 const products = Array.from({ length: 12 });
 

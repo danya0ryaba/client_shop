@@ -11,8 +11,6 @@ const icons = [
   { name: "Гарантия качества", icon: <Shield className={style.svg} /> },
 ];
 
-// стили переписать, чтобы норм отображалась на всех экранах
-
 export const CurrentProduct = () => {
   return (
     <div className={style.wrapper__product}>
@@ -45,7 +43,6 @@ export const CurrentProduct = () => {
             <Check /> <span>В наличии</span>
           </div>
         </div>
-
         <Button
           active
           className={style.info__btn}
@@ -55,7 +52,6 @@ export const CurrentProduct = () => {
         >
           Добавить в корзину
         </Button>
-
         <div className={style.about__product}>
           <span>О продукте</span>
           <ul>
@@ -76,7 +72,6 @@ export const CurrentProduct = () => {
             </li>
           </ul>
         </div>
-
         <div className={`${style.about__product} ${style.about__product_last}`}>
           <span>Условия доставки</span>
           <ul>

@@ -1,13 +1,12 @@
+import Link from "next/link";
+import { Suspense } from "react";
+import { ROUTES } from "@/routers/routers";
 import { Title } from "@/components/ui/Title";
-
+import { Slider } from "@/components/shared/Slider/Slider";
 import { Category } from "@/components/shared/Category/Category";
 import { CartProduct } from "@/components/shared/CartProduct/CartProduct";
-import { Suspense } from "react";
-import { Slider } from "@/components/shared/Slider/Slider";
 
 import style from "./Products.module.scss";
-import Link from "next/link";
-import { ROUTES } from "@/routers/routers";
 
 const products = Array.from({ length: 12 });
 
