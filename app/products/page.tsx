@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Suspense } from "react";
 import { ROUTES } from "@/routers/routers";
@@ -7,10 +9,14 @@ import { Category } from "@/components/shared/Category/Category";
 import { CartProduct } from "@/components/shared/CartProduct/CartProduct";
 
 import style from "./Products.module.scss";
+import { useGetProductQuery } from "@/libs/api";
 
 const products = Array.from({ length: 12 });
 
 export default function Products() {
+  const { data, error, isLoading } = useGetProductQuery();
+  console.log(data);
+
   return (
     <>
       <Suspense fallback={<h2>Загрузка...</h2>}>
