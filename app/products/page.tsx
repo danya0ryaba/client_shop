@@ -10,13 +10,9 @@ import { CartProduct } from "@/components/shared/CartProduct/CartProduct";
 
 import style from "./Products.module.scss";
 import { useGetProductQuery } from "@/libs/api";
-
-const products = Array.from({ length: 12 });
+import { ProductsBlock } from "@/components/shared/ProductsBlock/ProductsBlock";
 
 export default function Products() {
-  const { data, error, isLoading } = useGetProductQuery();
-  console.log(data);
-
   return (
     <>
       <Suspense fallback={<h2>Загрузка...</h2>}>
@@ -29,11 +25,7 @@ export default function Products() {
           <span>Найдено товаров: 12</span>
         </div>
         <div className={style.list__product}>
-          {products.map((_, i) => (
-            <Link href={ROUTES.PRODUCT(i)} key={i}>
-              <CartProduct productId={i} />
-            </Link>
-          ))}
+          <ProductsBlock />
         </div>
       </main>
     </>

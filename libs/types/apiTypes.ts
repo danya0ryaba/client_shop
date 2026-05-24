@@ -1,0 +1,18 @@
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+  categoryId: number;
+  size: number | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ProductWithCategory extends Product {
+  category?: {
+    id: number;
+    name: string;
+  };
+}

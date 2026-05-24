@@ -1,9 +1,13 @@
+"use client";
+
 import { Check, Leaf, ShoppingCart, Truck, Shield } from "lucide-react";
 import { Title } from "@/components/ui/Title";
 import { Button, ButtonTheme } from "@/components/ui/Button";
 import { SliderProduct } from "@/components/ui/SliderProduct";
 
 import style from "./CurrentProduct.module.scss";
+import { useGetProductByIdQuery } from "@/libs/api";
+import { useParams } from "next/navigation";
 
 const icons = [
   { name: "Органика", icon: <Leaf className={style.svg} /> },
@@ -12,6 +16,22 @@ const icons = [
 ];
 
 export const CurrentProduct = () => {
+  const params = useParams();
+  const id = params.id as string;
+
+  const {
+    data: product,
+    isLoading,
+    isError,
+  } = useGetProductByIdQuery(id, {
+    skip: !id,
+  });
+
+  if (isLoading) return <div>Загрузка продукта...</div>;
+  if (isError || !product) {
+    return <div>Продукт не найден или произошла ошибка</div>;
+  }
+
   return (
     <div className={style.wrapper__product}>
       <div className={style.slider}>
@@ -29,15 +49,13 @@ export const CurrentProduct = () => {
       </div>
 
       <div className={style.info}>
-        <span className={style.info__category}>Овощи</span>
-        <Title as="h2">Помидоры свежие</Title>
-        <span className={style.info__text}>
-          Спелые сочные помидоры из собственного сада
-        </span>
+        <span className={style.info__category}>{product.categoryId}</span>
+        <Title as="h2">{product.name}</Title>
+        <span className={style.info__text}>{product.description}</span>
         <div className={style.info__price}>
           <div>
-            <span className={style.info__price_value}>189 ₽</span>
-            <span className={style.info__price_scope}>/ кг</span>
+            <span className={style.info__price_value}>{product.price} ₽</span>
+            <span className={style.info__price_scope}>{product.size}/ кг</span>
           </div>
           <div className={style.stock}>
             <Check /> <span>В наличии</span>
