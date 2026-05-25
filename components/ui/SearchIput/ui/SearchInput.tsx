@@ -18,8 +18,8 @@ export const SearchInput: React.FC<InputProps> = ({ className, ...props }) => {
   const [isOpenWindow, setIsOpenWindow] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { data, isError, isLoading } = useSearchProductsByNameQuery(value);
-  console.log(data);
+  // const { data, isError, isLoading } = useSearchProductsByNameQuery(value);
+  // console.log(data);
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValueInput(e.target.value);

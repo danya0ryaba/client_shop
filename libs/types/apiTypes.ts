@@ -16,3 +16,10 @@ export interface ProductWithCategory extends Product {
     name: string;
   };
 }
+
+export interface CategoryI {
+  id: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Product, ProductWithCategory } from "../types/apiTypes";
+import { CategoryI, Product, ProductWithCategory } from "../types/apiTypes";
 
 export const api = createApi({
   reducerPath: "GetProduct",
@@ -21,6 +21,10 @@ export const api = createApi({
         `/product/filter/${encodeURIComponent(categoryName)}`,
     }),
 
+    getCategories: build.query<CategoryI[], void>({
+      query: () => "/categories",
+    }),
+
     // Поиск продукта по буквам (названию)
     // Ожидаем строку поиска, возвращаем массив продуктов
     searchProductsByName: build.query<Product[], string>({
@@ -35,4 +39,5 @@ export const {
   useGetProductByIdQuery,
   useGetProductsByCategoryQuery,
   useSearchProductsByNameQuery,
+  useGetCategoriesQuery,
 } = api;
