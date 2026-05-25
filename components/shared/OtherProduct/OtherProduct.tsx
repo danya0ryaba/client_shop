@@ -48,7 +48,7 @@ import {
   useGetProductsByCategoryQuery,
   useGetProductByIdQuery,
 } from "@/libs/api";
-import { useParams } from "next/navigation"; // Добавляем useParams
+import { useParams } from "next/navigation";
 
 import style from "./OtherProduct.module.scss";
 
@@ -60,24 +60,20 @@ export const OtherProduct = () => {
     skip: !id,
   });
 
-  // 3. Достаем название категории.
-  // Предполагается, что бэкенд вместе с товаром присылает объект category
   const categoryName = currentProduct?.category?.name;
 
-  // 4. Делаем запрос на похожие товары
   const {
     data: products,
     isError,
     isLoading,
   } = useGetProductsByCategoryQuery(categoryName as string, {
-    skip: !categoryName, // ВАЖНО: не делаем запрос, пока не узнаем имя категории
+    skip: !categoryName,
   });
 
   if (isLoading) return <div>Загрузка похожих товаров...</div>;
   if (isError) return <div>Произошла ошибка при загрузке</div>;
   if (!products || products.length === 0) return null;
 
-  // 5. Убираем из списка "похожих" сам открытый товар (чтобы он не рекомендовал сам себя)
   const filteredProducts = products.filter(
     (product) => String(product.id) !== id,
   );

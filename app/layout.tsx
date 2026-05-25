@@ -32,7 +32,7 @@ export default function RootLayout({
         <Suspense fallback={<Title> Загрузка...</Title>}>
           <Header />
         </Suspense>
-        <ClientProvider>{children}</ClientProvider> {/* <-- вот так! */}
+        <ClientProvider>{children}</ClientProvider>
       </body>
     </html>
   );

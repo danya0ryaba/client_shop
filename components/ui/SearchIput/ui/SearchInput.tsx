@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import { useRef, useState } from "react";
 
 import style from "./SearchInput.module.scss";
+import { useSearchProductsByNameQuery } from "@/libs/api";
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -16,6 +17,9 @@ export const SearchInput: React.FC<InputProps> = ({ className, ...props }) => {
   const [value, setValueInput] = useState("");
   const [isOpenWindow, setIsOpenWindow] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const { data, isError, isLoading } = useSearchProductsByNameQuery(value);
+  console.log(data);
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValueInput(e.target.value);
