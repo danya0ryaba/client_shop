@@ -23,3 +23,10 @@ export interface CategoryI {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface PaginatedProductsResponse {
+  products: ProductWithCategory[];
+  totalCount: number;
+  page: number;
+  limit: number;
+}

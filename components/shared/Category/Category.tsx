@@ -2,7 +2,6 @@
 
 import { Title } from "@/components/ui/Title";
 import { Button } from "@/components/ui/Button";
-import { useState } from "react";
 import { useGetCategoriesQuery } from "@/libs/api";
 import { CategoryI } from "@/libs/types/apiTypes";
 
@@ -24,6 +23,10 @@ export const Category: React.FC<CategoryProps> = ({
         categoriesData,
       )
     : undefined;
+
+  if (isLoading) return <div>Загрузка продуктов...</div>;
+  if (isError || !categoriesData)
+    return <div>Продукты не найдены или произошла ошибка</div>;
 
   return (
     <div className={style.category}>

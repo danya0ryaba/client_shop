@@ -6,9 +6,12 @@ import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 
 import style from "./CartProduct.module.scss";
-import { Product } from "@/libs/types/apiTypes";
+import { Product, ProductWithCategory } from "@/libs/types/apiTypes";
 
-interface CartProductI extends Omit<Product, "createdAt" | "updatedAt"> {
+interface CartProductI extends Omit<
+  ProductWithCategory,
+  "createdAt" | "updatedAt"
+> {
   className?: string;
 }
 // поправить верстку карточек(подстраивается по высоте описание)
@@ -19,8 +22,9 @@ export const CartProduct: React.FC<CartProductI> = ({
   price,
   imageUrl,
   description,
-  categoryId,
   size,
+  category,
+  ...otherProps
 }) => {
   const onClickButton = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -39,7 +43,7 @@ export const CartProduct: React.FC<CartProductI> = ({
         <span className={style.name_product}>{name}</span>
       </div>
       <div className={style.info}>
-        <span className={style.info__category}>Категория: {categoryId}</span>
+        <span className={style.info__category}>{category?.name}</span>
         <Title className={style.info__name} as="h6">
           {name}
         </Title>
