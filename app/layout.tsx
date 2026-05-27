@@ -30,9 +30,9 @@ export default function RootLayout({
     <html lang="ru" className={roboto.variable}>
       <body>
         <Suspense fallback={<Title> Загрузка...</Title>}>
-          <Header />
+          {/* <Header /> */}
+          <ClientProvider>{children}</ClientProvider>
         </Suspense>
-        <ClientProvider>{children}</ClientProvider>
       </body>
     </html>
   );

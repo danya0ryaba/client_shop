@@ -1,37 +1,40 @@
 "use client";
 
-import { Search } from "lucide-react";
-import { X } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useRef, useState } from "react";
+import { useSearchProductsByNameQuery } from "@/libs/api";
+import { useDebounce } from "@/libs/hooks/useDebounce";
+import { Product } from "@/libs/types/apiTypes";
+import Link from "next/link";
+import { ROUTES } from "@/routers/routers";
 
 import style from "./SearchInput.module.scss";
-import { useSearchProductsByNameQuery } from "@/libs/api";
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
 }
-
-const array_product = ["1", "2", "3", "4", "5", "6"];
 
 export const SearchInput: React.FC<InputProps> = ({ className, ...props }) => {
   const [value, setValueInput] = useState("");
   const [isOpenWindow, setIsOpenWindow] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // const { data, isError, isLoading } = useSearchProductsByNameQuery(value);
-  // console.log(data);
+  const debouncedValue = useDebounce(value, 400);
+  const searchTerm = debouncedValue.trim();
 
-  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValueInput(e.target.value);
-  };
-  const onHandlerOptionClick = (option: string) => {
-    setValueInput(option);
-    setIsOpenWindow(false);
-  };
+  const isEmpty = searchTerm.length === 0;
+  const isTooShort = searchTerm.length > 0 && searchTerm.length < 2;
 
-  const onHandlerSearche = (value: string) => {
-    console.log(value);
-  };
+  const { currentData, isLoading, isFetching, isError } =
+    useSearchProductsByNameQuery(searchTerm, {
+      skip: isEmpty || isTooShort,
+    });
+
+  const products = currentData ?? [];
+
+  const shouldShowDropdown =
+    !isEmpty &&
+    (isTooShort || isLoading || isFetching || isError || products.length > 0);
 
   const onClearInput = () => {
     setIsOpenWindow(false);
@@ -39,57 +42,68 @@ export const SearchInput: React.FC<InputProps> = ({ className, ...props }) => {
     inputRef.current?.blur();
   };
 
-  const handleCrossMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    onClearInput();
-  };
-
-  const onHandlerBlur = () => {
-    setTimeout(() => {
-      setIsOpenWindow(false);
-    }, 0);
-  };
-
   return (
-    <div className={`${style.wrapper__input} ${className}`}>
+    <div className={`${style.wrapper__input} ${className ?? ""}`}>
       <div className={style.wrapper__input_block}>
         <Search
           className={style.icon}
-          onClick={() => onHandlerSearche(value)}
+          onClick={() => inputRef.current?.focus()}
         />
         <input
           ref={inputRef}
           className={style.input}
-          onFocus={() => setIsOpenWindow(true)}
-          onBlur={onHandlerBlur}
+          onFocus={() => {
+            if (value.trim().length > 0) setIsOpenWindow(true);
+          }}
+          onBlur={() => setTimeout(() => setIsOpenWindow(false), 0)}
           type="text"
           value={value}
-          onChange={onChangeInput}
+          onChange={(e) => {
+            const next = e.target.value;
+            setValueInput(next);
+            if (next.trim().length > 0) setIsOpenWindow(true);
+            if (next.trim().length === 0) setIsOpenWindow(false);
+          }}
           {...props}
         />
         {isOpenWindow && (
           <X
             className={style.cross}
-            onMouseDown={handleCrossMouseDown}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onClearInput();
+            }}
             onClick={(e) => e.preventDefault()}
           />
         )}
-        {/* LIST */}
-        {isOpenWindow && (
+        {/* СПИСОК */}
+        {isOpenWindow && shouldShowDropdown && (
           <div className={style.options__wrapper} style={{ left: 0 }}>
             <div className={style.options}>
-              <ul className={style.options__options}>
-                {array_product.map((option, index) => (
-                  <li
-                    className={style.option}
-                    key={option + index}
-                    onMouseDown={() => onHandlerOptionClick(option)}
-                  >
-                    {option}
-                  </li>
-                ))}
-              </ul>
+              {!isEmpty && isTooShort && <div>Введите минимум 2 символа</div>}
+              {(isLoading || isFetching) && !isEmpty && !isTooShort && (
+                <div>Поиск…</div>
+              )}
+              {isError && !isEmpty && !isTooShort && <div>Ошибка поиска</div>}
+
+              {!isEmpty && !isTooShort && (
+                <>
+                  <ul className={style.options__options}>
+                    {products.map((p: Product) => (
+                      <li className={style.option} key={p.id}>
+                        <Link
+                          className={style.option__link}
+                          href={ROUTES.PRODUCT(p.id)}
+                        >
+                          {p.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  {products.length === 0 && <div>Ничего не найдено</div>}
+                </>
+              )}
             </div>
           </div>
         )}

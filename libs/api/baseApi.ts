@@ -104,7 +104,7 @@ export const api = createApi({
 
     searchProductsByName: build.query<Product[], string>({
       query: (searchTerm) =>
-        `/product?search=${encodeURIComponent(searchTerm)}`,
+        `/product-search?name=${encodeURIComponent(searchTerm)}`,
     }),
   }),
 });
@@ -115,5 +115,6 @@ export const {
   useGetProductsByCategoryQuery,
   useGetProductsByCategoryPaginatedQuery,
   useSearchProductsByNameQuery,
+  useLazySearchProductsByNameQuery,
   useGetCategoriesQuery,
 } = api;

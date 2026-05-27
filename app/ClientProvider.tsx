@@ -1,7 +1,13 @@
 "use client";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
+import { Header } from "@/components/shared/Header/Header";
 
 export function ClientProvider({ children }: { children: React.ReactNode }) {
-  return <Provider store={store}>{children}</Provider>;
+  return (
+    <Provider store={store}>
+      <Header />
+      {children}
+    </Provider>
+  );
 }
