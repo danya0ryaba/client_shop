@@ -11,6 +11,7 @@ import { formSchemaLogin } from "@/libs/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import style from "./Form.module.scss";
+import { useLoginMutation } from "@/libs/api";
 
 type FormState = {
   email: string;
@@ -28,9 +29,21 @@ export const FormLogin: React.FC<FormI> = ({ changeAuth }) => {
     mode: "onChange",
   });
 
-  const onSubmit = (data: FormState) => {
-    console.log(data);
-    reset();
+  const [loginUser, { isLoading, error, isSuccess }] = useLoginMutation();
+
+  const onSubmit = async (data: FormState) => {
+    try {
+      const payload = {
+        email: data.email,
+        password: data.password,
+      };
+      const res = await loginUser(payload).unwrap();
+      console.log("LOGIN OK:", res);
+      ROUTES.HOME;
+    } catch (error) {
+      console.log(data);
+      reset();
+    }
   };
 
   return (

@@ -42,6 +42,22 @@ export const SearchInput: React.FC<InputProps> = ({ className, ...props }) => {
     inputRef.current?.blur();
   };
 
+  const onBlurHandler = () => {
+    setTimeout(() => setIsOpenWindow(false), 0);
+    setValueInput("");
+  };
+
+  const onFocusHandler = () => {
+    if (value.trim().length > 0) setIsOpenWindow(true);
+  };
+
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const next = e.target.value;
+    setValueInput(next);
+    if (next.trim().length > 0) setIsOpenWindow(true);
+    if (next.trim().length === 0) setIsOpenWindow(false);
+  };
+
   return (
     <div className={`${style.wrapper__input} ${className ?? ""}`}>
       <div className={style.wrapper__input_block}>
@@ -52,18 +68,11 @@ export const SearchInput: React.FC<InputProps> = ({ className, ...props }) => {
         <input
           ref={inputRef}
           className={style.input}
-          onFocus={() => {
-            if (value.trim().length > 0) setIsOpenWindow(true);
-          }}
-          onBlur={() => setTimeout(() => setIsOpenWindow(false), 0)}
+          onFocus={onFocusHandler}
+          onBlur={onBlurHandler}
           type="text"
           value={value}
-          onChange={(e) => {
-            const next = e.target.value;
-            setValueInput(next);
-            if (next.trim().length > 0) setIsOpenWindow(true);
-            if (next.trim().length === 0) setIsOpenWindow(false);
-          }}
+          onChange={onChangeInput}
           {...props}
         />
         {isOpenWindow && (

@@ -10,6 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchemaRegister } from "@/libs/schema";
 
 import style from "./Form.module.scss";
+import { useRegisterMutation } from "@/libs/api";
 
 type FormState = {
   name: string;
@@ -32,9 +33,25 @@ export const FormRegister: React.FC<FormI> = ({ changeAuth }) => {
     mode: "onChange",
   });
 
-  const onSubmit = (data: FormState) => {
-    console.log(data);
-    reset();
+  const [registerUser, { isLoading, error, isSuccess }] = useRegisterMutation();
+
+  const onSubmit = async (data: FormState) => {
+    try {
+      const payload = {
+        fullName: data.name,
+        email: data.email,
+        password: data.password,
+      };
+      const res = await registerUser(payload).unwrap();
+      console.log("REGISTER OK:", res);
+      reset();
+      // по желанию:
+      // changeAuth(); // например, переключить на форму входа
+      // или router.push(ROUTES.HOME)
+    } catch (e) {
+      console.error("REGISTER ERROR:", e);
+      reset();
+    }
   };
 
   return (
@@ -72,12 +89,12 @@ export const FormRegister: React.FC<FormI> = ({ changeAuth }) => {
               error={errors.password?.message}
             />
             <Button
-              disabled={!isValid}
+              disabled={!isValid || isLoading}
               type="submit"
               big
               theme={ButtonTheme.secondary}
             >
-              Войти
+              {isLoading ? "Регистрация..." : "Зарегистрироваться"}
             </Button>
           </div>
           <button onClick={changeAuth} className={style.form__link}>
