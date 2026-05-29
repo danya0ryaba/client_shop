@@ -8,9 +8,11 @@ import { ROUTES } from "@/routers/routers";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchemaRegister } from "@/libs/schema";
+import { useRegisterMutation } from "@/libs/api";
+import { toast } from "react-toastify";
+// import { redirect } from "next/navigation";
 
 import style from "./Form.module.scss";
-import { useRegisterMutation } from "@/libs/api";
 
 type FormState = {
   name: string;
@@ -45,11 +47,23 @@ export const FormRegister: React.FC<FormI> = ({ changeAuth }) => {
       const res = await registerUser(payload).unwrap();
       console.log("REGISTER OK:", res);
       reset();
-      // по желанию:
-      // changeAuth(); // например, переключить на форму входа
-      // или router.push(ROUTES.HOME)
-    } catch (e) {
-      console.error("REGISTER ERROR:", e);
+      toast.success("Письмо отправлено на указанную почту", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      // redirect(ROUTES.HOME);
+    } catch (err) {
+      const errorMessage =
+        (err as { data?: { message: string } }).data?.message ||
+        "Ошибка регистрации. Пожалуйста, попробуйте снова.";
+      toast.error(errorMessage, {
+        autoClose: 5000,
+        hideProgressBar: false,
+      });
       reset();
     }
   };
