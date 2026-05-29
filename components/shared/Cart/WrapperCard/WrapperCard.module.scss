@@ -1,0 +1,49 @@
+@use "../../../../styles/variables/variables.scss";
+
+.available {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+
+  &__filled {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 65%;
+  }
+}
+
+@media (max-width: variables.$big-tablet) {
+  .wrapper {
+    .available {
+      gap: 10px;
+
+      &__filled {
+        gap: 6px;
+        width: 70%;
+      }
+    }
+  }
+}
+
+@media (max-width: variables.$tablet) {
+  .wrapper {
+    .available {
+      gap: 20px;
+      flex-direction: column-reverse;
+
+      &__filled {
+        gap: 6px;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: variables.$phone) {
+  .wrapper {
+    .available {
+      gap: 10px;
+    }
+  }
+}

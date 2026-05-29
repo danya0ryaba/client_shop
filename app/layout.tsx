@@ -3,11 +3,9 @@ import { Roboto } from "next/font/google";
 import { Header } from "@/components/shared/Header/Header";
 import { Suspense } from "react";
 import { Title } from "@/components/ui/Title";
-import { Provider } from "react-redux";
-import { store } from "@/store/store";
+import { ClientProvider } from "./ClientProvider";
 
 import "../styles/global.scss";
-import { ClientProvider } from "./ClientProvider";
 
 const roboto = Roboto({
   weight: ["400", "500", "600", "700", "800", "900"],

@@ -30,3 +30,56 @@ export interface PaginatedProductsResponse {
   page: number;
   limit: number;
 }
+
+// USER
+export type UserDTO = {
+  id: string | number;
+  email: string;
+  isActivated: boolean;
+  role: string;
+  // fullName может не приходить в DTO — зависит от твоего UserDTO на бэке
+};
+
+export type AuthResponse = {
+  accessToken: string;
+  refreshToken: string; // в ответе есть, но cookie тоже ставится (httpOnly)
+  user: UserDTO;
+};
+
+export type RegisterRequest = {
+  fullName: string;
+  email: string;
+  password: string;
+};
+
+export type LoginRequest = {
+  email: string;
+  password: string;
+};
+
+// CARD
+export interface CartItem {
+  productId: string | number;
+  quantity: number;
+  productName?: string;
+  price?: number;
+}
+
+export interface CartResponse {
+  items: CartItem[];
+  totalQuantity: number;
+  totalPrice: number;
+}
+
+export interface CartItem {
+  productId: string | number;
+  quantity: number;
+  productName?: string;
+  price?: number;
+}
+
+export interface CartResponse {
+  items: CartItem[];
+  totalQuantity: number;
+  totalPrice: number;
+}

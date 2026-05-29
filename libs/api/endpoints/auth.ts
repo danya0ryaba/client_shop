@@ -1,69 +1,56 @@
+import { clearCredentials, setCredentials } from "@/store/slices/authSlice";
 import { baseApi } from "../baseApi";
-
-export type UserDTO = {
-  id: string | number;
-  email: string;
-  isActivated: boolean;
-  role: string;
-  // fullName может не приходить в DTO — зависит от твоего UserDTO на бэке
-};
-
-export type AuthResponse = {
-  accessToken: string;
-  refreshToken: string; // в ответе есть, но cookie тоже ставится (httpOnly)
-  user: UserDTO;
-};
-
-export type RegisterRequest = {
-  fullName: string;
-  email: string;
-  password: string;
-};
-
-export type LoginRequest = {
-  email: string;
-  password: string;
-};
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    register: build.mutation<AuthResponse, RegisterRequest>({
-      query: (body) => ({
-        url: "/register",
-        method: "POST",
-        body,
-      }),
+    login: build.mutation<any, { email: string; password: string }>({
+      query: (body) => ({ url: "/login", method: "POST", body }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled;
+        dispatch(
+          setCredentials({ accessToken: data.accessToken, user: data.user }),
+        );
+      },
     }),
 
-    login: build.mutation<AuthResponse, LoginRequest>({
-      query: (body) => ({
-        url: "/login",
-        method: "POST",
-        body,
-      }),
+    register: build.mutation<
+      any,
+      { fullName: string; email: string; password: string }
+    >({
+      query: (body) => ({ url: "/register", method: "POST", body }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled;
+        dispatch(
+          setCredentials({ accessToken: data.accessToken, user: data.user }),
+        );
+      },
     }),
 
-    logout: build.mutation<{ token: unknown }, void>({
-      query: () => ({
-        url: "/logout",
-        method: "POST",
-      }),
+    refresh: build.query<any, void>({
+      query: () => ({ url: "/refresh", method: "GET" }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        const { data } = await queryFulfilled;
+        dispatch(
+          setCredentials({ accessToken: data.accessToken, user: data.user }),
+        );
+      },
     }),
 
-    refresh: build.query<AuthResponse, void>({
-      query: () => ({
-        url: "/refresh",
-        method: "GET",
-      }),
+    logout: build.mutation<any, void>({
+      query: () => ({ url: "/logout", method: "POST" }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        await queryFulfilled;
+        dispatch(clearCredentials());
+      },
     }),
   }),
   overrideExisting: false,
 });
 
 export const {
-  useRegisterMutation,
   useLoginMutation,
+  useRegisterMutation,
   useLogoutMutation,
-  useLazyRefreshQuery,
   useRefreshQuery,
+  useLazyRefreshQuery,
 } = authApi;
