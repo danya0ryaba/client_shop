@@ -10,8 +10,8 @@ export default function ActivatedPage() {
   useEffect(() => {
     (async () => {
       try {
-        await refresh().unwrap(); // получит accessToken, положит в authSlice
-        router.replace("/cart"); // или на главную
+        await refresh().unwrap();
+        router.replace("/cart");
       } catch {
         router.replace("/login");
       }

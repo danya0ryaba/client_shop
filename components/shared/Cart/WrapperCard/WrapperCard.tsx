@@ -16,7 +16,7 @@ export const WrapperCard = () => {
     skip: !accessToken, // пока нет accessToken - не запрашиваем корзину
   });
 
-  console.log(JSON.stringify(data));
+  console.log(accessToken);
   if (!accessToken) return <EmptyCart />; // или "войдите"
   if (isLoading) return <div>Загрузка...</div>;
   if (isError) return <div>Ошибка</div>;
@@ -38,3 +38,4 @@ export const WrapperCard = () => {
   //     </div>
   //   );
 };
+// ebcb759929@emailinbo.live
