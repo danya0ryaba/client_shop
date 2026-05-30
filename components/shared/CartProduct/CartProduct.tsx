@@ -4,9 +4,13 @@ import { Title } from "@/components/ui/Title";
 import { Button, ButtonTheme } from "@/components/ui/Button";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import { ProductWithCategory } from "@/libs/types/apiTypes";
 
 import style from "./CartProduct.module.scss";
-import { Product, ProductWithCategory } from "@/libs/types/apiTypes";
+import { useAddToCartMutation } from "@/libs/api";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/routers/routers";
 
 interface CartProductI extends Omit<
   ProductWithCategory,
@@ -14,6 +18,7 @@ interface CartProductI extends Omit<
 > {
   className?: string;
 }
+
 // поправить верстку карточек(подстраивается по высоте описание)
 export const CartProduct: React.FC<CartProductI> = ({
   className,
@@ -26,10 +31,26 @@ export const CartProduct: React.FC<CartProductI> = ({
   category,
   ...otherProps
 }) => {
-  const onClickButton = (e: React.MouseEvent) => {
+  const router = useRouter();
+  const [addToCart, { isLoading }] = useAddToCartMutation();
+
+  const onClickButton = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("add to cart", id);
+    try {
+      const resp = await addToCart({ productId: id, quantity: 1 }).unwrap();
+      console.log(resp);
+      toast.success("Добавлено в корзину");
+      // хз, мб на кнопку в Header повевисть кол-во товара в корзине?
+      // Корзина обновится сама, если где-то используется useGetCartQuery
+      // и стоит invalidatesTags: ["Cart"]
+    } catch (err) {
+      const errorMessage = (err as { data?: { message: string } }).data
+        ?.message;
+      toast.error(`${errorMessage}`, {
+        onClose: () => router.push(ROUTES.AUTH),
+      });
+    }
   };
 
   return (

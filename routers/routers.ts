@@ -1,4 +1,3 @@
-// routes.ts
 export const ROUTES = {
   HOME: "/products",
   ABOUT: "/about",

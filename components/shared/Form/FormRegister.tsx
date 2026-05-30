@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchemaRegister } from "@/libs/schema";
 import { useRegisterMutation } from "@/libs/api";
 import { toast } from "react-toastify";
-// import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import style from "./Form.module.scss";
 
@@ -25,6 +25,8 @@ export interface FormI {
 }
 
 export const FormRegister: React.FC<FormI> = ({ changeAuth }) => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -45,17 +47,16 @@ export const FormRegister: React.FC<FormI> = ({ changeAuth }) => {
         password: data.password,
       };
       const res = await registerUser(payload).unwrap();
-      console.log("REGISTER OK:", res);
       reset();
       toast.success("Письмо отправлено на указанную почту", {
         position: "top-right",
         autoClose: 5000,
+        onClose: () => router.push(ROUTES.HOME),
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
       });
-      // redirect(ROUTES.HOME);
     } catch (err) {
       const errorMessage =
         (err as { data?: { message: string } }).data?.message ||

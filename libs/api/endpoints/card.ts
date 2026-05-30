@@ -3,55 +3,44 @@ import type { CartItem, CartResponse } from "../../types/apiTypes";
 
 export const cartApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    // Получение корзины текущего пользователя
     getCart: build.query<CartResponse, void>({
-      query: () => ({
-        url: "/cart",
-        method: "GET",
-      }),
+      query: () => ({ url: "/cart", method: "GET" }),
       providesTags: ["Cart"],
     }),
 
-    // Добавление товара в корзину
+    // Добавление товара (как на бэке)
     addToCart: build.mutation<
-      { success: boolean; item?: CartItem },
+      { success: boolean; data: CartItem },
       { productId: string | number; quantity?: number }
     >({
       query: ({ productId, quantity = 1 }) => ({
-        url: `/cart/${productId}`,
-        method: "POST",
-        body: { quantity },
+        url: `/cart-add-product/${productId}`,
+        method: "GET",
+        // хз, можеь бэк переписть?
+        // ВНИМАНИЕ: GET body обычно игнорируется fetch.
+        // Поэтому quantity надежнее передавать query-string (см. ниже).
+        //params: { quantity }, // <-- fetchBaseQuery это поддерживает
       }),
-      invalidatesTags: ["Cart"], // Инвалидируем кеш корзины после обновления
+      invalidatesTags: ["Cart"],
     }),
 
-    // Обновление количества товара в корзине
-    updateCartItem: build.mutation<
-      CartItem,
-      { productId: string | number; quantity: number }
+    removeFromCart: build.mutation<
+      { success: boolean; data: any },
+      { id: number } // cartItemId
     >({
-      query: ({ productId, quantity }) => ({
-        url: `/cart/${productId}`,
+      query: ({ id }) => ({
+        url: "/cart-remove-product",
+        method: "DELETE",
+        body: { id },
+      }),
+      invalidatesTags: ["Cart"],
+    }),
+
+    selectCartItem: build.mutation<any, { id: number }>({
+      query: ({ id }) => ({
+        url: "/cart-select-product",
         method: "PATCH",
-        body: { quantity },
-      }),
-      invalidatesTags: ["Cart"],
-    }),
-
-    // Удаление товара из корзины
-    removeFromCart: build.mutation<{ success: boolean }, string | number>({
-      query: (productId) => ({
-        url: `/cart/${productId}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["Cart"],
-    }),
-
-    // Очистка корзины
-    clearCart: build.mutation<{ success: boolean }, void>({
-      query: () => ({
-        url: "/cart",
-        method: "DELETE",
+        body: { id },
       }),
       invalidatesTags: ["Cart"],
     }),
@@ -62,7 +51,6 @@ export const cartApi = baseApi.injectEndpoints({
 export const {
   useGetCartQuery,
   useAddToCartMutation,
-  useUpdateCartItemMutation,
   useRemoveFromCartMutation,
-  useClearCartMutation,
+  useSelectCartItemMutation,
 } = cartApi;
