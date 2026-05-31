@@ -39,7 +39,6 @@ export const CartProduct: React.FC<CartProductI> = ({
     e.stopPropagation();
     try {
       const resp = await addToCart({ productId: id, quantity: 1 }).unwrap();
-      console.log(resp);
       toast.success("Добавлено в корзину");
       // хз, мб на кнопку в Header повевисть кол-во товара в корзине?
       // Корзина обновится сама, если где-то используется useGetCartQuery

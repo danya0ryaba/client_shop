@@ -5,37 +5,75 @@ import { Trash2 } from "lucide-react";
 import { Counter } from "@/components/ui/Counter";
 
 import style from "./CardBasket.module.scss";
+import { CartItemDTO } from "@/libs/types/apiTypes";
+import {
+  useRemoveFromCartMutation,
+  useUpdateCartItemQuantityMutation,
+} from "@/libs/api";
 
-export const CardBasket = () => {
-  const removeProduct = (id: string) => {
-    alert(id);
+interface CardBasketI {
+  item: CartItemDTO;
+}
+
+export const CardBasket: React.FC<CardBasketI> = ({ item }) => {
+  // const removeProduct = (id: number) => {
+  //   alert(id);
+  // };
+  const [removeFromCart, { isLoading: isRemoving }] =
+    useRemoveFromCartMutation();
+  const [updateQty, { isLoading: isUpdatingQty }] =
+    useUpdateCartItemQuantityMutation();
+
+  const removeProduct = async () => {
+    try {
+      await removeFromCart({ id: item.id }).unwrap();
+    } catch (e) {
+      console.error(e);
+      alert("Не удалось удалить товар");
+    }
   };
+  const changeQuantity = async (nextQty: number) => {
+    // защита от мусора
+    const quantity = Math.max(1, Math.trunc(nextQty));
+    if (quantity === item.quantity) return;
+    try {
+      await updateQty({ id: item.id, quantity }).unwrap();
+    } catch (e) {
+      console.error(e);
+      alert("Не удалось изменить количество");
+    }
+  };
+  const disabled = isRemoving || isUpdatingQty;
 
   return (
-    <div className={style.wrapper}>
+    <div className={style.wrapper} aria-busy={disabled}>
       <div className={style.image}>
         <img src="https://placehold.co/200x150" alt="placehold" />
+        {/* <img src={`${item.product.imageUrl}`} alt={`${item.product.name}`} /> */}
       </div>
       <div className={style.info}>
         <div className={style.info__block}>
           <div className={style.info__block_el}>
-            <Title as="h5">Помидоры свежие</Title>
-            <span className={style.price}>189 ₽ / кг</span>
+            <Title as="h5">{item.product.name}</Title>
+            <span className={style.price}>{item.product.price} ₽ / кг</span>
           </div>
           <div className={style.info__block_el}>
             <div className={style.icon}>
-              <Trash2
-                className={style.icon__svg}
-                onClick={() => removeProduct("2")}
-              />
+              <Trash2 className={style.icon__svg} onClick={removeProduct} />
             </div>
           </div>
         </div>
         <div className={style.info__block}>
           <div className={style.info__block_counter}>
-            <Counter />
+            <Counter
+              value={item.quantity}
+              onChange={changeQuantity}
+              disabled={disabled}
+            />
           </div>
-          <div className={style.info__block_price}>189 ₽</div>
+          <div className={style.info__block_price}>
+            {item.product.price * item.quantity} ₽
+          </div>
         </div>
       </div>
     </div>

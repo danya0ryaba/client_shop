@@ -58,18 +58,6 @@ export type LoginRequest = {
 };
 
 // CARD
-export interface CartItem {
-  productId: string | number;
-  quantity: number;
-  productName?: string;
-  price?: number;
-}
-
-export interface CartResponse {
-  items: CartItem[];
-  totalQuantity: number;
-  totalPrice: number;
-}
 
 export interface CartItem {
   productId: string | number;
@@ -78,8 +66,21 @@ export interface CartItem {
   price?: number;
 }
 
+export interface CartProduct {
+  id: number;
+  name: string;
+  price: number;
+  imageUrl: string;
+  size?: number | null;
+}
+export interface CartItemDTO {
+  id: number; // id позиции в корзине (cartItemId) — нужен для remove/select
+  quantity: number;
+  product: CartProduct; // главное: продукт внутри
+  selected?: boolean; // если на бэке есть выбор
+}
 export interface CartResponse {
-  items: CartItem[];
+  items: CartItemDTO[];
   totalQuantity: number;
   totalPrice: number;
 }
