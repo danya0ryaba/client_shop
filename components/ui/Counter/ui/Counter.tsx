@@ -18,7 +18,9 @@ export const Counter: React.FC<CounterI> = ({
   disabled,
 }) => {
   const dec = () => onChange(Math.max(min, value - 1));
+
   const inc = () => onChange(value + 1);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const next = Number(e.target.value);
     if (!Number.isFinite(next)) return;
@@ -31,12 +33,6 @@ export const Counter: React.FC<CounterI> = ({
         -
       </button>
       <input
-        // type="number"
-        // className={style.counter_inp}
-        // value={value}
-        // min={1}
-        // step={1}
-        // onChange={onChange}
         type="number"
         className={style.counter_inp}
         value={value}

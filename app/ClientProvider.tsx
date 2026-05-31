@@ -11,7 +11,7 @@ export function ClientProvider({ children }: { children: React.ReactNode }) {
       <Header />
       {children}
       <ToastContainer
-        autoClose={5000}
+        autoClose={3000}
         limit={1}
         hideProgressBar={false}
         newestOnTop={false}

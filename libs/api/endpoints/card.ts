@@ -59,31 +59,13 @@ export const cartApi = baseApi.injectEndpoints({
     // добавляем обновление количества
     updateCartItemQuantity: build.mutation<
       SuccessResponse<CartItemDTO>,
-      { id: number; quantity: number }
+      { id: number; delta: number }
     >({
-      query: ({ id, quantity }) => ({
+      query: ({ id, delta }) => ({
         url: "/cart-change-quantity",
         method: "PATCH",
-        body: { id, quantity },
+        body: { id, delta },
       }),
-      async onQueryStarted({ id, quantity }, { dispatch, queryFulfilled }) {
-        const patch = dispatch(
-          cartApi.util.updateQueryData("getCart", undefined, (draft) => {
-            const item = draft.items.find((x) => x.id === id);
-            if (!item) return;
-            const prevQty = item.quantity;
-            item.quantity = quantity;
-            const diff = quantity - prevQty;
-            draft.totalQuantity += diff;
-            draft.totalPrice += diff * item.product.price;
-          }),
-        );
-        try {
-          await queryFulfilled;
-        } catch {
-          patch.undo();
-        }
-      },
     }),
 
     selectCartItem: build.mutation<any, { id: number }>({

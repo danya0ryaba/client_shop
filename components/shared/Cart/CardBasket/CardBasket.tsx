@@ -3,46 +3,89 @@
 import { Title } from "@/components/ui/Title";
 import { Trash2 } from "lucide-react";
 import { Counter } from "@/components/ui/Counter";
-
-import style from "./CardBasket.module.scss";
 import { CartItemDTO } from "@/libs/types/apiTypes";
 import {
   useRemoveFromCartMutation,
   useUpdateCartItemQuantityMutation,
 } from "@/libs/api";
+import { toast } from "react-toastify";
+import { useState } from "react";
+
+import style from "./CardBasket.module.scss";
 
 interface CardBasketI {
   item: CartItemDTO;
 }
 
 export const CardBasket: React.FC<CardBasketI> = ({ item }) => {
-  // const removeProduct = (id: number) => {
-  //   alert(id);
+  // const [removeFromCart, { isLoading: isRemoving }] =
+  //   useRemoveFromCartMutation();
+
+  // const [updateQty, { isLoading: isUpdatingQty }] =
+  //   useUpdateCartItemQuantityMutation();
+
+  // const removeProduct = async () => {
+  //   try {
+  //     await removeFromCart({ id: item.id }).unwrap();
+  //     toast.success("Товар удален", {
+  //       position: "top-right",
+  //       autoClose: 3000,
+  //     });
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
   // };
+
+  // const changeQuantity = async (nextQty: number) => {
+  //   const quantity = Math.max(1, Math.trunc(nextQty));
+  //   const delta = quantity - item.quantity;
+
+  //   if (delta === 0) return;
+
+  //   try {
+  //     await updateQty({ id: item.id, delta }).unwrap();
+  //   } catch (e) {
+  //     console.error(e);
+  //     alert("Не удалось изменить количество");
+  //   }
+  // };
+
+  // const disabled = isRemoving || isUpdatingQty;
+
   const [removeFromCart, { isLoading: isRemoving }] =
     useRemoveFromCartMutation();
   const [updateQty, { isLoading: isUpdatingQty }] =
     useUpdateCartItemQuantityMutation();
 
+  const [quantity, setQuantity] = useState(item.quantity);
+
+  console.log("quantity = " + quantity);
+  console.log("item.quantity = " + item.quantity);
+
   const removeProduct = async () => {
     try {
       await removeFromCart({ id: item.id }).unwrap();
+      toast.success("Товар удален", { position: "top-right", autoClose: 3000 });
     } catch (e) {
       console.error(e);
-      alert("Не удалось удалить товар");
     }
   };
+
   const changeQuantity = async (nextQty: number) => {
-    // защита от мусора
-    const quantity = Math.max(1, Math.trunc(nextQty));
-    if (quantity === item.quantity) return;
+    const newQuantity = Math.max(1, Math.trunc(nextQty));
+    const delta = newQuantity - quantity;
+
+    if (delta === 0) return;
+
     try {
-      await updateQty({ id: item.id, quantity }).unwrap();
+      await updateQty({ id: item.id, delta }).unwrap();
+      setQuantity(newQuantity);
     } catch (e) {
       console.error(e);
       alert("Не удалось изменить количество");
     }
   };
+
   const disabled = isRemoving || isUpdatingQty;
 
   return (
@@ -66,13 +109,13 @@ export const CardBasket: React.FC<CardBasketI> = ({ item }) => {
         <div className={style.info__block}>
           <div className={style.info__block_counter}>
             <Counter
-              value={item.quantity}
+              value={quantity}
               onChange={changeQuantity}
               disabled={disabled}
             />
           </div>
           <div className={style.info__block_price}>
-            {item.product.price * item.quantity} ₽
+            {item.product.price * quantity} ₽
           </div>
         </div>
       </div>
