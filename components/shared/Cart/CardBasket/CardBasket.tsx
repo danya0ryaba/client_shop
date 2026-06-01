@@ -20,30 +20,29 @@ interface CardBasketI {
 export const CardBasket: React.FC<CardBasketI> = ({ item }) => {
   // const [removeFromCart, { isLoading: isRemoving }] =
   //   useRemoveFromCartMutation();
-
   // const [updateQty, { isLoading: isUpdatingQty }] =
   //   useUpdateCartItemQuantityMutation();
+
+  // const [quantity, setQuantity] = useState(item.quantity);
 
   // const removeProduct = async () => {
   //   try {
   //     await removeFromCart({ id: item.id }).unwrap();
-  //     toast.success("Товар удален", {
-  //       position: "top-right",
-  //       autoClose: 3000,
-  //     });
+  //     toast.success("Товар удален", { position: "top-right", autoClose: 3000 });
   //   } catch (e) {
   //     console.error(e);
   //   }
   // };
 
   // const changeQuantity = async (nextQty: number) => {
-  //   const quantity = Math.max(1, Math.trunc(nextQty));
-  //   const delta = quantity - item.quantity;
+  //   const newQuantity = Math.max(1, Math.trunc(nextQty));
+  //   const delta = newQuantity - quantity;
 
   //   if (delta === 0) return;
 
   //   try {
   //     await updateQty({ id: item.id, delta }).unwrap();
+  //     setQuantity(newQuantity);
   //   } catch (e) {
   //     console.error(e);
   //     alert("Не удалось изменить количество");
@@ -56,12 +55,6 @@ export const CardBasket: React.FC<CardBasketI> = ({ item }) => {
     useRemoveFromCartMutation();
   const [updateQty, { isLoading: isUpdatingQty }] =
     useUpdateCartItemQuantityMutation();
-
-  const [quantity, setQuantity] = useState(item.quantity);
-
-  console.log("quantity = " + quantity);
-  console.log("item.quantity = " + item.quantity);
-
   const removeProduct = async () => {
     try {
       await removeFromCart({ id: item.id }).unwrap();
@@ -70,22 +63,18 @@ export const CardBasket: React.FC<CardBasketI> = ({ item }) => {
       console.error(e);
     }
   };
-
   const changeQuantity = async (nextQty: number) => {
     const newQuantity = Math.max(1, Math.trunc(nextQty));
-    const delta = newQuantity - quantity;
-
+    const delta = newQuantity - item.quantity; // ВАЖНО: от item.quantity, не от локального state
     if (delta === 0) return;
-
     try {
       await updateQty({ id: item.id, delta }).unwrap();
-      setQuantity(newQuantity);
+      // ничего локально не ставим — всё придёт из кэша
     } catch (e) {
       console.error(e);
       alert("Не удалось изменить количество");
     }
   };
-
   const disabled = isRemoving || isUpdatingQty;
 
   return (
@@ -109,13 +98,13 @@ export const CardBasket: React.FC<CardBasketI> = ({ item }) => {
         <div className={style.info__block}>
           <div className={style.info__block_counter}>
             <Counter
-              value={quantity}
+              value={item.quantity}
               onChange={changeQuantity}
               disabled={disabled}
             />
           </div>
           <div className={style.info__block_price}>
-            {item.product.price * quantity} ₽
+            {item.product.price * item.quantity} ₽
           </div>
         </div>
       </div>

@@ -5,12 +5,12 @@ import { Button, ButtonTheme } from "@/components/ui/Button";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { ProductWithCategory } from "@/libs/types/apiTypes";
-
-import style from "./CartProduct.module.scss";
 import { useAddToCartMutation } from "@/libs/api";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/routers/routers";
+
+import style from "./CartProduct.module.scss";
 
 interface CartProductI extends Omit<
   ProductWithCategory,
@@ -38,11 +38,8 @@ export const CartProduct: React.FC<CartProductI> = ({
     e.preventDefault();
     e.stopPropagation();
     try {
-      const resp = await addToCart({ productId: id, quantity: 1 }).unwrap();
+      await addToCart({ productId: id, quantity: 1 }).unwrap();
       toast.success("Добавлено в корзину");
-      // хз, мб на кнопку в Header повевисть кол-во товара в корзине?
-      // Корзина обновится сама, если где-то используется useGetCartQuery
-      // и стоит invalidatesTags: ["Cart"]
     } catch (err) {
       const errorMessage = (err as { data?: { message: string } }).data
         ?.message;

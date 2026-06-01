@@ -15,10 +15,11 @@ export const WrapperCard = () => {
     skip: !accessToken,
   });
 
-  if (!accessToken) return <EmptyCart />; // или "войдите"
+  if (!accessToken) return <div>Вы не вошли в свой аккаунт</div>; // или "войдите"
   if (isLoading) return <div>Загрузка...</div>;
   if (isError) return <div>Ошибка</div>;
 
+  // надо дописать стили для мальньких экранов + поправить поиск(выпадающий список в нем)
   return (
     <div>
       {data!.items.length > 0 ? (

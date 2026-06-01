@@ -57,6 +57,17 @@ export const cartApi = baseApi.injectEndpoints({
     }),
 
     // добавляем обновление количества
+    // updateCartItemQuantity: build.mutation<
+    //   SuccessResponse<CartItemDTO>,
+    //   { id: number; delta: number }
+    // >({
+    //   query: ({ id, delta }) => ({
+    //     url: "/cart-change-quantity",
+    //     method: "PATCH",
+    //     body: { id, delta },
+    //   }),
+    // }),
+
     updateCartItemQuantity: build.mutation<
       SuccessResponse<CartItemDTO>,
       { id: number; delta: number }
@@ -66,6 +77,38 @@ export const cartApi = baseApi.injectEndpoints({
         method: "PATCH",
         body: { id, delta },
       }),
+      async onQueryStarted({ id, delta }, { dispatch, queryFulfilled }) {
+        const patch = dispatch(
+          cartApi.util.updateQueryData("getCart", undefined, (draft) => {
+            const it = draft.items.find((x) => x.id === id);
+            if (!it) return;
+
+            const nextQty = it.quantity + Math.trunc(delta);
+
+            // если ушли в 0 или меньше — удаляем item (как сервер)
+            if (nextQty <= 0) {
+              const price = it.product.price ?? 0;
+              draft.items = draft.items.filter((x) => x.id !== id);
+              // если у тебя нет totalQuantity/totalPrice в ответе — эти строки убери
+              // или пересчитай ниже "в лоб"
+              return;
+            }
+
+            it.quantity = nextQty;
+
+            // Если ты не хранишь totals на клиенте — ничего больше не надо,
+            // CardTotal сам пересчитает totals из draft.items
+          }),
+        );
+
+        try {
+          await queryFulfilled;
+          // можно не делать invalidate, если оптимистика корректная
+        } catch {
+          patch.undo();
+        }
+      },
+      // optional: invalidatesTags: ["Cart"], // можно включить, но будет лишний refetch
     }),
 
     selectCartItem: build.mutation<any, { id: number }>({

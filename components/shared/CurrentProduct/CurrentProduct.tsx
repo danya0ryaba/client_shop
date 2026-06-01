@@ -6,8 +6,9 @@ import { Button, ButtonTheme } from "@/components/ui/Button";
 import { SliderProduct } from "@/components/ui/SliderProduct";
 
 import style from "./CurrentProduct.module.scss";
-import { useGetProductByIdQuery } from "@/libs/api";
+import { useAddToCartMutation, useGetProductByIdQuery } from "@/libs/api";
 import { useParams } from "next/navigation";
+import { toast } from "react-toastify";
 
 const icons = [
   { name: "Органика", icon: <Leaf className={style.svg} /> },
@@ -26,6 +27,21 @@ export const CurrentProduct = () => {
   } = useGetProductByIdQuery(id, {
     skip: !id,
   });
+
+  const [addToCart, { isLoading: loading }] = useAddToCartMutation();
+
+  const onClickButton = async (e: React.MouseEvent) => {
+    // e.preventDefault();
+    // e.stopPropagation();
+    try {
+      await addToCart({ productId: id, quantity: 1 }).unwrap();
+      toast.success("Добавлено в корзину");
+    } catch (err) {
+      const errorMessage = (err as { data?: { message: string } }).data
+        ?.message;
+      toast.error(`${errorMessage}`);
+    }
+  };
 
   if (isLoading) return <div>Загрузка продукта...</div>;
   if (isError || !product) {
@@ -62,6 +78,7 @@ export const CurrentProduct = () => {
           </div>
         </div>
         <Button
+          onClick={onClickButton}
           active
           className={style.info__btn}
           theme={ButtonTheme.secondary}
