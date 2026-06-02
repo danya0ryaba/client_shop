@@ -12,7 +12,7 @@ import { ROUTES } from "@/routers/routers";
 
 import style from "./CartProduct.module.scss";
 
-interface CartProductI extends Omit<
+export interface CartProductI extends Omit<
   ProductWithCategory,
   "createdAt" | "updatedAt"
 > {

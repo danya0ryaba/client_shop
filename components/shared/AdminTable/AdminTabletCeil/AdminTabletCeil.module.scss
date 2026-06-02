@@ -1,0 +1,61 @@
+@use "../../../../styles/variables/variables.scss";
+
+.wrapper__ceil {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px 0;
+
+  .img_and_name {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    gap: 140px;
+
+    &__text {
+      .name {
+        font-weight: 800;
+        font-size: 20px;
+      }
+      .desc {
+        padding-top: 10px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .other {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &__item {
+      background-color: variables.$light-green;
+      padding: 10px;
+      border-radius: 15px;
+
+      &_icons {
+        display: flex;
+        gap: 30px;
+        background-color: #ffffff;
+
+        span {
+          cursor: pointer;
+
+          .pencil {
+            width: 30px;
+            height: 30px;
+            color: variables.$blue;
+          }
+
+          .trash {
+            width: 30px;
+            height: 30px;
+            color: variables.$red;
+          }
+        }
+      }
+    }
+  }
+}

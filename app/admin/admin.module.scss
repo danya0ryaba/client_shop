@@ -1,0 +1,34 @@
+@use "../../styles/variables/variables.scss";
+
+.wrapper__admin {
+  .admin {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .admin__name_col {
+    margin-bottom: 30px;
+    padding: 20px 10px;
+    font-weight: 500;
+    background-color: variables.$light-green;
+    display: flex;
+    justify-content: space-between;
+
+    .img_and_name {
+      width: 50%;
+      ul {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    ul {
+      width: 50%;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
