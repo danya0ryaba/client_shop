@@ -4,11 +4,11 @@ import { Check, Leaf, ShoppingCart, Truck, Shield } from "lucide-react";
 import { Title } from "@/components/ui/Title";
 import { Button, ButtonTheme } from "@/components/ui/Button";
 import { SliderProduct } from "@/components/ui/SliderProduct";
-
-import style from "./CurrentProduct.module.scss";
 import { useAddToCartMutation, useGetProductByIdQuery } from "@/libs/api";
 import { useParams } from "next/navigation";
 import { toast } from "react-toastify";
+
+import style from "./CurrentProduct.module.scss";
 
 const icons = [
   { name: "Органика", icon: <Leaf className={style.svg} /> },
@@ -31,8 +31,6 @@ export const CurrentProduct = () => {
   const [addToCart, { isLoading: loading }] = useAddToCartMutation();
 
   const onClickButton = async (e: React.MouseEvent) => {
-    // e.preventDefault();
-    // e.stopPropagation();
     try {
       await addToCart({ productId: id, quantity: 1 }).unwrap();
       toast.success("Добавлено в корзину");
@@ -74,7 +72,7 @@ export const CurrentProduct = () => {
             <span className={style.info__price_scope}>{product.size}/ кг</span>
           </div>
           <div className={style.stock}>
-            <Check /> <span>В наличии</span>
+            <Check /> <span>В наличии 5 штук</span>
           </div>
         </div>
         <Button
@@ -83,6 +81,7 @@ export const CurrentProduct = () => {
           className={style.info__btn}
           theme={ButtonTheme.secondary}
           big
+          iconOnly
           icon={<ShoppingCart />}
         >
           Добавить в корзину

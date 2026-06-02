@@ -17,9 +17,11 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 export const SearchInput: React.FC<InputProps> = ({ className, ...props }) => {
   const [value, setValueInput] = useState("");
   const [isOpenWindow, setIsOpenWindow] = useState(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const debouncedValue = useDebounce(value, 400);
+
   const searchTerm = debouncedValue.trim();
 
   const isEmpty = searchTerm.length === 0;
@@ -42,11 +44,6 @@ export const SearchInput: React.FC<InputProps> = ({ className, ...props }) => {
     inputRef.current?.blur();
   };
 
-  const onBlurHandler = () => {
-    setTimeout(() => setIsOpenWindow(false), 0);
-    setValueInput("");
-  };
-
   const onFocusHandler = () => {
     if (value.trim().length > 0) setIsOpenWindow(true);
   };
@@ -59,7 +56,15 @@ export const SearchInput: React.FC<InputProps> = ({ className, ...props }) => {
   };
 
   return (
-    <div className={`${style.wrapper__input} ${className ?? ""}`}>
+    <div
+      className={`${style.wrapper__input} ${className ?? ""}`}
+      onBlur={(e) => {
+        const next = e.relatedTarget as HTMLElement | null;
+        if (next && e.currentTarget.contains(next)) return;
+        setIsOpenWindow(false);
+      }}
+      tabIndex={-1}
+    >
       <div className={style.wrapper__input_block}>
         <Search
           className={style.icon}
@@ -69,7 +74,7 @@ export const SearchInput: React.FC<InputProps> = ({ className, ...props }) => {
           ref={inputRef}
           className={style.input}
           onFocus={onFocusHandler}
-          onBlur={onBlurHandler}
+          // onBlur={onBlurHandler}
           type="text"
           value={value}
           onChange={onChangeInput}

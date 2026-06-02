@@ -19,7 +19,6 @@ interface CartProductI extends Omit<
   className?: string;
 }
 
-// поправить верстку карточек(подстраивается по высоте описание)
 export const CartProduct: React.FC<CartProductI> = ({
   className,
   id,
@@ -64,7 +63,7 @@ export const CartProduct: React.FC<CartProductI> = ({
         <Title className={style.info__name} as="h6">
           {name}
         </Title>
-        <span className={style.info__desc}>{description}</span>
+        <span className={style.info__desc}>{description}...</span>
         <div className={style.info__price}>
           <div className={style.info__price_block}>
             <Title as="h3">{price} ₽</Title>
