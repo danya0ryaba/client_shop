@@ -1,0 +1,9 @@
+@use "../../../../styles/variables/variables.scss";
+
+.form {
+  border: 2px solid red;
+
+  &__buttons {
+    border: 2px solid black;
+  }
+}

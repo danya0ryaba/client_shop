@@ -1,34 +1,61 @@
 @use "../../styles/variables/variables.scss";
 
-.wrapper__admin {
-  .admin {
-    margin-top: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
+.topBar {
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+}
+
+.headerRow {
+  display: grid;
+  grid-template-columns: 140px 1.6fr 1fr 120px 120px 110px 120px;
+
+  gap: 16px;
+  align-items: center;
+
+  margin-bottom: 12px;
+  padding: 16px 12px;
+
+  font-weight: 600;
+  background-color: variables.$light-green;
+  border-radius: 14px;
+
+  > * {
+    min-width: 0;
   }
+}
 
-  .admin__name_col {
-    margin-bottom: 30px;
-    padding: 20px 10px;
-    font-weight: 500;
-    background-color: variables.$light-green;
-    display: flex;
-    justify-content: space-between;
+.th {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-    .img_and_name {
-      width: 50%;
-      ul {
-        display: flex;
-        justify-content: space-between;
-      }
-    }
+.thActions {
+  text-align: right;
+  white-space: nowrap;
+}
 
-    ul {
-      width: 50%;
-      display: flex;
-      justify-content: space-between;
-    }
-  }
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.state {
+  padding: 16px 12px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+}
+
+.stateError {
+  @extend .state;
+  border-color: rgba(255, 0, 0, 0.2);
 }

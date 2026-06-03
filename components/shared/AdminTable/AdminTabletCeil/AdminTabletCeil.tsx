@@ -1,26 +1,10 @@
+"use client";
+
 import { Pencil, Trash2 } from "lucide-react";
 import { CartProductI } from "../../CartProduct/CartProduct";
+import { useRouter } from "next/navigation";
 
 import style from "./AdminTabletCeil.module.scss";
-
-// {
-//             "id": 24,
-//             "name": "Клубника 2",
-//             "imageUrl": "https://example2.com/strawberry.jpg",
-//             "description": "Сладкая домашняя клубника.",
-//             "price": 100,
-//             "size": null,
-//             "quantityProduct": 1,
-//             "categoryId": 18,
-//             "createdAt": "2026-05-25T11:56:22.947Z",
-//             "updatedAt": "2026-05-25T11:56:22.947Z",
-//             "category": {
-//                 "id": 18,
-//                 "name": "Ягоды",
-//                 "createdAt": "2026-05-25T11:56:22.862Z",
-//                 "updatedAt": "2026-05-25T11:56:22.862Z"
-//             }
-//         },
 
 export const AdminTabletCeil: React.FC<CartProductI> = ({
   id,
@@ -30,37 +14,72 @@ export const AdminTabletCeil: React.FC<CartProductI> = ({
   description,
   size,
   category,
-  ...otherProps
 }) => {
-  const removeProduct = () => {};
-  const updateProduct = () => {};
+  const router = useRouter();
+
+  const removeProduct = () => {
+    // TODO
+  };
+
+  const updateProduct = () => {
+    router.push(`/admin/products/${id}/edit`);
+  };
 
   return (
-    <div className={style.wrapper__ceil}>
-      <div className={style.img_and_name}>
-        <div className={style.img_and_name__img}>
-          <img src="https://placehold.co/140x100" alt="placehold" />
+    <div className={style.row} role="row" data-id={id}>
+      <div className={style.cellImg}>
+        <img
+          src={imageUrl || "https://placehold.co/140x100"}
+          alt={name || "product"}
+          loading="lazy"
+        />
+      </div>
+
+      <div className={style.cellName}>
+        <div className={style.name} title={name}>
+          {name}
         </div>
-        <div className={style.img_and_name__text}>
-          <div className={style.name}>{name}</div>
-          <div className={style.desc}>{description}</div>
+        <div className={style.desc} title={description || ""}>
+          {description}
         </div>
       </div>
 
-      <ul className={style.other}>
-        <li className={style.other__item}>{category?.name}</li>
-        <li className={style.other__item}>{price} ₽</li>
-        <li className={style.other__item}>кг</li>
-        <li className={style.other__item}>Да</li>
-        <li className={`${style.other__item} ${style.other__item_icons}`}>
-          <span>
-            <Pencil className={style.pencil} onClick={updateProduct} />
-          </span>
-          <span>
-            <Trash2 className={style.trash} onClick={removeProduct} />
-          </span>
-        </li>
-      </ul>
+      <div className={style.cell}>
+        <span className={style.badge} title={category?.name}>
+          {category?.name || "—"}
+        </span>
+      </div>
+
+      <div className={style.cell}>
+        <span className={style.badge}>{price} ₽</span>
+      </div>
+
+      <div className={style.cell}>
+        <span className={style.badge}>{size || "кг"}</span>
+      </div>
+
+      <div className={style.cell}>
+        <span className={style.badge}>Да</span>
+      </div>
+
+      <div className={style.cellActions}>
+        <button
+          onClick={updateProduct}
+          className={style.iconBtn}
+          type="button"
+          aria-label="Редактировать"
+        >
+          <Pencil className={style.pencil} />
+        </button>
+        <button
+          className={style.iconBtn}
+          type="button"
+          onClick={removeProduct}
+          aria-label="Удалить"
+        >
+          <Trash2 className={style.trash} />
+        </button>
+      </div>
     </div>
   );
 };

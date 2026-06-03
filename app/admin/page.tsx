@@ -5,45 +5,62 @@ import { Title } from "@/components/ui/Title";
 import { Plus } from "lucide-react";
 import { AdminTabletCeil } from "@/components/shared/AdminTable/AdminTabletCeil/AdminTabletCeil";
 import { useGetProductQuery } from "@/libs/api";
+import { useRouter } from "next/navigation";
 
 import style from "./admin.module.scss";
 
 export default function AdminPage() {
+  const router = useRouter();
+
   const { data, isError, isLoading } = useGetProductQuery({
     page: 1,
     limit: 10,
   });
 
+  const addProduct = () => {
+    router.push("/admin/products/new");
+  };
+
   return (
-    <div className={style.wrapper__admin}>
-      <div className={style.admin}>
+    <div className={style.wrapper}>
+      <div className={style.topBar}>
         <Title as="h1">Панель администратора</Title>
-        <Button theme={ButtonTheme.secondary} icon={<Plus />} active>
+        <Button
+          theme={ButtonTheme.secondary}
+          icon={<Plus />}
+          active
+          onClick={addProduct}
+        >
           Добавить товар
         </Button>
       </div>
 
-      <div className={style.admin__name_col}>
-        <div className={style.img_and_name}>
-          <ul>
-            <li>Изображение</li>
-            <li>Название</li>
-          </ul>
+      <div className={style.table}>
+        <div className={style.headerRow} role="row">
+          <div className={style.th}>Изображение</div>
+          <div className={style.th}>Название</div>
+          <div className={style.th}>Категория</div>
+          <div className={style.th}>Цена</div>
+          <div className={style.th}>Единица</div>
+          <div className={style.th}>В наличии</div>
+          <div className={style.thActions}>Действия</div>
         </div>
-        <ul>
-          <li>Категория</li>
-          <li>Цена</li>
-          <li>Единица</li>
-          <li>В наличии</li>
-          <li>Действия</li>
-        </ul>
-      </div>
 
-      {/* TABLET */}
-      {data?.products.map((product, i) => (
-        // <div key={i}>{i}</div>
-        <AdminTabletCeil key={product.id} {...product} />
-      ))}
+        <div className={style.body}>
+          {isLoading && <div className={style.state}>Загрузка…</div>}
+          {isError && <div className={style.stateError}>Ошибка загрузки</div>}
+
+          {data?.products?.map((product) => (
+            <AdminTabletCeil key={product.id} {...product} />
+          ))}
+
+          {!isLoading &&
+            !isError &&
+            (!data?.products || data.products.length === 0) && (
+              <div className={style.state}>Пусто</div>
+            )}
+        </div>
+      </div>
     </div>
   );
 }

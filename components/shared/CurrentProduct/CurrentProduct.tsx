@@ -72,10 +72,11 @@ export const CurrentProduct = () => {
             <span className={style.info__price_scope}>{product.size}/ кг</span>
           </div>
           <div className={style.stock}>
-            <Check /> <span>В наличии 5 штук</span>
+            <Check /> <span>В наличии {product?.quantityProduct} штук</span>
           </div>
         </div>
         <Button
+          disabled={product?.quantityProduct === 0}
           onClick={onClickButton}
           active
           className={style.info__btn}
@@ -84,7 +85,9 @@ export const CurrentProduct = () => {
           iconOnly
           icon={<ShoppingCart />}
         >
-          Добавить в корзину
+          {product?.quantityProduct > 0
+            ? "Добавить в корзину"
+            : "товара нет в наличии"}
         </Button>
         <div className={style.about__product}>
           <span>О продукте</span>

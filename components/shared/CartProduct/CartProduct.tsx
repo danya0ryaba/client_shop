@@ -27,6 +27,7 @@ export const CartProduct: React.FC<CartProductI> = ({
   imageUrl,
   description,
   size,
+  quantityProduct,
   category,
   ...otherProps
 }) => {
@@ -70,6 +71,7 @@ export const CartProduct: React.FC<CartProductI> = ({
             {size && <span className={style.info__price_many}>/ {size} г</span>}
           </div>
           <Button
+            disabled={quantityProduct === 0}
             onClick={onClickButton}
             icon={<ShoppingCart />}
             theme={ButtonTheme.secondary}
