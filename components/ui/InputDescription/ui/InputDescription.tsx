@@ -1,20 +1,16 @@
-"use client";
+import style from "./InputDescription.module.scss";
 
-import style from "./Input.module.scss";
-
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   className?: string;
   text: string;
   onCheckedInput?: (value: string) => boolean;
-  // width?: number;
   messageError?: string;
   error?: string;
 }
 
-export const Input: React.FC<InputProps> = ({
+export const InputDescription: React.FC<TextareaProps> = ({
   className,
   text,
-  type = "text",
   placeholder,
   onCheckedInput,
   messageError,
@@ -30,12 +26,12 @@ export const Input: React.FC<InputProps> = ({
         {text}
       </label>
       <div>
-        <input
+        <textarea
           id={htmlFor}
           placeholder={placeholder}
           className={`${style.input} ${classError}`}
           {...props}
-        />
+        ></textarea>
       </div>
       {error && <span className={style.error}>{error}</span>}
     </div>

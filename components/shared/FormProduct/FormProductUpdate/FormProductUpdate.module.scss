@@ -1,9 +1,31 @@
 @use "../../../../styles/variables/variables.scss";
 
 .form {
-  border: 2px solid red;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: variables.$button-white;
+
+  &__desc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    &_item {
+      width: 33%;
+    }
+  }
 
   &__buttons {
-    border: 2px solid black;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+    &_btn {
+      width: 50%;
+    }
   }
 }

@@ -1,0 +1,40 @@
+@use "../../../../styles/variables/variables.scss";
+
+.wrapper__checkbox {
+  .checkbox {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+
+    &__svg {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      border: 1.4px solid variables.$button-green;
+      border-radius: 5px;
+      background-color: variables.$text-black;
+      transition: 0.3s ease;
+
+      .svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    &__active {
+      background-color: variables.$light-green !important;
+    }
+
+    .text {
+      font-weight: 500;
+      font-size: 18px;
+    }
+  }
+
+  .error {
+    color: red;
+  }
+}

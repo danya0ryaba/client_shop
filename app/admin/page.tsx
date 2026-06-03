@@ -8,6 +8,8 @@ import { useGetProductQuery } from "@/libs/api";
 import { useRouter } from "next/navigation";
 
 import style from "./admin.module.scss";
+import { RouteModal } from "@/components/ui/RouteModal";
+import { FormProductUpdate } from "@/components/shared/FormProduct/FormProductUpdate/FormProductUpdate";
 
 export default function AdminPage() {
   const router = useRouter();
@@ -60,6 +62,8 @@ export default function AdminPage() {
               <div className={style.state}>Пусто</div>
             )}
         </div>
+        {/*  */}
+        <FormProductUpdate />
       </div>
     </div>
   );
