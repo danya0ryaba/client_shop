@@ -1,0 +1,66 @@
+@use "../../../../styles/variables/variables.scss";
+
+.wrapper {
+  width: 100%;
+}
+
+.label {
+  display: block;
+  padding-bottom: 6px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.CustomSelect {
+  position: relative;
+  width: 100%;
+  font-size: 24px;
+  font-weight: 600;
+
+  .input {
+    font-weight: 400;
+    width: 100%;
+    font-size: 14px;
+    padding: 12px 10px;
+    border-radius: 4px;
+    border: 1px solid variables.$grey;
+
+    &::placeholder {
+      color: variables.$grey;
+    }
+
+    &:focus {
+      -webkit-box-shadow: 1px 0px 10px 6px rgba(0, 0, 0, 0.37);
+      -moz-box-shadow: 1px 0px 10px 6px rgba(0, 0, 0, 0.37);
+      box-shadow: 1px 0px 10px 6px rgba(0, 0, 0, 0.37);
+    }
+  }
+
+  .arrowWrapper {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: variables.$grey;
+  }
+
+  .options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid variables.$grey;
+    border-radius: 8px;
+    max-height: auto;
+    overflow-y: auto;
+    z-index: 10;
+    margin-top: 2px;
+  }
+
+  .option {
+    padding: 10px;
+    cursor: pointer;
+  }
+}
