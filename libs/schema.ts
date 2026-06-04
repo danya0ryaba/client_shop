@@ -16,3 +16,17 @@ export const formSchemaLogin = z.object({
   email: emailSchema,
   password: passwordSchema,
 });
+
+export const formSchemaCreateProduct = z.object({
+  name: z.string().min(1, { message: "Название товара обязательно" }),
+  category: z.string().min(1, { message: "Категория обязательна" }),
+  price: z
+    .string()
+    .regex(/^\d+(\.\d+)?$/, { message: "Цена должна быть числом" }),
+  unit: z.string().min(1, { message: "Единица измерения обязательна" }),
+  image: z.string().url({ message: "Некорректный URL изображения" }),
+  description: z.string().optional(),
+  stock: z.boolean(), // Остаётся как boolean
+});
+
+export type FormStateProductCreate = z.infer<typeof formSchemaCreateProduct>;

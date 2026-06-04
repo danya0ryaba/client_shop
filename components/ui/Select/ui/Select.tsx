@@ -9,12 +9,14 @@ interface CustomSelectProps {
   className?: string;
   options: string[];
   text: string;
+  error?: string;
 }
 
 export const Select: React.FC<CustomSelectProps> = ({
   className = "",
   options,
   text,
+  error,
 }) => {
   const [inputValue, setInputValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);

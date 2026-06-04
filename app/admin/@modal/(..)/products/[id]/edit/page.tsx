@@ -7,14 +7,22 @@ export default async function EditProductModalPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  const product = {
+    name: "string",
+    category: "string",
+    price: "string",
+    unit: "string",
+    image: "string",
+    stock: false,
+    description: "string",
+  };
 
   return (
     <RouteModal title={`Редактировать товар #${id}`}>
-      {/* Тут форма редактирования */}
       <div>
         <p>Форма редактирования товара</p>
         <p>ID: {id}</p>
-        <FormProductUpdate />
+        <FormProductUpdate product={product} />
       </div>
     </RouteModal>
   );

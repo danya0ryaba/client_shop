@@ -8,8 +8,6 @@ import { useGetProductQuery } from "@/libs/api";
 import { useRouter } from "next/navigation";
 
 import style from "./admin.module.scss";
-import { RouteModal } from "@/components/ui/RouteModal";
-import { FormProductUpdate } from "@/components/shared/FormProduct/FormProductUpdate/FormProductUpdate";
 
 export default function AdminPage() {
   const router = useRouter();
@@ -18,6 +16,7 @@ export default function AdminPage() {
     page: 1,
     limit: 10,
   });
+  // мб записать все приходящие товары в стейт на клиенте и от туда уже доставать значения?
 
   const addProduct = () => {
     router.push("/admin/products/new");
@@ -62,8 +61,6 @@ export default function AdminPage() {
               <div className={style.state}>Пусто</div>
             )}
         </div>
-        {/*  */}
-        <FormProductUpdate />
       </div>
     </div>
   );
