@@ -26,7 +26,10 @@ export const formSchemaCreateProduct = z.object({
   unit: z.string().min(1, { message: "Единица измерения обязательна" }),
   image: z.string().url({ message: "Некорректный URL изображения" }),
   description: z.string().optional(),
-  stock: z.boolean(), // Остаётся как boolean
+  stock: z.boolean(),
+  quantity: z
+    .string()
+    .regex(/^\d+(\.\d+)?$/, { message: "Количество должно быть числом" }),
 });
 
 export type FormStateProductCreate = z.infer<typeof formSchemaCreateProduct>;

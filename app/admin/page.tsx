@@ -8,6 +8,7 @@ import { useGetProductQuery } from "@/libs/api";
 import { useRouter } from "next/navigation";
 
 import style from "./admin.module.scss";
+import { ROUTES } from "@/routers/routers";
 
 export default function AdminPage() {
   const router = useRouter();
@@ -16,10 +17,9 @@ export default function AdminPage() {
     page: 1,
     limit: 10,
   });
-  // мб записать все приходящие товары в стейт на клиенте и от туда уже доставать значения?
 
   const addProduct = () => {
-    router.push("/admin/products/new");
+    router.push(ROUTES.ADMIN_PRODUCT_CREATE);
   };
 
   return (

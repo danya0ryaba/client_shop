@@ -5,6 +5,7 @@ import { CartProductI } from "../../CartProduct/CartProduct";
 import { useRouter } from "next/navigation";
 
 import style from "./AdminTabletCeil.module.scss";
+import { ROUTES } from "@/routers/routers";
 
 export const AdminTabletCeil: React.FC<CartProductI> = ({
   id,
@@ -22,7 +23,7 @@ export const AdminTabletCeil: React.FC<CartProductI> = ({
   };
 
   const updateProduct = () => {
-    router.push(`/admin/products/${id}/edit`);
+    router.push(ROUTES.ADMIN_PRODUCT_UPDATE(id));
   };
 
   return (

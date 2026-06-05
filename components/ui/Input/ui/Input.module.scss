@@ -1,6 +1,7 @@
 @use "../../../../styles/variables/variables.scss";
 
 .wrapper_input {
+  position: relative;
   font-size: 24px;
   font-weight: 600;
 
@@ -35,6 +36,9 @@
   }
 
   .error {
+    position: absolute;
+    bottom: -24px;
+    left: 0;
     font-weight: 500;
     font-size: 18px;
     color: variables.$red;
