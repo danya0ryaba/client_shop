@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ChevronDown } from "lucide-react";
 
 import style from "./Select.module.scss";
@@ -10,6 +10,12 @@ interface CustomSelectProps {
   options: string[];
   text: string;
   error?: string;
+
+  // для RHF/Controller
+  name?: string;
+  value?: string;
+  onChange?: (value: string) => void;
+  onBlur?: () => void;
 }
 
 export const Select: React.FC<CustomSelectProps> = ({
@@ -17,30 +23,36 @@ export const Select: React.FC<CustomSelectProps> = ({
   options,
   text,
   error,
+  name,
+  value = "",
+  onChange,
+  onBlur,
 }) => {
-  const [inputValue, setInputValue] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
-  const htmlFor = text + inputValue;
+  const htmlFor = `${name ?? text}`;
 
-  const filteredOptions = options.filter((option) =>
-    option.toLowerCase().includes(inputValue.toLowerCase()),
+  const filteredOptions = useMemo(
+    () =>
+      options.filter((option) =>
+        option.toLowerCase().includes(value.toLowerCase()),
+      ),
+    [options, value],
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    onChange?.(e.target.value);
     setIsOpen(true);
   };
 
   const handleOptionClick = (option: string) => {
-    setInputValue(option);
+    onChange?.(option);
     setIsOpen(false);
   };
 
   const onBlurHandler = () => {
-    setTimeout(() => {
-      setIsOpen(false);
-    }, 90);
+    onBlur?.();
+    setTimeout(() => setIsOpen(false), 90);
   };
 
   return (
@@ -48,16 +60,20 @@ export const Select: React.FC<CustomSelectProps> = ({
       <label htmlFor={htmlFor} className={style.label}>
         {text}
       </label>
+
       <div className={style.CustomSelect} onBlur={onBlurHandler}>
         <input
+          id={htmlFor}
+          name={name}
           type="text"
-          value={inputValue}
+          value={value}
           onChange={handleInputChange}
           placeholder="Выбрать"
           className={style.input}
           onFocus={() => setIsOpen(true)}
-          id={htmlFor}
+          autoComplete="off"
         />
+
         <span className={style.arrowWrapper} onClick={() => setIsOpen(!isOpen)}>
           <ChevronDown
             style={{
@@ -66,6 +82,7 @@ export const Select: React.FC<CustomSelectProps> = ({
             }}
           />
         </span>
+
         {isOpen && filteredOptions.length > 0 && (
           <ul className={style.options}>
             {filteredOptions.map((option, index) => (
@@ -80,6 +97,8 @@ export const Select: React.FC<CustomSelectProps> = ({
           </ul>
         )}
       </div>
+
+      {error && <div className={style.error}>{error}</div>}
     </div>
   );
 };

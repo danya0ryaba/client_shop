@@ -1,3 +1,9 @@
+import { WrapperCreateProduct } from "@/components/shared/FormProduct/WrapperCreateProduct/WrapperCreateProduct";
+
 export default function AdminPage() {
-  return <div>CREATE PRODUCT PAGE</div>;
+  return (
+    <>
+      <WrapperCreateProduct />
+    </>
+  );
 }

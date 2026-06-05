@@ -1,25 +1,20 @@
 "use client";
 
-import { useEffect } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { formSchemaUpdateProduct, FormStateProductUpdate } from "@/libs/schema";
-import { ProductWithCategory } from "@/libs/types/apiTypes";
-import { Input } from "@/components/ui/Input";
 import { Button, ButtonTheme } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 import { InputDescription } from "@/components/ui/InputDescription";
 import { Select } from "@/components/ui/Select";
-import { useRouter } from "next/navigation";
 import { useGetCategoriesQuery } from "@/libs/api";
+import { useRouter } from "next/navigation";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { formSchemaCreateProduct, FormStateProductCreate } from "@/libs/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import style from "./FormProductUpdate.module.scss";
+import style from "../FormProductUpdate/FormProductUpdate.module.scss";
 
-export const FormProductUpdate = ({
-  product,
-}: {
-  product: ProductWithCategory;
-}) => {
+export const FormProductCreate = () => {
   const router = useRouter();
+
   const { data: category } = useGetCategoriesQuery();
 
   const categoryName = category?.map((c) => c.name) || [];
@@ -29,28 +24,23 @@ export const FormProductUpdate = ({
     register,
     handleSubmit,
     formState: { errors, isValid },
-    reset,
-  } = useForm<FormStateProductUpdate>({
-    resolver: zodResolver(formSchemaUpdateProduct),
-    mode: "onChange",
+  } = useForm<FormStateProductCreate>({
+    resolver: zodResolver(formSchemaCreateProduct),
+    mode: "onTouched",
+    defaultValues: {
+      name: "",
+      category: "",
+      price: "",
+      unit: "",
+      image: "",
+      description: "",
+      quantity: "",
+      size: "",
+    },
   });
 
-  useEffect(() => {
-    if (!product) return;
-    reset({
-      name: product.name ?? "",
-      description: product.description ?? "",
-      image: product.imageUrl ?? "",
-      price: product.price != null ? String(product.price) : "",
-      // category: у тебя в продукте categoryId:number, а в форме register("category") — похоже string
-      category: product.categoryId != null ? String(product.categoryId) : "",
-      // unit/stock — в ProductWithCategory их нет, оставь дефолт или выведи из своих полей
-      unit: "",
-    });
-  }, [product, reset]);
-
-  const onSubmit: SubmitHandler<FormStateProductUpdate> = (data) => {
-    console.log("Submitted data:", data);
+  const onSubmit: SubmitHandler<FormStateProductCreate> = (data) => {
+    console.log(data);
   };
 
   return (
@@ -78,21 +68,27 @@ export const FormProductUpdate = ({
             />
           )}
         />
+
         <Input
           text="Цена (₽)"
-          type="number"
           className={style.form__desc_item}
           {...register("price")}
           error={errors.price?.message}
         />
         <Input
           text="Единица измерения"
-          type="text"
           className={style.form__desc_item}
           {...register("unit")}
           error={errors.unit?.message}
         />
       </div>
+      <Input
+        text="Размер"
+        type="text"
+        className={style.form__desc_item}
+        {...register("size")}
+        error={errors.size?.message}
+      />
 
       <Input
         text="URL изображения"
@@ -136,3 +132,5 @@ export const FormProductUpdate = ({
     </form>
   );
 };
+
+// нужно на бэк дописать unit(кг гр и тд)
