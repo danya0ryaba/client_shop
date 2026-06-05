@@ -4,7 +4,10 @@ import { Button, ButtonTheme } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { InputDescription } from "@/components/ui/InputDescription";
 import { Select } from "@/components/ui/Select";
-import { useGetCategoriesQuery } from "@/libs/api";
+import {
+  useCreateProductAdminMutation,
+  useGetCategoriesQuery,
+} from "@/libs/api";
 import { useRouter } from "next/navigation";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { formSchemaCreateProduct, FormStateProductCreate } from "@/libs/schema";
@@ -13,8 +16,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import style from "../FormProductUpdate/FormProductUpdate.module.scss";
 
 export const FormProductCreate = () => {
-  const router = useRouter();
+  const units = ["шт", "кг", "г", "л", "штк"];
 
+  const router = useRouter();
+  const [createProductMutation] = useCreateProductAdminMutation();
   const { data: category } = useGetCategoriesQuery();
 
   const categoryName = category?.map((c) => c.name) || [];
@@ -31,7 +36,7 @@ export const FormProductCreate = () => {
       name: "",
       category: "",
       price: "",
-      unit: "",
+      unit: "шт", // Значение по умолчанию
       image: "",
       description: "",
       quantity: "",
@@ -39,8 +44,21 @@ export const FormProductCreate = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FormStateProductCreate> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormStateProductCreate> = async (data) => {
+    try {
+      const result = await createProductMutation({
+        name: data.name,
+        imageUrl: data.image,
+        description: data.description || "",
+        price: Number(data.price),
+        categoryName: data.category,
+        unit: data.unit || "",
+        size: data.size ? Number(data.size) : null,
+      }).unwrap(); // Используем .unwrap() для разворачивания Promise
+      router.push("/admin/products");
+    } catch (error) {
+      console.error("Ошибка при создании товара:", error);
+    }
   };
 
   return (
@@ -75,11 +93,25 @@ export const FormProductCreate = () => {
           {...register("price")}
           error={errors.price?.message}
         />
-        <Input
+        {/* <Input
           text="Единица измерения"
           className={style.form__desc_item}
           {...register("unit")}
           error={errors.unit?.message}
+        /> */}
+        <Controller
+          control={control}
+          name="unit"
+          render={({ field }) => (
+            <Select
+              text="Единица измерения"
+              options={units}
+              className={style.form__desc_item}
+              value={field.value}
+              onChange={field.onChange}
+              error={errors.unit?.message}
+            />
+          )}
         />
       </div>
       <Input

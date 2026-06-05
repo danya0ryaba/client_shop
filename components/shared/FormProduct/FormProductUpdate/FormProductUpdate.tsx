@@ -23,7 +23,7 @@ export const FormProductUpdate = ({
   const { data: category } = useGetCategoriesQuery();
 
   const categoryName = category?.map((c) => c.name) || [];
-
+  console.log(categoryName);
   const {
     control,
     register,
@@ -70,7 +70,7 @@ export const FormProductUpdate = ({
               text="Категория"
               options={categoryName}
               className={style.form__desc_item}
-              value={field.value}
+              // value={field} // надо тут исправлять
               onChange={field.onChange}
               onBlur={field.onBlur}
               name={field.name}

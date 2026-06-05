@@ -40,7 +40,7 @@ export const formSchemaCreateProduct = z.object({
   price: z
     .string()
     .regex(/^\d+(\.\d+)?$/, { message: "Цена должна быть числом" }),
-  unit: z.string().min(1, { message: "Единица измерения обязательна" }),
+  unit: z.string().optional(),
   image: z.string().url({ message: "Некорректный URL изображения" }),
   description: z.string().optional(),
   quantity: z

@@ -7,6 +7,7 @@ export interface Product {
   imageUrl: string;
   categoryId: number;
   size: number | null;
+  unit: string;
   createdAt: string;
   updatedAt: string;
 }

@@ -5,6 +5,8 @@ import { ChevronDown } from "lucide-react";
 
 import style from "./Select.module.scss";
 
+// нужно переписывать
+
 interface CustomSelectProps {
   className?: string;
   options: string[];
@@ -85,7 +87,7 @@ export const Select: React.FC<CustomSelectProps> = ({
 
         {isOpen && filteredOptions.length > 0 && (
           <ul className={style.options}>
-            {filteredOptions.map((option, index) => (
+            {options.map((option, index) => (
               <li
                 key={option + index}
                 onMouseDown={() => handleOptionClick(option)}

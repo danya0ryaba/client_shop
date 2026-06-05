@@ -17,6 +17,7 @@ export type ProductCreateInput = {
   price: number;
   categoryName: string;
   size?: number | null;
+  unit: string;
 };
 
 export type ProductUpdateInput = {
