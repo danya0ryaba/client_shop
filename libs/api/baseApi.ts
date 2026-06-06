@@ -26,21 +26,16 @@ const baseQueryWithReauth: BaseQueryFn<
   let result = await rawBaseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {
-    // пробуем обновить токен
     const refreshResult = await rawBaseQuery(
       { url: "/refresh", method: "GET" },
       api,
       extraOptions,
     );
-
     if (refreshResult.data) {
-      // ожидаем, что /refresh вернёт { accessToken, user }
       const data = refreshResult.data as any;
       api.dispatch(
         setCredentials({ accessToken: data.accessToken, user: data.user }),
       );
-
-      // повторяем оригинальный запрос уже с новым accessToken
       result = await rawBaseQuery(args, api, extraOptions);
     } else {
       api.dispatch(clearCredentials());

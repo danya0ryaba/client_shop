@@ -1,15 +1,7 @@
-// src/libs/api/endpoints/admin.ts
 import { baseApi } from "../baseApi";
 import type { Product } from "../../types/apiTypes";
 
-/**
- * Подстрой под свои реальные DTO на бэке.
- * Судя по коду Express:
- * POST  /product-create  body: { name, imageUrl, description, price, categoryName, size? }
- * PATCH /product-update  body: { id, name?, imageUrl?, description?, price?, size? }
- * DELETE /product-delete body: { id }
- */
-
+// написать один тип(на это)
 export type ProductCreateInput = {
   name: string;
   imageUrl: string;
@@ -60,9 +52,12 @@ export const adminApi = baseApi.injectEndpoints({
       query: (body) => ({
         url: "/product-delete",
         method: "DELETE",
-        body, // ВАЖНО: у тебя на бэке delete читает id из req.body
+        body,
       }),
-      invalidatesTags: (_res, _err, arg) => [{ type: "Product", id: arg.id }],
+      invalidatesTags: (_res, _err, arg) => [
+        { type: "Product", id: "LIST" },
+        { type: "Product", id: arg.id },
+      ],
     }),
   }),
   overrideExisting: false,

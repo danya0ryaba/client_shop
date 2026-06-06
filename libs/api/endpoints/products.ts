@@ -16,7 +16,16 @@ export const productsApi = baseApi.injectEndpoints({
         url: "/product",
         params: { page, limit },
       }),
-      // providesTags: ["Product"],
+      providesTags: (result) =>
+        result?.products
+          ? [
+              { type: "Product" as const, id: "LIST" },
+              ...result.products.map((p) => ({
+                type: "Product" as const,
+                id: p.id,
+              })),
+            ]
+          : [{ type: "Product" as const, id: "LIST" }],
     }),
 
     getProductById: build.query<ProductWithCategory, string | number>({

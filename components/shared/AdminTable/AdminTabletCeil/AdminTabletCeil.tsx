@@ -3,10 +3,10 @@
 import { Pencil, Trash2 } from "lucide-react";
 import { CartProductI } from "../../CartProduct/CartProduct";
 import { useRouter } from "next/navigation";
-
-import style from "./AdminTabletCeil.module.scss";
 import { ROUTES } from "@/routers/routers";
 import { useDeleteProductAdminMutation } from "@/libs/api";
+
+import style from "./AdminTabletCeil.module.scss";
 
 export const AdminTabletCeil: React.FC<CartProductI> = ({
   id,
@@ -26,6 +26,7 @@ export const AdminTabletCeil: React.FC<CartProductI> = ({
       await deleteProductMutation({ id }).unwrap();
       alert(`Товар ${name} удален`);
     } catch (e) {
+      alert("Не удалось удалить товар, ошибка в консоли");
       console.error("Не удалось удалить товар", e);
     }
   };
@@ -43,7 +44,6 @@ export const AdminTabletCeil: React.FC<CartProductI> = ({
           loading="lazy"
         />
       </div>
-
       <div className={style.cellName}>
         <div className={style.name} title={name}>
           {name}
@@ -52,25 +52,20 @@ export const AdminTabletCeil: React.FC<CartProductI> = ({
           {description}
         </div>
       </div>
-
       <div className={style.cell}>
         <span className={style.badge} title={category?.name}>
           {category?.name || "—"}
         </span>
       </div>
-
       <div className={style.cell}>
         <span className={style.badge}>{price} ₽</span>
       </div>
-
       <div className={style.cell}>
         <span className={style.badge}>{size || "кг"}</span>
       </div>
-
       <div className={style.cell}>
         <span className={style.badge}>Да</span>
       </div>
-
       <div className={style.cellActions}>
         <button
           onClick={updateProduct}
