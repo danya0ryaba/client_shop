@@ -27,6 +27,9 @@ export type ProductUpdateInput = {
   description?: string;
   price?: number;
   size?: number | null;
+  categoryName?: string;
+  unit?: string;
+  quantity?: string;
 };
 
 export type ProductDeleteInput = {

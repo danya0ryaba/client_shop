@@ -12,12 +12,13 @@ import { useRouter } from "next/navigation";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { formSchemaCreateProduct, FormStateProductCreate } from "@/libs/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ROUTES } from "@/routers/routers";
 
 import style from "../FormProductUpdate/FormProductUpdate.module.scss";
 
-export const FormProductCreate = () => {
-  const units = ["шт", "кг", "г", "л", "штк"];
+const units = ["шт", "кг", "г", "л", "штк"];
 
+export const FormProductCreate = () => {
   const router = useRouter();
   const [createProductMutation] = useCreateProductAdminMutation();
   const { data: category } = useGetCategoriesQuery();
@@ -45,8 +46,11 @@ export const FormProductCreate = () => {
   });
 
   const onSubmit: SubmitHandler<FormStateProductCreate> = async (data) => {
+    // ЕСТЬ КАКАЯ-ТО ОШИБКА, МБ В ТИПАХ
+    // ПОЧЕМУ-ТО КАЖДЫЙ РАЗ ИДЕТ ЗАПРОС НА product-create => ОН НЕУДАЧЕН, ЛОВЛЮ ОШИБКУ(401 Unauthorized {"message":"Пользователь не авторизован","errprs":[]})
+    // и автоматом соответсвенно идет запрос на REFRESH и только после этого опять запрос на product-create и он правильный(работает)
     try {
-      const result = await createProductMutation({
+      await createProductMutation({
         name: data.name,
         imageUrl: data.image,
         description: data.description || "",
@@ -54,8 +58,8 @@ export const FormProductCreate = () => {
         categoryName: data.category,
         unit: data.unit || "",
         size: data.size ? Number(data.size) : null,
-      }).unwrap(); // Используем .unwrap() для разворачивания Promise
-      router.push("/admin/products");
+      }).unwrap();
+      router.push(ROUTES.ADMIN);
     } catch (error) {
       console.error("Ошибка при создании товара:", error);
     }
@@ -93,12 +97,7 @@ export const FormProductCreate = () => {
           {...register("price")}
           error={errors.price?.message}
         />
-        {/* <Input
-          text="Единица измерения"
-          className={style.form__desc_item}
-          {...register("unit")}
-          error={errors.unit?.message}
-        /> */}
+
         <Controller
           control={control}
           name="unit"
@@ -150,7 +149,7 @@ export const FormProductCreate = () => {
           className={style.form__buttons_btn}
           disabled={!isValid}
         >
-          Сохранить изменения
+          Создать продукт
         </Button>
         <Button
           className={style.form__buttons_btn}
@@ -165,4 +164,17 @@ export const FormProductCreate = () => {
   );
 };
 
-// нужно на бэк дописать unit(кг гр и тд)
+// на бэке 100% нужно
+
+// name, imageUrl, description, price, categoryName, unit
+
+// а на клиенте в форме приходит
+
+// category :  "Другое"
+// description : "Пробую создать новый товар как админ"
+// image :  "http://localhost:3000/admin/create-product"
+// name :  "новый товар"
+// price :  "111"
+// quantity :  "1"
+// size :  "ф"
+// unit :  "кг"

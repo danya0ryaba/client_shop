@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import style from "./AdminTabletCeil.module.scss";
 import { ROUTES } from "@/routers/routers";
+import { useDeleteProductAdminMutation } from "@/libs/api";
 
 export const AdminTabletCeil: React.FC<CartProductI> = ({
   id,
@@ -18,8 +19,15 @@ export const AdminTabletCeil: React.FC<CartProductI> = ({
 }) => {
   const router = useRouter();
 
-  const removeProduct = () => {
-    // TODO
+  const [deleteProductMutation] = useDeleteProductAdminMutation();
+
+  const removeProduct = async () => {
+    try {
+      await deleteProductMutation({ id }).unwrap();
+      alert(`Товар ${name} удален`);
+    } catch (e) {
+      console.error("Не удалось удалить товар", e);
+    }
   };
 
   const updateProduct = () => {

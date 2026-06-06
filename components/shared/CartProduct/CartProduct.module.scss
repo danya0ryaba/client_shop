@@ -47,6 +47,11 @@
 
     &__name {
       margin: 14px 0;
+
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
     }
 
     &__desc {

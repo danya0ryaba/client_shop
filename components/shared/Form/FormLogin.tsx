@@ -9,9 +9,11 @@ import { ROUTES } from "@/routers/routers";
 import { useForm } from "react-hook-form";
 import { formSchemaLogin } from "@/libs/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLoginMutation } from "@/libs/api";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 import style from "./Form.module.scss";
-import { useLoginMutation } from "@/libs/api";
 
 type FormState = {
   email: string;
@@ -19,6 +21,7 @@ type FormState = {
 };
 
 export const FormLogin: React.FC<FormI> = ({ changeAuth }) => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -29,7 +32,7 @@ export const FormLogin: React.FC<FormI> = ({ changeAuth }) => {
     mode: "onChange",
   });
 
-  const [loginUser, { isLoading, error, isSuccess }] = useLoginMutation();
+  const [loginUser] = useLoginMutation();
 
   const onSubmit = async (data: FormState) => {
     try {
@@ -38,11 +41,24 @@ export const FormLogin: React.FC<FormI> = ({ changeAuth }) => {
         password: data.password,
       };
       const res = await loginUser(payload).unwrap();
-      console.log("LOGIN OK:", res);
-      ROUTES.HOME;
-    } catch (error) {
-      console.log(data);
       reset();
+      toast.success("Приветсвуем вас", {
+        position: "top-right",
+        autoClose: 3000,
+        onClose: () => router.push(ROUTES.HOME),
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    } catch (err) {
+      const errorMessage =
+        (err as { data?: { message: string } }).data?.message ||
+        "Ошибка, неверный email или пароль. Пожалуйста, попробуйте снова.";
+      toast.error(errorMessage, {
+        autoClose: 3000,
+        hideProgressBar: false,
+      });
     }
   };
 

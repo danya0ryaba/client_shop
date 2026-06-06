@@ -10,9 +10,14 @@ import { Button, ButtonTheme } from "@/components/ui/Button";
 import { InputDescription } from "@/components/ui/InputDescription";
 import { Select } from "@/components/ui/Select";
 import { useRouter } from "next/navigation";
-import { useGetCategoriesQuery } from "@/libs/api";
+import {
+  useGetCategoriesQuery,
+  useUpdateProductAdminMutation,
+} from "@/libs/api";
 
 import style from "./FormProductUpdate.module.scss";
+
+const units = ["шт", "кг", "г", "л", "штк"];
 
 export const FormProductUpdate = ({
   product,
@@ -20,10 +25,15 @@ export const FormProductUpdate = ({
   product: ProductWithCategory;
 }) => {
   const router = useRouter();
+
+  const [updateProductMutation] = useUpdateProductAdminMutation();
+
   const { data: category } = useGetCategoriesQuery();
 
   const categoryName = category?.map((c) => c.name) || [];
-  console.log(categoryName);
+
+  // нужно менять "категорию", при обновлении она не меняется(хз, мб бэк чекнуть)
+
   const {
     control,
     register,
@@ -49,7 +59,23 @@ export const FormProductUpdate = ({
     });
   }, [product, reset]);
 
-  const onSubmit: SubmitHandler<FormStateProductUpdate> = (data) => {
+  const onSubmit: SubmitHandler<FormStateProductUpdate> = async (data) => {
+    try {
+      await updateProductMutation({
+        id: product.id,
+        name: data.name,
+        imageUrl: data.image,
+        description: data.description || "",
+        price: Number(data.price),
+        categoryName: data.category,
+        unit: data.unit || "",
+        quantity: data.quantity,
+        // size: data.size ? Number(data.size) : null,
+      }).unwrap();
+      alert("Товар обновлен успешно");
+    } catch (error) {
+      console.error("Ошибка при обновлении товара:", error);
+    }
     console.log("Submitted data:", data);
   };
 
@@ -85,34 +111,37 @@ export const FormProductUpdate = ({
           {...register("price")}
           error={errors.price?.message}
         />
-        <Input
-          text="Единица измерения"
-          type="text"
-          className={style.form__desc_item}
-          {...register("unit")}
-          error={errors.unit?.message}
+        <Controller
+          control={control}
+          name="unit"
+          render={({ field }) => (
+            <Select
+              text="Единица измерения"
+              options={units}
+              className={style.form__desc_item}
+              value={field.value}
+              onChange={field.onChange}
+              error={errors.unit?.message}
+            />
+          )}
         />
       </div>
-
       <Input
         text="URL изображения"
         type="url"
         {...register("image")}
         error={errors.image?.message}
       />
-
       <InputDescription
         text="Описание"
         {...register("description")}
         error={errors.description?.message}
       />
-
       <Input
         text="Количество"
         {...register("quantity")}
         error={errors.quantity?.message}
       />
-
       <div className={style.form__buttons}>
         <Button
           type="submit"
