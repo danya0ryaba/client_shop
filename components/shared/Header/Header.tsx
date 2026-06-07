@@ -4,10 +4,15 @@ import { ShoppingCart, User, Leaf } from "lucide-react";
 import { Title } from "@/components/ui/Title";
 import Link from "next/link";
 import { ROUTES } from "@/routers/routers";
+import { useAppSelector } from "@/libs/hooks/useReduxHooks";
+import { selectIsAuthenticated } from "@/store/slices/authSlice";
 
 import style from "./Header.module.scss";
 
 export const Header = () => {
+  const isAuth = useAppSelector(selectIsAuthenticated);
+  const name = useAppSelector((store) => store.auth.user);
+  console.log(isAuth);
   return (
     <header className={style.header}>
       <Link href={ROUTES.HOME} className={style.logo}>
@@ -40,9 +45,13 @@ export const Header = () => {
       />
 
       <div className={style.buttons}>
-        <Button icon={<User />} link={ROUTES.AUTH}>
-          Войти
-        </Button>
+        {isAuth ? (
+          <Button icon={<User />}>{name?.fullName}</Button>
+        ) : (
+          <Button icon={<User />} link={ROUTES.AUTH}>
+            Войти
+          </Button>
+        )}
         <Button
           icon={<ShoppingCart />}
           theme={ButtonTheme.secondary}

@@ -1,5 +1,5 @@
-// store/authSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 type AuthState = {
   accessToken: string | null;
@@ -30,4 +30,12 @@ const authSlice = createSlice({
 });
 
 export const { setCredentials, clearCredentials } = authSlice.actions;
+
 export default authSlice.reducer;
+
+export const selectAccessToken = (state: RootState) => state.auth.accessToken;
+
+export const selectUser = (state: RootState) => state.auth.user;
+
+export const selectIsAuthenticated = (state: RootState) =>
+  Boolean(state.auth.accessToken);

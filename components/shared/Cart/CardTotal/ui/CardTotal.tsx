@@ -5,8 +5,11 @@ import { useGetCartQuery } from "@/libs/api";
 
 import style from "./CardTotal.module.scss";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { ROUTES } from "@/routers/routers";
 
 export const CardTotal = ({}) => {
+  const routes = useRouter();
   const accessToken = useAppSelector((s) => s.auth.accessToken);
   const { totalQty, totalPrice, itemsCount } = useGetCartQuery(undefined, {
     skip: !accessToken,
@@ -28,6 +31,7 @@ export const CardTotal = ({}) => {
 
   const onClickButton = () => {
     toast.success("Заказ успешно оформлен");
+    routes.push(ROUTES.ORDER);
   };
 
   return (

@@ -6,10 +6,14 @@ export const authApi = baseApi.injectEndpoints({
     login: build.mutation<any, { email: string; password: string }>({
       query: (body) => ({ url: "/login", method: "POST", body }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled;
-        dispatch(
-          setCredentials({ accessToken: data.accessToken, user: data.user }),
-        );
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(
+            setCredentials({ accessToken: data.accessToken, user: data.user }),
+          );
+        } catch (error) {
+          console.log(error);
+        }
       },
     }),
 
@@ -19,20 +23,29 @@ export const authApi = baseApi.injectEndpoints({
     >({
       query: (body) => ({ url: "/register", method: "POST", body }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled;
-        dispatch(
-          setCredentials({ accessToken: data.accessToken, user: data.user }),
-        );
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(
+            setCredentials({ accessToken: data.accessToken, user: data.user }),
+          );
+        } catch (error) {
+          console.log(error);
+        }
       },
     }),
 
     refresh: build.query<any, void>({
       query: () => ({ url: "/refresh", method: "GET" }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        const { data } = await queryFulfilled;
-        dispatch(
-          setCredentials({ accessToken: data.accessToken, user: data.user }),
-        );
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(
+            setCredentials({ accessToken: data.accessToken, user: data.user }),
+          );
+        } catch (error) {
+          dispatch(clearCredentials());
+          console.log(error);
+        }
       },
     }),
 
