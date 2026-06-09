@@ -18,39 +18,6 @@ interface CardBasketI {
 }
 
 export const CardBasket: React.FC<CardBasketI> = ({ item }) => {
-  // const [removeFromCart, { isLoading: isRemoving }] =
-  //   useRemoveFromCartMutation();
-  // const [updateQty, { isLoading: isUpdatingQty }] =
-  //   useUpdateCartItemQuantityMutation();
-
-  // const [quantity, setQuantity] = useState(item.quantity);
-
-  // const removeProduct = async () => {
-  //   try {
-  //     await removeFromCart({ id: item.id }).unwrap();
-  //     toast.success("Товар удален", { position: "top-right", autoClose: 3000 });
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // };
-
-  // const changeQuantity = async (nextQty: number) => {
-  //   const newQuantity = Math.max(1, Math.trunc(nextQty));
-  //   const delta = newQuantity - quantity;
-
-  //   if (delta === 0) return;
-
-  //   try {
-  //     await updateQty({ id: item.id, delta }).unwrap();
-  //     setQuantity(newQuantity);
-  //   } catch (e) {
-  //     console.error(e);
-  //     alert("Не удалось изменить количество");
-  //   }
-  // };
-
-  // const disabled = isRemoving || isUpdatingQty;
-
   const [removeFromCart, { isLoading: isRemoving }] =
     useRemoveFromCartMutation();
   const [updateQty, { isLoading: isUpdatingQty }] =

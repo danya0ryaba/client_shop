@@ -4,11 +4,13 @@ import { RootState } from "../store";
 type AuthState = {
   accessToken: string | null;
   user: any | null;
+  initialized: boolean;
 };
 
 const initialState: AuthState = {
   accessToken: null,
   user: null,
+  initialized: false,
 };
 
 const authSlice = createSlice({
@@ -21,15 +23,20 @@ const authSlice = createSlice({
     ) => {
       state.accessToken = action.payload.accessToken;
       state.user = action.payload.user ?? state.user;
+      state.initialized = true;
     },
     clearCredentials: (state) => {
       state.accessToken = null;
       state.user = null;
     },
+    setAuthInitialized: (state) => {
+      state.initialized = true;
+    },
   },
 });
 
-export const { setCredentials, clearCredentials } = authSlice.actions;
+export const { setCredentials, clearCredentials, setAuthInitialized } =
+  authSlice.actions;
 
 export default authSlice.reducer;
 
@@ -39,3 +46,6 @@ export const selectUser = (state: RootState) => state.auth.user;
 
 export const selectIsAuthenticated = (state: RootState) =>
   Boolean(state.auth.accessToken);
+
+export const selectAuthInitialized = (state: RootState) =>
+  state.auth.initialized;
