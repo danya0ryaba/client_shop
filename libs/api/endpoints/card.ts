@@ -57,17 +57,6 @@ export const cartApi = baseApi.injectEndpoints({
     }),
 
     // добавляем обновление количества
-    // updateCartItemQuantity: build.mutation<
-    //   SuccessResponse<CartItemDTO>,
-    //   { id: number; delta: number }
-    // >({
-    //   query: ({ id, delta }) => ({
-    //     url: "/cart-change-quantity",
-    //     method: "PATCH",
-    //     body: { id, delta },
-    //   }),
-    // }),
-
     updateCartItemQuantity: build.mutation<
       SuccessResponse<CartItemDTO>,
       { id: number; delta: number }

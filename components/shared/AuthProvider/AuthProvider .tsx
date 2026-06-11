@@ -29,7 +29,7 @@ export const AuthInitializer = ({ children }: { children: ReactNode }) => {
     init();
   }, [dispatch, refresh]);
 
-  if (!initialized) return null; // или лоадер
+  // if (!initialized) return null;
 
   return children;
 };

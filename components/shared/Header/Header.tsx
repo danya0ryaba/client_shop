@@ -12,7 +12,7 @@ import style from "./Header.module.scss";
 export const Header = () => {
   const isAuth = useAppSelector(selectIsAuthenticated);
   const name = useAppSelector((store) => store.auth.user);
-  console.log(isAuth);
+
   return (
     <header className={style.header}>
       <Link href={ROUTES.HOME} className={style.logo}>
