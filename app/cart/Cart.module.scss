@@ -1,22 +1,6 @@
 @use "../../styles/variables/variables.scss";
 
 .wrapper {
-  &__back {
-    margin-top: 15px;
-    display: flex;
-    align-items: center;
-    display: inline-block;
-    padding: 10px;
-    border-radius: 10px;
-    color: variables.$button-green;
-    transition: 0.3s ease;
-
-    &:hover {
-      background-color: variables.$light-green;
-      color: variables.$text-black;
-    }
-  }
-
   &__title {
     padding: 50px 0;
     text-align-last: left;
@@ -25,11 +9,6 @@
 
 @media (max-width: variables.$big-tablet) {
   .wrapper {
-    &__back {
-      margin-top: 10px;
-      padding: 8px;
-    }
-
     &__title {
       padding: 30px 0;
     }
@@ -38,11 +17,6 @@
 
 @media (max-width: variables.$tablet) {
   .wrapper {
-    &__back {
-      margin-top: 55px;
-      padding: 6px;
-    }
-
     &__title {
       padding: 25px 0;
     }

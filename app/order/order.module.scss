@@ -1,0 +1,17 @@
+@use "../../styles/variables/variables.scss";
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: 50px 0;
+
+  &__info {
+    display: flex;
+    gap: 20px;
+
+    &_form {
+      width: 65%;
+    }
+  }
+}
