@@ -12,6 +12,7 @@
     display: flex;
     align-items: center;
     gap: 15px;
+    margin-bottom: 30px;
 
     &__svg {
       width: 30px;
@@ -23,6 +24,7 @@
   .choice {
     display: flex;
     gap: 10px;
+    margin-bottom: 25px;
 
     &__item {
       cursor: pointer;
@@ -58,7 +60,7 @@
     }
 
     &__item_active {
-      background-color: variables.$button-green !important;
+      background-color: variables.$button-hover !important;
 
       .svg,
       .title,
