@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import style from "./TotalOrder.module.scss";
 
-const list = Array.from({ length: 2 });
+const list = Array.from({ length: 3 });
 
 export const TotalOrder = () => {
   return (

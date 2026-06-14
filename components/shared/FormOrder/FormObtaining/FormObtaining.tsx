@@ -3,6 +3,11 @@
 import { House, Truck, CreditCard, BanknoteArrowDown } from "lucide-react";
 import { Title } from "@/components/ui/Title";
 import { useState } from "react";
+import dynamic from "next/dynamic";
+const AddressInput = dynamic(
+  () => import("@/components/ui/AddressInput").then((mod) => mod.AddressInput),
+  { ssr: false },
+);
 
 import style from "./FormObtaining.module.scss";
 
@@ -75,10 +80,8 @@ export const FormObtaining = () => {
         </div>
 
         <div>на основе activeChoice показываю форму </div>
-        <span>
-          Сделать как одной строкой на основе библиотеке(не поиню как
-          называется) вроде react-dadata
-        </span>
+
+        <AddressInput />
       </div>
     </>
   );

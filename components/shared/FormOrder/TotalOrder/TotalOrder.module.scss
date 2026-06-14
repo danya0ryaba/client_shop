@@ -12,6 +12,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    max-height: 420px;
+    overflow: auto;
 
     .card {
       display: flex;
@@ -20,10 +22,10 @@
       background-color: variables.$button-white;
       border-radius: 8px;
 
-      &__image {
-        img {
-        }
-      }
+      // &__image {
+      //   img {
+      //   }
+      // }
 
       &__info {
         display: flex;
