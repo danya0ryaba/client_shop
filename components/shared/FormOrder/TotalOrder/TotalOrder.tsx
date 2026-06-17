@@ -34,7 +34,7 @@ export const TotalOrder = () => {
             <span>Итого</span>
             <span>389.00 ₽</span>
           </div>
-          <Button big active className={style.result__btn}>
+          <Button big active className={style.result__btn} type="submit">
             Подтвердить заказ
           </Button>
         </div>

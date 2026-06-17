@@ -50,3 +50,38 @@ export const formSchemaCreateProduct = z.object({
 });
 
 export type FormStateProductCreate = z.infer<typeof formSchemaCreateProduct>;
+
+// для зказа
+
+export const addressSchema = z.object({
+  value: z.string().min(1, "Введите адрес"),
+});
+
+export const orderSchema = z
+  .object({
+    name: z.string().min(2, "Имя должно содержать минимум 2 символа"),
+    phone: z
+      .string()
+      .min(1, "Введите телефон")
+      .regex(/^(\+?\d[\d\s()-]{8,})$/, "Введите корректный номер телефона"),
+    email: z.string().trim().email("Некорректный email").optional(),
+    comment: z.string().optional(),
+    delivery: z.enum(["courier", "pickup"], {
+      message: "Выберите способ получения",
+    }),
+    payment: z.enum(["cash", "cart"], {
+      message: "Выберите способ оплаты",
+    }),
+    address: addressSchema.nullable().optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.delivery === "courier" && !data.address?.value) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["address", "value"],
+        message: "Введите адрес доставки",
+      });
+    }
+  });
+
+export type OrderFormValues = z.infer<typeof orderSchema>;

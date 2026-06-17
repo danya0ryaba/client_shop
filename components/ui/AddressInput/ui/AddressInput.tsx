@@ -1,17 +1,21 @@
 "use client";
 
-import { AddressSuggestions } from "react-dadata";
+import {
+  AddressSuggestions,
+  DaDataAddress,
+  DaDataSuggestion,
+} from "react-dadata";
 import "react-dadata/dist/react-dadata.css";
 
 interface Props {
-  onChange?: (value?: string) => void;
+  onChange?: (value?: DaDataSuggestion<DaDataAddress>) => void;
 }
 
 export const AddressInput: React.FC<Props> = ({ onChange }) => {
   return (
     <AddressSuggestions
       token={process.env.NEXT_PUBLIC_API_DADATA || ""}
-      onChange={(data) => onChange?.(data?.value)}
+      onChange={(data) => onChange?.(data)}
     />
   );
 };
