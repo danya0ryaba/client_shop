@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import style from "./TotalOrder.module.scss";
 
+// это нужно подгружать из бд
 const list = Array.from({ length: 3 });
 
 export const TotalOrder = () => {

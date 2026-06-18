@@ -1,7 +1,7 @@
 @use "../../../../styles/variables/variables.scss";
 
 .form__obtaining {
-  margin-top: 40px;
+  margin: 40px 0;
   border: 1px solid variables.$button-green;
   background-color: variables.$button-white;
   box-shadow: 0px 0px 4px 4px variables.$shadow;
@@ -68,5 +68,12 @@
         color: variables.$button-white;
       }
     }
+  }
+
+  .address {
+    font-size: 22px;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
   }
 }

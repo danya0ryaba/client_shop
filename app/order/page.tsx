@@ -5,11 +5,11 @@ import { Title } from "@/components/ui/Title";
 import { FormOrder } from "@/components/shared/FormOrder/FormOrder";
 import { FormObtaining } from "@/components/shared/FormOrder/FormObtaining/FormObtaining";
 import { TotalOrder } from "@/components/shared/FormOrder/TotalOrder/TotalOrder";
-
-import style from "./order.module.scss";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { OrderFormValues, orderSchema } from "@/libs/schema";
+
+import style from "./order.module.scss";
 
 export default function OrderPage() {
   const methods = useForm<OrderFormValues>({

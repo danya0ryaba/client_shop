@@ -2,12 +2,12 @@
 
 import { User } from "lucide-react";
 import { Title } from "@/components/ui/Title";
-import { Input } from "@/components/ui/Input";
+import { Input, InputPhone } from "@/components/ui/Input";
 import { InputDescription } from "@/components/ui/InputDescription";
 import { useFormContext } from "react-hook-form";
+import { OrderFormValues } from "@/libs/schema";
 
 import style from "./FormOrder.module.scss";
-import { OrderFormValues } from "@/libs/schema";
 
 interface FormOrderI {
   className?: string;
@@ -16,6 +16,7 @@ interface FormOrderI {
 export const FormOrder: React.FC<FormOrderI> = ({ className }) => {
   const {
     register,
+    control,
     formState: { errors },
   } = useFormContext<OrderFormValues>();
 
@@ -33,11 +34,12 @@ export const FormOrder: React.FC<FormOrderI> = ({ className }) => {
           {...register("name")}
           error={errors.name?.message}
         />
-        <Input
+
+        <InputPhone<OrderFormValues>
+          name="phone"
+          control={control}
           text="Телефон *"
           className={style.info__user_input}
-          type="tel"
-          {...register("phone")}
           error={errors.phone?.message}
         />
       </div>

@@ -4,14 +4,13 @@ import { House, Truck, CreditCard, BanknoteArrowDown } from "lucide-react";
 import { Title } from "@/components/ui/Title";
 import dynamic from "next/dynamic";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
-
 const AddressInput = dynamic(
   () => import("@/components/ui/AddressInput").then((mod) => mod.AddressInput),
   { ssr: false },
 );
+import { OrderFormValues } from "@/libs/schema";
 
 import style from "./FormObtaining.module.scss";
-import { OrderFormValues } from "@/libs/schema";
 
 export const FormObtaining = () => {
   const {
@@ -105,6 +104,9 @@ export const FormObtaining = () => {
 
       {delivery === "courier" && (
         <>
+          <label htmlFor="address" className={style.address}>
+            Адрес
+          </label>
           <Controller
             name="address"
             control={control}

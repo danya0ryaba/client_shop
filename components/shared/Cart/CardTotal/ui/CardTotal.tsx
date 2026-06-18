@@ -34,7 +34,6 @@ export const CardTotal = () => {
   if (!initialized || !accessToken) return null;
 
   const onClickButton = () => {
-    toast.success("Заказ успешно оформлен");
     router.push(ROUTES.ORDER);
   };
 
