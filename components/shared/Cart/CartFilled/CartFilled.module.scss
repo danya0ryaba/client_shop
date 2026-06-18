@@ -1,3 +1,10 @@
 .wrapper__cart {
+  position: relative;
   width: 100%;
+
+  .checkbox {
+    position: absolute;
+    left: -10px;
+    top: -10px;
+  }
 }

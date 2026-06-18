@@ -1,6 +1,18 @@
 @use "../../../../styles/variables/variables.scss";
 
+.wrapper__card {
+  position: relative;
+
+  .checkbox__all {
+    position: absolute;
+    left: -10px;
+    top: -60px;
+    z-index: 10;
+  }
+}
+
 .available {
+  margin-top: 60px;
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -8,7 +20,7 @@
   &__filled {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     width: 65%;
   }
 }

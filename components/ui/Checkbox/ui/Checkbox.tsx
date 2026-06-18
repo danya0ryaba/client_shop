@@ -12,6 +12,7 @@ interface CheckboxProps {
   id?: string;
   name?: string;
   error?: string;
+  value?: boolean;
 }
 
 export const Checkbox: React.FC<CheckboxProps> = ({
@@ -19,10 +20,11 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   label = "Товар в наличии",
   className = "",
   id,
+  value,
   error,
   name,
 }) => {
-  const [activeCheckbox, setActiveCheckbox] = useState(false);
+  const [activeCheckbox, setActiveCheckbox] = useState(value || false);
 
   const activeClass = activeCheckbox ? style.checkbox__active : "";
 

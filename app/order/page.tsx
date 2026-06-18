@@ -27,6 +27,7 @@ export default function OrderPage() {
   });
   const onSubmit = (data: OrderFormValues) => {
     console.log("submit", data);
+    console.log("submit", JSON.stringify(data));
   };
   return (
     <FormProvider {...methods}>

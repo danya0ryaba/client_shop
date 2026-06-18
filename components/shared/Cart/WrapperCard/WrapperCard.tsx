@@ -5,6 +5,7 @@ import { CardTotal } from "../CardTotal";
 import { CartFilled } from "../CartFilled/CartFilled";
 import { EmptyCart } from "../EmptyCart/EmptyCart";
 import { useAppSelector } from "@/libs/hooks/useReduxHooks";
+import { Checkbox } from "@/components/ui/Checkbox";
 
 import style from "./WrapperCard.module.scss";
 
@@ -23,7 +24,8 @@ export const WrapperCard = () => {
   if (!data) return <div>Корзина не загружена</div>;
 
   return (
-    <div>
+    <div className={style.wrapper__card}>
+      <Checkbox label="Выбрать все" className={style.checkbox__all} />
       {data.items.length > 0 ? (
         <div className={style.available}>
           <div className={style.available__filled}>
