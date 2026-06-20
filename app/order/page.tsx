@@ -12,6 +12,7 @@ import { useGetCartQuery } from "@/libs/api";
 import { CartItemDTO } from "@/libs/types/apiTypes";
 
 import style from "./order.module.scss";
+import { toast } from "react-toastify";
 
 export default function OrderPage() {
   const methods = useForm<OrderFormValues>({
@@ -40,16 +41,25 @@ export default function OrderPage() {
 
   const onSubmit = (data: OrderFormValues) => {
     if (selectedItems.length === 0) {
-      alert("Вы не выбрали ни одного товара для оформления!");
+      toast.error("Вы не выбрали ни одного товара для оформления!");
       return;
     }
 
-    // Собираем ID выбранных товаров (этот массив пойдет на бэкенд)
-    const selectedCartItemIds = selectedItems.map((item) => item.id);
-    console.log("Данные формы:", data);
-    console.log("ID выбранных товаров для бэка:", selectedCartItemIds);
+    const orderItems = selectedItems.map((item) => ({
+      productId: item.product.id,
+      quantity: item.quantity,
+      price: item.product.price,
+    }));
+
+    const payload = {
+      ...data,
+      items: orderItems,
+    };
+
+    console.log("То, что уйдет на бэк:", payload);
+
     // Здесь потом будет вызов RTK Query мутации:
-    // makeOrder({ ...data, selectedCartItemIds }).unwrap()
+    // makeOrder(payload).unwrap().then(...)
   };
 
   if (isCartLoading) return <div>Загрузка товаров для оформления...</div>;
