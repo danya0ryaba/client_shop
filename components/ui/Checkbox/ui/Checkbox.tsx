@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Check } from "lucide-react";
 
 import style from "./Checkbox.module.scss";
@@ -13,31 +12,39 @@ interface CheckboxProps {
   name?: string;
   error?: string;
   value?: boolean;
+  onChange?: () => void;
 }
 
 export const Checkbox: React.FC<CheckboxProps> = ({
   disabled = false,
-  label = "Товар в наличии",
+  label = "",
   className = "",
   id,
-  value,
+  value = false,
   error,
   name,
+  onChange,
 }) => {
-  const [activeCheckbox, setActiveCheckbox] = useState(value || false);
+  const activeClass = value ? style.checkbox__active : "";
 
-  const activeClass = activeCheckbox ? style.checkbox__active : "";
+  const handleClick = () => {
+    if (disabled) return;
+    onChange?.();
+  };
 
   return (
-    <div className={`${style.wrapper__checkbox} ${className}`}>
-      <div
-        className={style.checkbox}
-        onClick={() => setActiveCheckbox((prev) => !prev)}
-      >
+    <div
+      className={`${style.wrapper__checkbox} ${className}`}
+      style={{
+        cursor: disabled ? "not-allowed" : "pointer",
+        opacity: disabled ? 0.5 : 1,
+      }}
+    >
+      <div className={style.checkbox} onClick={handleClick}>
         <div className={`${style.checkbox__svg} ${activeClass}`}>
-          {activeCheckbox && <Check className={style.svg} />}
+          {value && <Check className={style.svg} />}
         </div>
-        <span className={style.text}>{label}</span>
+        {label && <span className={style.text}>{label}</span>}
       </div>
       {error && <span className={style.checkbox__error}>{error}</span>}
     </div>

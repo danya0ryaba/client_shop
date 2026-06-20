@@ -2,30 +2,54 @@ import { Title } from "@/components/ui/Title";
 import { Button, ButtonTheme } from "@/components/ui/Button";
 import { Phone } from "lucide-react";
 import Link from "next/link";
+import { CartItemDTO } from "@/libs/types/apiTypes";
 
 import style from "./TotalOrder.module.scss";
 
-// это нужно подгружать из бд
-const list = Array.from({ length: 3 });
+interface TotalOrderI {
+  items: CartItemDTO[];
+  totalSum: number;
+}
 
-export const TotalOrder = () => {
+export const TotalOrder: React.FC<TotalOrderI> = ({ items, totalSum }) => {
+  if (items.length === 0) {
+    return (
+      <div className={style.wrapper__total}>
+        <Title as="h5">Ваш заказ</Title>
+        <p style={{ padding: "20px 0", color: "#888" }}>
+          Вы не выбрали товары для оформления. Вернитесь в корзину.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <>
       <div className={style.wrapper__total}>
         <Title as="h5">Ваш заказ</Title>
         <div className={style.list__card}>
-          {list.map((_, i) => (
-            <div className={style.card} key={i}>
+          {items.map((item) => (
+            <div className={style.card} key={item.id}>
               <div className={style.card__image}>
-                <img src="https://placehold.co/100x70" alt="image" />
+                <img
+                  // src={item.product.imageUrl || "https://placehold.co/100x70"}
+                  src={"https://placehold.co/100x70"}
+                  alt={item.product.name}
+                />
               </div>
 
               <div className={style.card__info}>
-                <span className={style.card__info_name}>Помидоры свежие</span>
-                <span className={style.card__info_price}>1 × 189 ₽</span>
+                <span className={style.card__info_name}>
+                  {item.product.name}
+                </span>
+                <span className={style.card__info_price}>
+                  {item.quantity} × {item.product.price} ₽
+                </span>
               </div>
 
-              <span className={style.card__price}>189 ₽</span>
+              <span className={style.card__price}>
+                {item.product.price * item.quantity} ₽
+              </span>
             </div>
           ))}
         </div>
@@ -33,7 +57,7 @@ export const TotalOrder = () => {
         <div className={style.result}>
           <div className={style.result__price}>
             <span>Итого</span>
-            <span>389.00 ₽</span>
+            <span>{totalSum.toFixed(2)} ₽</span>
           </div>
           <Button big active className={style.result__btn} type="submit">
             Подтвердить заказ

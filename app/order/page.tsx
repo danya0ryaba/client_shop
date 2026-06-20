@@ -8,6 +8,8 @@ import { TotalOrder } from "@/components/shared/FormOrder/TotalOrder/TotalOrder"
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { OrderFormValues, orderSchema } from "@/libs/schema";
+import { useGetCartQuery } from "@/libs/api";
+import { CartItemDTO } from "@/libs/types/apiTypes";
 
 import style from "./order.module.scss";
 
@@ -25,10 +27,33 @@ export default function OrderPage() {
     },
     mode: "onBlur",
   });
+
+  const { data: cartData, isLoading: isCartLoading } =
+    useGetCartQuery(undefined);
+
+  const selectedItems: CartItemDTO[] =
+    cartData?.items.filter((item) => item.selected) || [];
+
+  const totalSum = selectedItems.reduce((sum, item) => {
+    return sum + item.product.price * item.quantity;
+  }, 0);
+
   const onSubmit = (data: OrderFormValues) => {
-    console.log("submit", data);
-    console.log("submit", JSON.stringify(data));
+    if (selectedItems.length === 0) {
+      alert("Вы не выбрали ни одного товара для оформления!");
+      return;
+    }
+
+    // Собираем ID выбранных товаров (этот массив пойдет на бэкенд)
+    const selectedCartItemIds = selectedItems.map((item) => item.id);
+    console.log("Данные формы:", data);
+    console.log("ID выбранных товаров для бэка:", selectedCartItemIds);
+    // Здесь потом будет вызов RTK Query мутации:
+    // makeOrder({ ...data, selectedCartItemIds }).unwrap()
   };
+
+  if (isCartLoading) return <div>Загрузка товаров для оформления...</div>;
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -42,7 +67,7 @@ export default function OrderPage() {
             <FormObtaining />
           </div>
           <div className={style.wrapper__info_total}>
-            <TotalOrder />
+            <TotalOrder items={selectedItems} totalSum={totalSum} />
           </div>
         </div>
       </form>

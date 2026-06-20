@@ -1,6 +1,9 @@
 "use client";
 
-import { useGetCartQuery } from "@/libs/api/endpoints/card";
+import {
+  useGetCartQuery,
+  useSelectProductMutation,
+} from "@/libs/api/endpoints/card";
 import { CardTotal } from "../CardTotal";
 import { CartFilled } from "../CartFilled/CartFilled";
 import { EmptyCart } from "../EmptyCart/EmptyCart";
@@ -12,6 +15,7 @@ import style from "./WrapperCard.module.scss";
 export const WrapperCard = () => {
   const accessToken = useAppSelector((s) => s.auth.accessToken);
   const initialized = useAppSelector((s) => s.auth.initialized);
+  const [selectProduct] = useSelectProductMutation();
 
   const { data, isLoading, isError } = useGetCartQuery(undefined, {
     skip: !initialized || !accessToken,
@@ -23,9 +27,31 @@ export const WrapperCard = () => {
   if (isError) return <div>Ошибка загрузки корзины</div>;
   if (!data) return <div>Корзина не загружена</div>;
 
+  const isAllSelected =
+    data.items.length > 0 && data.items.every((item) => item.selected);
+
+  const handleSelectAll = async () => {
+    const targetState = !isAllSelected;
+
+    const itemsToToggle = targetState
+      ? data.items.filter((item) => !item.selected)
+      : data.items.filter((item) => item.selected);
+    await Promise.allSettled(
+      itemsToToggle.map((item) => selectProduct({ id: item.id }).unwrap()),
+    );
+  };
+
   return (
     <div className={style.wrapper__card}>
-      <Checkbox label="Выбрать все" className={style.checkbox__all} />
+      {data.items.length > 0 && (
+        <Checkbox
+          label="Выбрать все"
+          value={isAllSelected}
+          className={style.checkbox__all}
+          onChange={handleSelectAll}
+        />
+      )}
+
       {data.items.length > 0 ? (
         <div className={style.available}>
           <div className={style.available__filled}>

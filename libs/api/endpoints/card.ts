@@ -100,11 +100,11 @@ export const cartApi = baseApi.injectEndpoints({
       // optional: invalidatesTags: ["Cart"], // можно включить, но будет лишний refetch
     }),
 
-    selectCartItem: build.mutation<any, { id: number }>({
-      query: ({ id }) => ({
+    selectProduct: build.mutation<void, { id: number }>({
+      query: (body) => ({
         url: "/cart-select-product",
         method: "PATCH",
-        body: { id },
+        body,
       }),
       invalidatesTags: ["Cart"],
     }),
@@ -116,6 +116,6 @@ export const {
   useGetCartQuery,
   useAddToCartMutation,
   useRemoveFromCartMutation,
-  useSelectCartItemMutation,
+  useSelectProductMutation,
   useUpdateCartItemQuantityMutation,
 } = cartApi;

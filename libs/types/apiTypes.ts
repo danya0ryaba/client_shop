@@ -75,12 +75,21 @@ export interface CartProduct {
   imageUrl: string;
   size?: number | null;
 }
+
 export interface CartItemDTO {
-  id: number; // id позиции в корзине (cartItemId) — нужен для remove/select
+  id: number;
   quantity: number;
-  product: CartProduct; // главное: продукт внутри
-  selected?: boolean; // если на бэке есть выбор
+  selected: boolean;
+  product: {
+    id: number;
+    name: string;
+    imageUrl: string;
+    description: string;
+    price: number;
+    size: string;
+  };
 }
+
 export interface CartResponse {
   items: CartItemDTO[];
   totalQuantity: number;
