@@ -1,11 +1,19 @@
+"use client";
+
 import { Check } from "lucide-react";
 import { Title } from "@/components/ui/Title";
-import { Button } from "@/components/ui/Button";
 import { ROUTES } from "@/routers/routers";
+import { Button } from "@/components/ui/Button";
 
 import style from "./success.module.scss";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 export default function SuccessPage() {
+  useEffect(() => {
+    toast.success("Заказ успешно оформлен");
+  }, []);
+
   return (
     <div className={style.wrapper__page}>
       <div className={style.icon}>
