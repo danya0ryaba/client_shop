@@ -1,0 +1,81 @@
+@use "../../styles/variables/variables.scss";
+
+.wrapper__page {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  align-items: center;
+  max-width: 500px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  .icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    border: 3px solid variables.$button-green;
+    background-color: variables.$light-green;
+    position: relative;
+
+    &__svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: variables.$button-green;
+
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .desc {
+    font-size: 15px;
+  }
+
+  .number {
+    color: variables.$button-hover;
+    font-size: 26px;
+    font-weight: 900;
+  }
+
+  .wrapper__info {
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: variables.$light-green;
+    margin-bottom: 30px;
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      font-size: 18px;
+      font-weight: 500;
+
+      li {
+        span {
+          padding-left: 7px;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+
+  p {
+    text-align: center;
+    width: 500px;
+    margin-bottom: 40px;
+
+    b {
+      font-weight: 600;
+    }
+  }
+
+  .btn {
+    width: 100%;
+    margin-left: -20px;
+  }
+}
