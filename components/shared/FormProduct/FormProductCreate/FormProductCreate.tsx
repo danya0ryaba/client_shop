@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ROUTES } from "@/routers/routers";
 
 import style from "../FormProductUpdate/FormProductUpdate.module.scss";
+import { toast } from "react-toastify";
 
 const units = ["шт", "кг", "г", "л", "штк"];
 
@@ -38,7 +39,7 @@ export const FormProductCreate = () => {
       category: "",
       price: "",
       unit: "шт", // Значение по умолчанию
-      image: "",
+      // image: "",
       description: "",
       quantity: "",
       size: "",
@@ -49,17 +50,29 @@ export const FormProductCreate = () => {
     // ЕСТЬ КАКАЯ-ТО ОШИБКА, МБ В ТИПАХ
     // ПОЧЕМУ-ТО КАЖДЫЙ РАЗ ИДЕТ ЗАПРОС НА product-create => ОН НЕУДАЧЕН, ЛОВЛЮ ОШИБКУ(401 Unauthorized {"message":"Пользователь не авторизован","errprs":[]})
     // и автоматом соответсвенно идет запрос на REFRESH и только после этого опять запрос на product-create и он правильный(работает)
+
     try {
-      await createProductMutation({
-        name: data.name,
-        imageUrl: data.image,
-        description: data.description || "",
-        price: Number(data.price),
-        categoryName: data.category,
-        unit: data.unit || "",
-        size: data.size ? Number(data.size) : null,
-      }).unwrap();
+      const formData = new FormData();
+
+      formData.append("name", data.name);
+      formData.append("description", data.description || "");
+      formData.append("price", data.price);
+      formData.append("categoryName", data.category);
+      formData.append("unit", data.unit || "шт");
+
+      if (data.size) formData.append("size", data.size);
+      if (data.quantity) formData.append("quantityProduct", data.quantity);
+
+      Array.from(data.image).forEach((file) => {
+        formData.append("images", file);
+      });
+
+      console.log(formData);
+
+      await createProductMutation(formData).unwrap();
+
       router.push(ROUTES.ADMIN);
+      toast.success("Товар добавлен");
     } catch (error) {
       console.error("Ошибка при создании товара:", error);
     }
@@ -122,8 +135,10 @@ export const FormProductCreate = () => {
       />
 
       <Input
-        text="URL изображения"
-        type="url"
+        text="Изображения"
+        type="file"
+        accept="image/*"
+        multiple
         {...register("image")}
         error={errors.image?.message}
       />

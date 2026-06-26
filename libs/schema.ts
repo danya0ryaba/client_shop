@@ -34,6 +34,7 @@ export const formSchemaUpdateProduct = z.object({
 export type FormStateProductUpdate = z.infer<typeof formSchemaUpdateProduct>;
 
 // для создания продукта
+
 export const formSchemaCreateProduct = z.object({
   name: z.string().min(1, { message: "Название товара обязательно" }),
   category: z.string().min(1, { message: "Категория обязательна" }),
@@ -41,7 +42,11 @@ export const formSchemaCreateProduct = z.object({
     .string()
     .regex(/^\d+(\.\d+)?$/, { message: "Цена должна быть числом" }),
   unit: z.string().optional(),
-  image: z.string().url({ message: "Некорректный URL изображения" }),
+  image: z.custom<FileList>(
+    (val) => val instanceof FileList && val.length > 0,
+    { message: "Выберите хотя бы одно изображение" },
+  ),
+
   description: z.string().optional(),
   quantity: z
     .string()

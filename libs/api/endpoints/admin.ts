@@ -30,7 +30,7 @@ export type ProductDeleteInput = {
 
 export const adminApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    createProductAdmin: build.mutation<Product, ProductCreateInput>({
+    createProductAdmin: build.mutation<Product, FormData>({
       query: (body) => ({
         url: "/product-create",
         method: "POST",
