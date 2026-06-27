@@ -42,15 +42,14 @@ export const CurrentProduct = () => {
   };
 
   if (isLoading) return <div>Загрузка продукта...</div>;
-  if (isError || !product) {
+  if (isError || !product)
     return <div>Продукт не найден или произошла ошибка</div>;
-  }
-
+  console.log(product);
   return (
     <div className={style.wrapper__product}>
       <div className={style.slider}>
         <div className={style.slider__slider}>
-          <SliderProduct />
+          <SliderProduct images={product.images} />
         </div>
         <div className={style.slider__icons}>
           {icons.map((el, i) => (
@@ -63,7 +62,7 @@ export const CurrentProduct = () => {
       </div>
 
       <div className={style.info}>
-        <span className={style.info__category}>{product.categoryId}</span>
+        <span className={style.info__category}>{product.category?.name}</span>
         <Title as="h2">{product.name}</Title>
         <span className={style.info__text}>{product.description}</span>
         <div className={style.info__price}>

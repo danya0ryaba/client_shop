@@ -2,16 +2,15 @@
 
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ProductImage } from "@/libs/types/apiTypes";
 
 import style from "./SliderProduct.module.scss";
 
-const images = [
-  "https://placehold.co/600x400",
-  "https://placehold.co/600x400/ff0000/fff",
-  "https://placehold.co/600x400/00ff00/000",
-];
+interface SliderProductI {
+  images: ProductImage[];
+}
 
-export const SliderProduct = () => {
+export const SliderProduct: React.FC<SliderProductI> = ({ images }) => {
   const [current, setCurrent] = useState(0);
 
   const handlePrev = () => {
@@ -21,6 +20,24 @@ export const SliderProduct = () => {
   const handleNext = () => {
     setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
+
+  const API_URL = process.env.NEXT_PUBLIC_API_URL_IMAGES;
+
+  const getVisibleThumbnails = () => {
+    if (images.length <= 3) return images;
+
+    let startIndex = current - 1;
+
+    if (current === 0) {
+      startIndex = 0;
+    } else if (current === images.length - 1) {
+      startIndex = images.length - 3;
+    }
+
+    return images.slice(startIndex, startIndex + 3);
+  };
+
+  const visibleImages = getVisibleThumbnails();
 
   return (
     <div className={style.wrapper__slider}>
@@ -32,32 +49,37 @@ export const SliderProduct = () => {
           >
             <ArrowLeft className={style.svg} />
           </button>
-          <img src={`${images[current]}`} alt="Photo product" />
+
+          <img src={`${API_URL}${images[current].url}`} alt="Photo product" />
+
           <button
             className={`${style.arrow} ${style.arrow_right}`}
             onClick={handleNext}
           >
-            <ArrowRight />
+            <ArrowRight className={style.svg} />
           </button>
         </div>
 
         <div className={style.slider__other}>
-          {images.map((img, i) => (
-            <div
-              key={img}
-              className={style.slider__other_photo}
-              style={{
-                border: i === current ? "2px solid #076437" : "none",
-                cursor: "pointer",
-              }}
-              onClick={() => setCurrent(i)}
-            >
-              <img
-                src={img.replace("600x400", "180x120")}
-                alt="Photo product"
-              />
-            </div>
-          ))}
+          {visibleImages.map((img) => {
+            const originalIndex = images.findIndex(
+              (item) => item.id === img.id,
+            );
+            return (
+              <div
+                key={img.id}
+                className={style.slider__other_photo}
+                style={{
+                  border:
+                    originalIndex === current ? "2px solid #076437" : "none",
+                  cursor: "pointer",
+                }}
+                onClick={() => setCurrent(originalIndex)}
+              >
+                <img src={`${API_URL}${img.url}`} alt={img.url} />
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
