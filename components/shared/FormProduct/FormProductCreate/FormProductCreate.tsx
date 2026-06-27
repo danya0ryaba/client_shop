@@ -13,11 +13,11 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { formSchemaCreateProduct, FormStateProductCreate } from "@/libs/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ROUTES } from "@/routers/routers";
-
-import style from "../FormProductUpdate/FormProductUpdate.module.scss";
 import { toast } from "react-toastify";
 
-const units = ["шт", "кг", "г", "л", "штк"];
+import style from "../FormProductUpdate/FormProductUpdate.module.scss";
+
+const units = ["шт", "кг", "пучок", "л"];
 
 export const FormProductCreate = () => {
   const router = useRouter();
@@ -38,19 +38,15 @@ export const FormProductCreate = () => {
       name: "",
       category: "",
       price: "",
-      unit: "шт", // Значение по умолчанию
-      // image: "",
+      unit: "шт",
       description: "",
       quantity: "",
       size: "",
+      image: undefined,
     },
   });
 
   const onSubmit: SubmitHandler<FormStateProductCreate> = async (data) => {
-    // ЕСТЬ КАКАЯ-ТО ОШИБКА, МБ В ТИПАХ
-    // ПОЧЕМУ-ТО КАЖДЫЙ РАЗ ИДЕТ ЗАПРОС НА product-create => ОН НЕУДАЧЕН, ЛОВЛЮ ОШИБКУ(401 Unauthorized {"message":"Пользователь не авторизован","errprs":[]})
-    // и автоматом соответсвенно идет запрос на REFRESH и только после этого опять запрос на product-create и он правильный(работает)
-
     try {
       const formData = new FormData();
 
@@ -63,11 +59,11 @@ export const FormProductCreate = () => {
       if (data.size) formData.append("size", data.size);
       if (data.quantity) formData.append("quantityProduct", data.quantity);
 
-      Array.from(data.image).forEach((file) => {
-        formData.append("images", file);
-      });
-
-      console.log(formData);
+      if (data.image && data.image.length > 0) {
+        Array.from(data.image).forEach((file) => {
+          formData.append("images", file as File);
+        });
+      }
 
       await createProductMutation(formData).unwrap();
 
@@ -75,6 +71,9 @@ export const FormProductCreate = () => {
       toast.success("Товар добавлен");
     } catch (error) {
       console.error("Ошибка при создании товара:", error);
+      if ((error as any)?.status !== 401) {
+        toast.error("Не удалось создать товар");
+      }
     }
   };
 
@@ -134,14 +133,25 @@ export const FormProductCreate = () => {
         error={errors.size?.message}
       />
 
-      <Input
-        text="Изображения"
-        type="file"
-        accept="image/*"
-        multiple
-        {...register("image")}
-        error={errors.image?.message}
-      />
+      <div className={style.form__desc_item} style={{ marginBottom: "20px" }}>
+        <label
+          style={{ display: "block", marginBottom: "8px", fontWeight: "500" }}
+        >
+          Изображения (до 4 шт.)
+        </label>
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          {...register("image")}
+          style={{ width: "100%" }}
+        />
+        {errors.image && (
+          <p style={{ color: "red", marginTop: "5px", fontSize: "14px" }}>
+            {String(errors.image.message)}
+          </p>
+        )}
+      </div>
 
       <InputDescription
         text="Описание"
@@ -178,18 +188,3 @@ export const FormProductCreate = () => {
     </form>
   );
 };
-
-// на бэке 100% нужно
-
-// name, imageUrl, description, price, categoryName, unit
-
-// а на клиенте в форме приходит
-
-// category :  "Другое"
-// description : "Пробую создать новый товар как админ"
-// image :  "http://localhost:3000/admin/create-product"
-// name :  "новый товар"
-// price :  "111"
-// quantity :  "1"
-// size :  "ф"
-// unit :  "кг"

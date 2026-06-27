@@ -1,17 +1,6 @@
 import { baseApi } from "../baseApi";
 import type { Product } from "../../types/apiTypes";
 
-// написать один тип(на это)
-export type ProductCreateInput = {
-  name: string;
-  imageUrl: string;
-  description: string;
-  price: number;
-  categoryName: string;
-  size?: number | null;
-  unit: string;
-};
-
 export type ProductUpdateInput = {
   id: number;
   name?: string;

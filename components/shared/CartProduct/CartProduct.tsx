@@ -36,8 +36,6 @@ export const CartProduct: React.FC<CartProductI> = ({
   const mainImageUrl =
     images?.length > 0 ? `${API_URL}${images[0].url}` : "/placeholder.png";
 
-  console.log(mainImageUrl);
-
   const router = useRouter();
   const [addToCart, { isLoading }] = useAddToCartMutation();
 
@@ -59,11 +57,7 @@ export const CartProduct: React.FC<CartProductI> = ({
   return (
     <article className={`${style.cart} ${className}`}>
       <div className={style.image}>
-        <img
-          src={mainImageUrl}
-          // src={"https://placehold.co/340x400"}
-          alt={name || "Product"}
-        />
+        <img src={mainImageUrl} alt={name || "Product"} />
         <span className={style.name_product}>{name}</span>
       </div>
       <div className={style.info}>

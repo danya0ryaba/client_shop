@@ -42,10 +42,16 @@ export const formSchemaCreateProduct = z.object({
     .string()
     .regex(/^\d+(\.\d+)?$/, { message: "Цена должна быть числом" }),
   unit: z.string().optional(),
-  image: z.custom<FileList>(
-    (val) => val instanceof FileList && val.length > 0,
-    { message: "Выберите хотя бы одно изображение" },
-  ),
+
+  image: z
+    .custom<FileList>((val) => val instanceof FileList, "Выберите файлы")
+    .refine((files) => files.length > 0, "Выберите хотя бы одно фото")
+    .refine((files) => files.length <= 4, "Максимум 4 фотографии")
+    .refine(
+      (files) =>
+        Array.from(files).every((file) => file.size <= 5 * 1024 * 1024),
+      "Максимальный размер файла - 5MB",
+    ),
 
   description: z.string().optional(),
   quantity: z

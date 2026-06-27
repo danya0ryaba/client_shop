@@ -1,10 +1,17 @@
+export type ProductImage = {
+  id: number;
+  url: string;
+  productId: number;
+  createdAt: string;
+};
+
 export interface Product {
   id: number;
   name: string;
   quantityProduct: number;
   description: string;
   price: number;
-  images: { id: number; url: string; productId: number; createdAt: string }[];
+  images: ProductImage[];
   categoryId: number;
   size: number | null;
   unit: string;
@@ -39,12 +46,11 @@ export type UserDTO = {
   email: string;
   isActivated: boolean;
   role: string;
-  // fullName может не приходить в DTO — зависит от твоего UserDTO на бэке
 };
 
 export type AuthResponse = {
   accessToken: string;
-  refreshToken: string; // в ответе есть, но cookie тоже ставится (httpOnly)
+  refreshToken: string;
   user: UserDTO;
 };
 
@@ -60,7 +66,6 @@ export type LoginRequest = {
 };
 
 // CARD
-
 export interface CartItem {
   productId: string | number;
   quantity: number;
@@ -72,7 +77,7 @@ export interface CartProduct {
   id: number;
   name: string;
   price: number;
-  imageUrl: string;
+  images: ProductImage[];
   size?: number | null;
 }
 
@@ -83,7 +88,7 @@ export interface CartItemDTO {
   product: {
     id: number;
     name: string;
-    imageUrl: string;
+    images: ProductImage[];
     description: string;
     price: number;
     size: string;
