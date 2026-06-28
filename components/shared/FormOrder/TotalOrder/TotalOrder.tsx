@@ -5,13 +5,17 @@ import Link from "next/link";
 import { CartItemDTO } from "@/libs/types/apiTypes";
 
 import style from "./TotalOrder.module.scss";
+import Image from "next/image";
 
 interface TotalOrderI {
   items: CartItemDTO[];
   totalSum: number;
 }
 
+// При обновлении страницы заказа вылетаю, и становылюсь не авторизованным(хотя токен в куки есть)
 export const TotalOrder: React.FC<TotalOrderI> = ({ items, totalSum }) => {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL_IMAGES;
+
   if (items.length === 0) {
     return (
       <div className={style.wrapper__total}>
@@ -31,10 +35,13 @@ export const TotalOrder: React.FC<TotalOrderI> = ({ items, totalSum }) => {
           {items.map((item) => (
             <div className={style.card} key={item.id}>
               <div className={style.card__image}>
-                <img
-                  // src={item.product.imageUrl || "https://placehold.co/100x70"}
-                  src={"https://placehold.co/100x70"}
+                {/* поправить стили */}
+                <Image
+                  src={API_URL + item.product.images[0].url}
                   alt={item.product.name}
+                  width={100}
+                  height={70}
+                  unoptimized
                 />
               </div>
 
