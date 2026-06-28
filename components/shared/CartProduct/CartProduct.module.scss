@@ -6,31 +6,46 @@
   position: relative;
   overflow: hidden;
   transition: 0.3s ease;
+  display: flex;
+  flex-direction: column;
 
   &:hover {
     -webkit-box-shadow: 1px 0px 10px 6px variables.$shadow;
     -moz-box-shadow: 1px 0px 10px 6px variables.$shadow;
     box-shadow: 1px 0px 10px 6px variables.$shadow;
+
     .image {
       transform: scale(1.033);
-      overflow: hidden;
     }
   }
 
   .image {
     transition: 0.3s ease;
-    max-height: 400px;
+    height: 250px;
     overflow: hidden;
+    position: relative;
 
-    img {
-      width: 100%;
-      height: 100%;
-      max-height: 400px;
+    &__img {
+      object-fit: cover !important;
+      object-position: center;
+      transition: transform 0.3s ease;
     }
+
     .name_product {
       position: absolute;
       left: 5px;
       top: 10px;
+      z-index: 2;
+    }
+  }
+
+  &:hover {
+    -webkit-box-shadow: 1px 0px 10px 6px variables.$shadow;
+    -moz-box-shadow: 1px 0px 10px 6px variables.$shadow;
+    box-shadow: 1px 0px 10px 6px variables.$shadow;
+
+    .image__img {
+      transform: scale(1.033);
     }
   }
 
@@ -38,6 +53,7 @@
     margin-top: 10px;
     text-align-last: left;
     padding: 8px;
+    flex-grow: 1;
 
     &__category {
       border: 1px solid variables.$button-green;
@@ -47,17 +63,16 @@
 
     &__name {
       margin: 14px 0;
-
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 1;
+      line-clamp: 1;
       overflow: hidden;
     }
 
     &__desc {
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 1;
+      line-clamp: 1;
       overflow: hidden;
       font-size: 14px;
       color: variables.$grey;
@@ -68,6 +83,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px 0;
+      margin-top: auto;
 
       &_block {
         display: flex;
@@ -84,6 +100,10 @@
 @media (max-width: variables.$tablet) {
   .cart {
     width: 220px;
+
+    .image {
+      height: 180px;
+    }
 
     .info {
       margin-top: 5px;
@@ -115,6 +135,10 @@
 @media (max-width: variables.$phone) {
   .cart {
     width: 160px;
+
+    .image {
+      height: 130px;
+    }
 
     .info {
       margin-top: 5px;

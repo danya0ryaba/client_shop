@@ -4,7 +4,6 @@ import { Title } from "@/components/ui/Title";
 import { Button } from "@/components/ui/Button";
 import { useAppSelector } from "@/libs/hooks/useReduxHooks";
 import { useGetCartQuery } from "@/libs/api";
-import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { ROUTES } from "@/routers/routers";
 
@@ -19,23 +18,19 @@ export const CardTotal = () => {
     skip: !initialized || !accessToken,
     selectFromResult: ({ data }) => {
       const items = data?.items ?? [];
-
+      const selectedItems = items.filter((item) => item.selected);
       return {
-        totalQty: items.reduce((sum, it) => sum + it.quantity, 0),
-        totalPrice: items.reduce(
+        totalQty: selectedItems.reduce((sum, it) => sum + it.quantity, 0),
+        totalPrice: selectedItems.reduce(
           (sum, it) => sum + it.quantity * (it.product.price ?? 0),
           0,
         ),
-        itemsCount: items.length,
+        itemsCount: selectedItems.length,
       };
     },
   });
 
   if (!initialized || !accessToken) return null;
-
-  const onClickButton = () => {
-    router.push(ROUTES.ORDER);
-  };
 
   return (
     <div className={style.wrapper}>
@@ -60,7 +55,7 @@ export const CardTotal = () => {
         <span>{totalPrice} ₽</span>
       </div>
 
-      <Button active big onClick={onClickButton}>
+      <Button active big onClick={() => router.push(ROUTES.ORDER)}>
         Оформить заказ
       </Button>
 

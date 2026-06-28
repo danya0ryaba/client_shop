@@ -57,7 +57,16 @@ export const CartProduct: React.FC<CartProductI> = ({
   return (
     <article className={`${style.cart} ${className}`}>
       <div className={style.image}>
-        <img src={mainImageUrl} alt={name || "Product"} />
+        {/* не деплоить так (убрать unoptimized, и настроить оптимизацию) */}
+        <Image
+          src={mainImageUrl}
+          alt={name || "Product"}
+          fill
+          className={style.image__img}
+          unoptimized
+          sizes="(max-width: 480px) 160px, (max-width: 768px) 220px, 320px"
+        />
+
         <span className={style.name_product}>{name}</span>
       </div>
       <div className={style.info}>

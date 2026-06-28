@@ -44,7 +44,7 @@ export const CurrentProduct = () => {
   if (isLoading) return <div>Загрузка продукта...</div>;
   if (isError || !product)
     return <div>Продукт не найден или произошла ошибка</div>;
-  console.log(product);
+
   return (
     <div className={style.wrapper__product}>
       <div className={style.slider}>

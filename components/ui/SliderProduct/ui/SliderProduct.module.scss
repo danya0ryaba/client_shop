@@ -39,17 +39,16 @@
         right: 0;
       }
 
-      img {
-        // max-width: 600px;
-        // max-height: 400px;
-        // border-radius: 8px;
-        // object-fit: contain;
-
+      .slider__main_image {
+        position: relative;
         width: 100%;
-        height: auto;
-        display: block;
+        aspect-ratio: 3 / 2;
+        overflow: hidden;
         border-radius: 8px;
-        object-fit: contain;
+
+        .slider__main_img {
+          object-fit: cover;
+        }
       }
     }
 

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ProductImage } from "@/libs/types/apiTypes";
+import Image from "next/image";
 
 import style from "./SliderProduct.module.scss";
 
@@ -50,7 +51,16 @@ export const SliderProduct: React.FC<SliderProductI> = ({ images }) => {
             <ArrowLeft className={style.svg} />
           </button>
 
-          <img src={`${API_URL}${images[current].url}`} alt="Photo product" />
+          <div className={style.slider__main_image}>
+            <Image
+              src={`${API_URL}${images[current].url}`}
+              alt="Photo product"
+              fill
+              sizes="(max-width: 768px) 100vw, 600px"
+              className={style.slider__main_img}
+              unoptimized
+            />
+          </div>
 
           <button
             className={`${style.arrow} ${style.arrow_right}`}
