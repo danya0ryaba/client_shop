@@ -54,7 +54,7 @@ export const FormProductUpdate = ({
     reset({
       name: product.name ?? "",
       description: product.description ?? "",
-      image: product.imageUrl ?? "",
+      // image: product.imageUrl ?? "",
       price: product.price != null ? String(product.price) : "",
       // category: у тебя в продукте categoryId:number, а в форме register("category") — похоже string
       category: product.categoryId != null ? String(product.categoryId) : "",

@@ -56,8 +56,6 @@ export default function OrderPage() {
       items: orderItems,
     };
 
-    console.log("То, что уйдет на бэк:", payload);
-
     // Здесь потом будет вызов RTK Query мутации:
     // makeOrder(payload).unwrap().then(...)
   };

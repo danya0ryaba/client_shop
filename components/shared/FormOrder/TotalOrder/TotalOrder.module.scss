@@ -22,10 +22,19 @@
       background-color: variables.$button-white;
       border-radius: 8px;
 
-      // &__image {
-      //   img {
-      //   }
-      // }
+      &__image {
+        width: 100px; // Жестко задаем ширину, как в атрибуте <Image>
+        height: 70px; // Жестко задаем высоту, как в атрибуте <Image>
+        flex-shrink: 0; // Запрещаем flex-контейнеру сжимать эту колонку
+        border-radius: 6px; // По желанию, для красоты
+        overflow: hidden; // Обрезаем то, что вылезает за пределы
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
 
       &__info {
         display: flex;

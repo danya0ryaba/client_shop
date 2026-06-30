@@ -21,6 +21,10 @@
     }
   }
 
+  .error {
+    color: variables.$red;
+  }
+
   .choice {
     display: flex;
     gap: 10px;
@@ -75,5 +79,11 @@
     font-weight: 500;
     display: block;
     margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 13px;
+    color: variables.$text-black;
+    margin-top: 8px;
   }
 }

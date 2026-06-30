@@ -1,4 +1,5 @@
 @use "scss-reset/reset";
+@import "leaflet/dist/leaflet.css";
 
 html {
   font-family: var(--font-roboto), sans-serif;
@@ -32,4 +33,14 @@ a {
   cursor: pointer;
   font: inherit;
   outline: none;
+}
+
+/* Фикс кликабельности Leaflet карт в Next.js */
+.leaflet-container,
+.leaflet-pane,
+.leaflet-tile-pane,
+.leaflet-overlay-pane,
+.leaflet-marker-pane,
+.leaflet-popup-pane {
+  pointer-events: auto !important;
 }

@@ -53,7 +53,6 @@ export const CardBasket: React.FC<CardBasketI> = ({ item }) => {
       ? `${API_URL}${item.product.images[0].url}`
       : "/placeholder.png";
 
-  console.log(item);
   const disabled = isRemoving || isUpdatingQty;
 
   return (

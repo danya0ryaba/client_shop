@@ -3,9 +3,9 @@ import { Button, ButtonTheme } from "@/components/ui/Button";
 import { Phone } from "lucide-react";
 import Link from "next/link";
 import { CartItemDTO } from "@/libs/types/apiTypes";
+import Image from "next/image";
 
 import style from "./TotalOrder.module.scss";
-import Image from "next/image";
 
 interface TotalOrderI {
   items: CartItemDTO[];
@@ -41,6 +41,7 @@ export const TotalOrder: React.FC<TotalOrderI> = ({ items, totalSum }) => {
                   alt={item.product.name}
                   width={100}
                   height={70}
+                  style={{ objectFit: "cover" }}
                   unoptimized
                 />
               </div>
