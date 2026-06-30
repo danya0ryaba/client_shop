@@ -90,7 +90,7 @@ export const FormObtaining = () => {
 
   const handleMapClick = useCallback(
     async (coords: [number, number], insideZone: boolean) => {
-      console.log("handleMapClick");
+      console.log("handleMapClick", coords);
       setMarker(coords);
 
       if (!insideZone) {
@@ -107,13 +107,16 @@ export const FormObtaining = () => {
         );
         const data = await res.json();
 
-        if (data?.address) {
-          setValue("address", data.address, { shouldValidate: true });
-        } else {
-          setDeliveryError("Адрес не найден");
+        if (data.error) {
+          throw new Error(data.error);
         }
-      } catch {
-        setDeliveryError("Не удалось определить адрес по точке на карте");
+
+        // Преобразуем данные в формат, который ожидает react-dadata
+        const formattedAddress = data.address;
+        setValue("address", formattedAddress, { shouldValidate: true });
+      } catch (error) {
+        console.error("Ошибка при получении адреса:", error);
+        setDeliveryError("Не удалось получить адрес");
       }
     },
     [setValue],
@@ -223,3 +226,23 @@ export const FormObtaining = () => {
     </div>
   );
 };
+
+// var url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address";
+// var token = "a5cace7785853b74a3aad410d77b7a251d26bfce";
+// var query = { lat: 55.878, lon: 37.653 };
+
+// var options = {
+//     method: "POST",
+//     mode: "cors",
+//     headers: {
+//         "Content-Type": "application/json",
+//         "Accept": "application/json",
+//         "Authorization": "Token " + token
+//     },
+//     body: JSON.stringify(query)
+// }
+
+// fetch(url, options)
+// .then(response => response.text())
+// .then(result => console.log(result))
+// .catch(error => console.log("error", error));

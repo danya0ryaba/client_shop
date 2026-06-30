@@ -115,7 +115,9 @@ export const DeliveryMap: React.FC<Props> = ({ marker, onMapClick }) => {
           {/* <Popup>Зона доставки курьером (г. Соликамск)</Popup> */}
         </Polygon>
 
-        {marker && <Marker position={marker} />}
+        {/* {marker && <Marker position={marker} />} */}
+
+        {marker && <Marker position={[marker[1], marker[0]]} />}
 
         <MapClickHandler onMapClick={onMapClick} />
       </MapContainer>
