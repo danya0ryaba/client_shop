@@ -1,0 +1,15 @@
+.mapWrapper {
+  position: relative;
+  z-index: 9000;
+  margin-top: 15px;
+  border-radius: 12px;
+  overflow: hidden;
+
+  .sizes {
+    height: 340px;
+    width: 100%;
+  }
+  :global(.leaflet-control-attribution) {
+    display: none !important;
+  }
+}

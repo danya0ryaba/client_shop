@@ -12,9 +12,7 @@ export async function GET(req: NextRequest) {
     );
   }
 
-  // Проверяем наличие ключа
   const token = process.env.DADATA_API_KEY;
-  console.log(token);
 
   if (!token) {
     console.error("ОШИБКА: Переменная DADATA_API_KEY не найдена в .env.local");

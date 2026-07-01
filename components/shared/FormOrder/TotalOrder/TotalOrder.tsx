@@ -12,7 +12,7 @@ interface TotalOrderI {
   totalSum: number;
 }
 
-// При обновлении страницы заказа вылетаю, и становылюсь не авторизованным(хотя токен в куки есть)
+// При обновлении страницы заказа вылетаю, и становылюсь не авторизованным(хотя токен в куки есть) ИНОГДА
 export const TotalOrder: React.FC<TotalOrderI> = ({ items, totalSum }) => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL_IMAGES;
 
@@ -68,7 +68,7 @@ export const TotalOrder: React.FC<TotalOrderI> = ({ items, totalSum }) => {
             <span>{totalSum.toFixed(2)} ₽</span>
           </div>
           <Button big active className={style.result__btn} type="submit">
-            Подтвердить заказ
+            Сделать заказ
           </Button>
         </div>
         <div className={style.result__info}>

@@ -34,13 +34,3 @@ a {
   font: inherit;
   outline: none;
 }
-
-/* Фикс кликабельности Leaflet карт в Next.js */
-.leaflet-container,
-.leaflet-pane,
-.leaflet-tile-pane,
-.leaflet-overlay-pane,
-.leaflet-marker-pane,
-.leaflet-popup-pane {
-  pointer-events: auto !important;
-}

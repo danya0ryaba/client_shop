@@ -17,7 +17,7 @@ export const AddressInput: React.FC<Props> = ({ value, onChange }) => {
     <AddressSuggestions
       token={process.env.NEXT_PUBLIC_API_DADATA || ""}
       value={value ?? undefined}
-      onChange={(data) => onChange?.(data)}
+      onChange={onChange}
     />
   );
 };

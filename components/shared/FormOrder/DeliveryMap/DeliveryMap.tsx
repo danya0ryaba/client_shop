@@ -12,6 +12,8 @@ import {
 import L from "leaflet";
 import { booleanPointInPolygon, point, polygon } from "@turf/turf";
 
+import style from "./DeliveryMap.module.scss";
+
 const fixLeafletIcons = () => {
   delete (L.Icon.Default.prototype as any)._getIconUrl;
   L.Icon.Default.mergeOptions({
@@ -85,23 +87,12 @@ export const DeliveryMap: React.FC<Props> = ({ marker, onMapClick }) => {
   }, []);
 
   return (
-    <div
-      style={{
-        position: "relative",
-        zIndex: 9000,
-        marginTop: "15px",
-        borderRadius: "12px",
-        overflow: "hidden",
-      }}
-    >
+    <div className={style.mapWrapper}>
       <MapContainer
         center={SOLIKAMSK_CENTER}
         zoom={12}
         scrollWheelZoom={true}
-        style={{
-          height: "340px",
-          width: "100%",
-        }}
+        className={style.sizes}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -111,11 +102,9 @@ export const DeliveryMap: React.FC<Props> = ({ marker, onMapClick }) => {
         <Polygon
           positions={DELIVERY_ZONE_COORDINATES}
           pathOptions={polygonStyle}
-        >
-          {/* <Popup>Зона доставки курьером (г. Соликамск)</Popup> */}
-        </Polygon>
+        ></Polygon>
 
-        {/* {marker && <Marker position={marker} />} */}
+        {marker && <Marker position={marker} />}
 
         {marker && <Marker position={[marker[1], marker[0]]} />}
 

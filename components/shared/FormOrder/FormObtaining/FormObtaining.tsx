@@ -48,7 +48,6 @@ export const FormObtaining = () => {
   const {
     control,
     setValue,
-    trigger,
     formState: { errors },
   } = useFormContext<OrderFormValues>();
 
@@ -63,7 +62,7 @@ export const FormObtaining = () => {
     if (!data?.data) {
       setMarker(null);
       setDeliveryError("");
-      setValue("address", null as any, { shouldValidate: true });
+      setValue("address", data as any, { shouldValidate: true });
       return;
     }
 
@@ -90,7 +89,6 @@ export const FormObtaining = () => {
 
   const handleMapClick = useCallback(
     async (coords: [number, number], insideZone: boolean) => {
-      console.log("handleMapClick", coords);
       setMarker(coords);
 
       if (!insideZone) {
@@ -111,7 +109,6 @@ export const FormObtaining = () => {
           throw new Error(data.error);
         }
 
-        // Преобразуем данные в формат, который ожидает react-dadata
         const formattedAddress = data.address;
         setValue("address", formattedAddress, { shouldValidate: true });
       } catch (error) {
@@ -197,16 +194,18 @@ export const FormObtaining = () => {
             Адрес
           </label>
 
-          <Controller
-            name="address"
-            control={control}
-            render={({ field }) => (
-              <AddressInput
-                value={field.value as any}
-                onChange={(value) => handleAddressChange(value)}
-              />
-            )}
-          />
+          <div style={{ position: "relative", zIndex: 10000 }}>
+            <Controller
+              name="address"
+              control={control}
+              render={({ field }) => (
+                <AddressInput
+                  value={field.value as any}
+                  onChange={(value) => handleAddressChange(value)}
+                />
+              )}
+            />
+          </div>
 
           {errors.address?.message && (
             <span className={style.error}>{errors.address.message}</span>
@@ -226,23 +225,3 @@ export const FormObtaining = () => {
     </div>
   );
 };
-
-// var url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address";
-// var token = "a5cace7785853b74a3aad410d77b7a251d26bfce";
-// var query = { lat: 55.878, lon: 37.653 };
-
-// var options = {
-//     method: "POST",
-//     mode: "cors",
-//     headers: {
-//         "Content-Type": "application/json",
-//         "Accept": "application/json",
-//         "Authorization": "Token " + token
-//     },
-//     body: JSON.stringify(query)
-// }
-
-// fetch(url, options)
-// .then(response => response.text())
-// .then(result => console.log(result))
-// .catch(error => console.log("error", error));

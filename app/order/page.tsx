@@ -10,9 +10,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { OrderFormValues, orderSchema } from "@/libs/schema";
 import { useGetCartQuery } from "@/libs/api";
 import { CartItemDTO } from "@/libs/types/apiTypes";
+import { toast } from "react-toastify";
 
 import style from "./order.module.scss";
-import { toast } from "react-toastify";
 
 export default function OrderPage() {
   const methods = useForm<OrderFormValues>({
@@ -40,6 +40,7 @@ export default function OrderPage() {
   }, 0);
 
   const onSubmit = (data: OrderFormValues) => {
+    console.log(data);
     if (selectedItems.length === 0) {
       toast.error("Вы не выбрали ни одного товара для оформления!");
       return;
