@@ -66,3 +66,28 @@
     }
   }
 }
+
+@media (max-width: variables.$phone) {
+  .wrapper_input {
+    font-size: 14px;
+
+    .label {
+      font-size: 12px;
+      padding-bottom: 4px;
+    }
+
+    div {
+      .input {
+        font-size: 12px;
+        padding: 5px 4px;
+      }
+    }
+
+    .error {
+      position: absolute;
+      left: 0;
+      bottom: -13px;
+      font-size: 10px;
+    }
+  }
+}

@@ -30,3 +30,25 @@
     }
   }
 }
+
+@media (max-width: variables.$big-screen) {
+  .form {
+    gap: 10px;
+    padding: 10px;
+
+    .info__user {
+      gap: 10px;
+    }
+  }
+}
+
+@media (max-width: variables.$phone) {
+  .form {
+    gap: 20px;
+    padding: 5px;
+
+    .info__user {
+      gap: 5px;
+    }
+  }
+}

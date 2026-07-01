@@ -41,3 +41,27 @@
     color: variables.$red;
   }
 }
+
+@media (max-width: variables.$phone) {
+  .wrapper_input {
+    font-size: 12px;
+    font-weight: 400;
+
+    .label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    div {
+      .input {
+        font-size: 14px;
+        padding: 6px;
+        min-height: 50px;
+      }
+    }
+
+    .error {
+      font-size: 16px;
+    }
+  }
+}

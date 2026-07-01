@@ -23,11 +23,11 @@
       border-radius: 8px;
 
       &__image {
-        width: 100px; // Жестко задаем ширину, как в атрибуте <Image>
-        height: 70px; // Жестко задаем высоту, как в атрибуте <Image>
-        flex-shrink: 0; // Запрещаем flex-контейнеру сжимать эту колонку
-        border-radius: 6px; // По желанию, для красоты
-        overflow: hidden; // Обрезаем то, что вылезает за пределы
+        width: 100px;
+        height: 70px;
+        flex-shrink: 0;
+        border-radius: 6px;
+        overflow: hidden;
 
         img {
           width: 100%;
@@ -108,6 +108,101 @@
       &:hover {
         border-bottom: 2px solid variables.$button-hover;
         scale: (1.1);
+      }
+    }
+  }
+}
+
+@media (max-width: variables.$big-screen) {
+  .wrapper__total {
+    padding: 10px;
+
+    .list__card {
+      margin-top: 10px;
+      gap: 5px;
+      max-height: 320px;
+    }
+  }
+
+  .connect {
+    margin-top: 10px;
+    padding: 10px;
+    gap: 8px;
+
+    &__title {
+      &_title {
+        font-size: 16px;
+      }
+
+      &_link {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+@media (max-width: variables.$phone) {
+  .wrapper__total {
+    padding: 5px;
+
+    .list__card {
+      margin-top: 6px;
+      max-height: 220px;
+
+      .card {
+        gap: 5px;
+        padding: 6px 5px;
+
+        &__image {
+          width: 70px;
+          height: 50px;
+        }
+
+        &__info {
+          gap: 5px;
+
+          &_name {
+            font-size: 12px;
+          }
+
+          &_price {
+            font-size: 10px;
+          }
+        }
+
+        &__price {
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .result {
+      &__price {
+        margin: 10px 0 20px;
+        font-size: 17px;
+        font-weight: 500;
+        padding: 0 6px;
+      }
+
+      &__btn {
+        margin-bottom: 20px;
+      }
+    }
+
+    .result__info {
+      font-size: 10px;
+    }
+  }
+
+  .connect {
+    margin-top: 6px;
+    padding: 5px;
+    gap: 5px;
+
+    &__title {
+      &_title {
+        font-size: 15px;
       }
     }
   }

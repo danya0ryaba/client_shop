@@ -87,7 +87,7 @@ export const DeliveryMap: React.FC<Props> = ({ marker, onMapClick }) => {
   }, []);
 
   return (
-    <div className={style.mapWrapper}>
+    <div className={style.map__wrapper}>
       <MapContainer
         center={SOLIKAMSK_CENTER}
         zoom={12}

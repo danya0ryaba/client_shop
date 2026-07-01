@@ -70,7 +70,7 @@ export const addressSchema = z.object({
 
 export const orderSchema = z
   .object({
-    name: z.string().min(2, "Имя должно содержать минимум 2 символа"),
+    name: z.string().min(1, "Введите имя"),
     phone: z
       .string()
       .min(1, "Введите телефон")

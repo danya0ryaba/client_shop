@@ -87,3 +87,51 @@
     margin-top: 8px;
   }
 }
+
+@media (max-width: variables.$big-screen) {
+  .form__obtaining {
+    margin: 20px 0;
+    padding: 10px;
+
+    .title {
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media (max-width: variables.$phone) {
+  .form__obtaining {
+    margin: 10px 0;
+    padding: 5px;
+
+    .choice {
+      gap: 6px;
+      margin-bottom: 15px;
+
+      &__item {
+        padding: 5px;
+        border: 1px solid variables.$button-hover;
+        gap: 5px;
+
+        .svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        .title {
+          font-size: 14px;
+          font-weight: 500;
+        }
+
+        .desc {
+          font-size: 10px;
+        }
+      }
+    }
+
+    .title {
+      margin-bottom: 6px;
+    }
+  }
+}

@@ -18,3 +18,31 @@
     }
   }
 }
+
+@media (max-width: variables.$big-screen) {
+  .wrapper {
+    flex-direction: column;
+    gap: 5px;
+    margin: 10px 0 20px;
+
+    &__info {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0px;
+
+      &_form {
+        width: 100%;
+      }
+      &_total {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: variables.$phone) {
+  .wrapper {
+    gap: 3px;
+    margin: 5px 0 10px;
+  }
+}

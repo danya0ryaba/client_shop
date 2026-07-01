@@ -44,7 +44,7 @@ export const FormOrder: React.FC<FormOrderI> = ({ className }) => {
         />
       </div>
 
-      <div className="email">
+      <div>
         <Input
           text="E-mail (необязательно)"
           type="email"
