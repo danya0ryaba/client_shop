@@ -27,3 +27,13 @@
     justify-content: center;
   }
 }
+
+@media (max-width: variables.$tablet) {
+  .info_category {
+    margin-bottom: 18px;
+  }
+
+  .all__product {
+    margin: 10px 0;
+  }
+}

@@ -2,6 +2,7 @@
 
 .wrapper__input {
   width: 100%;
+  z-index: 10;
 
   &_block {
     position: relative;
@@ -108,4 +109,31 @@
       }
     }
   }
+}
+
+@media (max-width: variables.$tablet) {
+  .wrapper__input {
+    &_block {
+      .icon {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        width: 15px;
+        height: 15px;
+      }
+      .input {
+        height: 24px;
+        outline: 1.3px solid variables.$grey;
+        padding-left: 44px;
+      }
+
+      .cross {
+        width: 15px;
+        height: 15px;
+      }
+    }
+  }
+}
+
+@media (max-width: variables.$mini-phone) {
 }

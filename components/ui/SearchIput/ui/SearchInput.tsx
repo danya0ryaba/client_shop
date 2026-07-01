@@ -74,7 +74,6 @@ export const SearchInput: React.FC<InputProps> = ({ className, ...props }) => {
           ref={inputRef}
           className={style.input}
           onFocus={onFocusHandler}
-          // onBlur={onBlurHandler}
           type="text"
           value={value}
           onChange={onChangeInput}

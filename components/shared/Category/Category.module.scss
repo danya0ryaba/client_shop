@@ -12,10 +12,13 @@
   -moz-box-shadow: 1px 0px 10px 6px variables.$shadow;
   box-shadow: 1px 0px 10px 6px variables.$shadow;
   margin: 24px 0;
+  overflow: hidden;
 
   .categoryes {
     display: flex;
     gap: 15px;
+    width: 100%;
+    overflow-x: auto;
   }
 }
 
@@ -31,6 +34,17 @@
   }
 }
 
+@media (max-width: variables.$tablet) {
+  .category {
+    padding: 12px 12px 6px;
+    margin: 14px 0;
+
+    .categoryes {
+      overflow: auto;
+    }
+  }
+}
+
 @media (max-width: variables.$phone) {
   .category {
     padding: 8px;
@@ -40,6 +54,6 @@
 
 @media (max-width: variables.$mini-phone) {
   .category {
-    margin-top: 60px;
+    margin-top: 10px;
   }
 }

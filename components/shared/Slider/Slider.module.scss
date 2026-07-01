@@ -3,8 +3,7 @@
 .wrapper__slider {
   border-radius: 10px;
   box-shadow: 0px 0px 4px 4px variables.$shadow;
-  // max-height: 440px;
-  height: clamp(240px, 28vw, 440px); // адаптивная высота
+  height: clamp(240px, 28vw, 440px);
   overflow: hidden;
   position: relative;
   margin-top: 30px;
@@ -14,7 +13,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 10;
+    z-index: 5;
     width: 40px;
     height: 40px;
     background-color: variables.$button-green;
@@ -128,19 +127,47 @@
     height: clamp(200px, 45vw, 340px);
     margin-top: 0;
 
+    .button {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &__left {
+        left: 10px;
+      }
+
+      &__right {
+        right: 10px;
+      }
+
+      &__arrow {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
+}
+
+@media (max-width: variables.$phone) {
+  .slider {
+    padding-top: 60px;
+  }
+
+  .wrapper__slider {
+    height: clamp(160px, 45vw, 300px);
+
     .slide {
       &__info {
-        gap: 10px;
-
         &_title {
-          max-width: 360px;
-          font-size: 25px;
-          font-weight: 700;
+          font-size: 16px;
+          font-weight: 500;
         }
 
         &_desc {
-          font-size: 15px;
-          font-weight: 400;
+          font-size: 12px;
+          font-weight: 300;
         }
       }
     }
@@ -148,7 +175,10 @@
 }
 
 @media (max-width: variables.$mini-phone) {
+  .wrapper__slider {
+    margin-top: 28px;
+  }
   .slider {
-    display: none;
+    padding-top: 30px;
   }
 }
