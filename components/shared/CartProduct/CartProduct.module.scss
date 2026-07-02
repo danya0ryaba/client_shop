@@ -154,3 +154,49 @@
     }
   }
 }
+
+@media (max-width: variables.$mini-phone) {
+  .cart {
+    &:hover {
+      .image {
+        transform: scale(1.02);
+      }
+    }
+
+    .image {
+      height: 200px;
+
+      .name_product {
+        font-size: 12px;
+      }
+    }
+
+    &:hover {
+      .image__img {
+        transform: scale(1.02);
+      }
+    }
+
+    .info {
+      margin-top: 5px;
+      padding: 4px;
+
+      &__category {
+        padding: 2px 4px;
+        font-size: 13px;
+      }
+
+      &__name {
+        margin: 6px 0;
+      }
+
+      &__desc {
+        font-size: 12px;
+      }
+
+      &__price {
+        padding: 5px 0;
+      }
+    }
+  }
+}

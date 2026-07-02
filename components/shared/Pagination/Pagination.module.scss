@@ -32,3 +32,48 @@
     gap: 10px;
   }
 }
+
+@media (max-width: variables.$tablet) {
+  .pagination {
+    margin: 20px 0;
+    gap: 14px;
+
+    .arrow {
+      width: 30px;
+      height: 30px;
+    }
+
+    .numbers {
+      gap: 6px;
+    }
+  }
+}
+
+@media (max-width: variables.$phone) {
+  .pagination {
+    margin: 10px 0;
+    gap: 10px;
+
+    .arrow {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+@media (max-width: variables.$mini-phone) {
+  .pagination {
+    margin: 8px 0;
+    gap: 8px;
+
+    .arrow {
+      width: 18px;
+      height: 18px;
+
+      .svg {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+}

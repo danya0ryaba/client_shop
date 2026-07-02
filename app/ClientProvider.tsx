@@ -5,6 +5,7 @@ import { store } from "@/store/store";
 import { Header } from "@/components/shared/Header/Header";
 import { ToastContainer } from "react-toastify";
 import { AuthInitializer } from "@/components/shared/AuthProvider/AuthProvider ";
+import { Footer } from "@/components/shared/Footer/Footer";
 
 export function ClientProvider({ children }: { children: React.ReactNode }) {
   return (
@@ -37,6 +38,7 @@ export function ClientProvider({ children }: { children: React.ReactNode }) {
             maxWidth: "400px",
           }}
         />
+        <Footer />
       </AuthInitializer>
     </Provider>
   );

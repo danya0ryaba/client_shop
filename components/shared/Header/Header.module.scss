@@ -85,17 +85,56 @@
 }
 
 @media (max-width: variables.$phone) {
-  .logo__image {
-    display: none;
+  .header {
+    padding: 15px 0;
+
+    .logo {
+      gap: 6px;
+      max-width: 340px;
+
+      &__image {
+        display: none;
+      }
+
+      &__text {
+        span {
+          font-size: 10px;
+        }
+      }
+    }
+
+    .menu {
+      padding: 0 6px;
+      ul {
+        gap: 8px;
+        font-size: 15px;
+      }
+    }
+
+    .buttons {
+      padding-left: 6px;
+      gap: 8px;
+    }
   }
 }
 
 @media (max-width: variables.$mini-phone) {
-  .logo {
-    &__text {
-      span {
-        font-size: 10px;
+  .header {
+    .logo {
+      max-width: 200px;
+    }
+
+    .menu {
+      padding: 0 4px;
+      ul {
+        gap: 5px;
+        font-size: 13px;
       }
+    }
+
+    .buttons {
+      padding-left: 4px;
+      gap: 5px;
     }
   }
 }

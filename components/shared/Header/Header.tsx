@@ -20,7 +20,7 @@ export const Header = () => {
           <Leaf className={style.logo__image_svg} />
         </div>
         <div className={style.logo__text}>
-          <Title as="h5" color="green">
+          <Title as="h5" color="green" className={style.logo__text_title}>
             Садовый урожай
           </Title>
           <span>Свежие овощи и ягоды</span>

@@ -37,3 +37,14 @@
     margin: 10px 0;
   }
 }
+
+@media (max-width: variables.$phone) {
+  .info_category {
+    margin-bottom: 8px;
+  }
+
+  .all__product {
+    font-size: 12px;
+    margin: 4px 0;
+  }
+}

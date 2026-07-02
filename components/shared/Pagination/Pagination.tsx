@@ -2,8 +2,9 @@
 
 import React from "react";
 import { Button } from "@/components/ui/Button";
-import style from "./Pagination.module.scss";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+
+import style from "./Pagination.module.scss";
 
 interface PaginationI {
   totalCount: number;
