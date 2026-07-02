@@ -6,7 +6,6 @@ import { Title } from "@/components/ui/Title";
 import { ClientProvider } from "./ClientProvider";
 
 import "../styles/global.scss";
-import { AuthInitializer } from "@/components/shared/AuthProvider/AuthProvider ";
 
 const roboto = Roboto({
   weight: ["400", "500", "600", "700", "800", "900"],

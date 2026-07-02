@@ -52,7 +52,7 @@ export const productsApi = baseApi.injectEndpoints({
 
     getCategories: build.query<CategoryI[], void>({
       query: () => "/categories",
-      // providesTags: ["Category"],
+      providesTags: ["Category"],
     }),
 
     searchProductsByName: build.query<Product[], string>({

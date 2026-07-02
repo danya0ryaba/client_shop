@@ -8,6 +8,7 @@ import { useAppSelector } from "@/libs/hooks/useReduxHooks";
 import { selectIsAuthenticated } from "@/store/slices/authSlice";
 
 import style from "./Header.module.scss";
+import { Logo } from "@/components/ui/Logo";
 
 export const Header = () => {
   const isAuth = useAppSelector(selectIsAuthenticated);
@@ -15,17 +16,7 @@ export const Header = () => {
 
   return (
     <header className={style.header}>
-      <Link href={ROUTES.HOME} className={style.logo}>
-        <div className={style.logo__image}>
-          <Leaf className={style.logo__image_svg} />
-        </div>
-        <div className={style.logo__text}>
-          <Title as="h5" color="green" className={style.logo__text_title}>
-            Садовый урожай
-          </Title>
-          <span>Свежие овощи и ягоды</span>
-        </div>
-      </Link>
+      <Logo />
 
       <nav className={style.menu}>
         <ul>
