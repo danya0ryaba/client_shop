@@ -6,11 +6,12 @@ import Link from "next/link";
 import { useAppSelector } from "@/libs/hooks/useReduxHooks";
 import { productsApi } from "@/libs/api";
 import { ROUTES } from "@/routers/routers";
+import { Camera, MessageCircleQuestionMark } from "lucide-react";
+import { footer__info } from "@/libs/const/const";
 
 import style from "./Footer.module.scss";
 
 // Проблема с навигацей в целом(чет придумать)
-// + прилепить footer к низу страницы
 
 interface FooterI {
   className?: string;
@@ -35,7 +36,14 @@ export const Footer: React.FC<FooterI> = ({ className }) => {
               Продаём всё, что вырастили сами — без химии и посредников. Прямо с
               грядки к вашему столу.
             </span>
-            <div className={style.icons}>тут будут иконки</div>
+            <div className={style.icons}>
+              <Link href={""} className={style.icons__icon}>
+                <Camera />
+              </Link>
+              <Link href={""} className={style.icons__icon}>
+                <MessageCircleQuestionMark />
+              </Link>
+            </div>
           </div>
         </div>
         <div className={style.wrapper__nav}>
@@ -77,22 +85,21 @@ export const Footer: React.FC<FooterI> = ({ className }) => {
           <div className={style.wrapper__nav__item}>
             <nav className={style.nav}>
               <Title className={style.title}>Контакты</Title>
-              <ul>
-                <li>
-                  <Link href={""}>Каталог</Link>
-                </li>
-                <li>
-                  <Link href={""}>О нас</Link>
-                </li>
-                <li>
-                  <Link href={""}>Корзина</Link>
-                </li>
-                <li>
-                  <Link href={""}>Личный кабинет</Link>
-                </li>
-                <li>
-                  <Link href={""}>Мои заказы</Link>
-                </li>
+              <ul className={style.ul}>
+                {footer__info.map((el) => {
+                  const Icon = el.icon;
+                  return (
+                    <li key={el.title} className={style.li}>
+                      <div className={style.icon}>
+                        <Icon className={style.icon__svg} />
+                      </div>
+                      <div className={style.info}>
+                        <span className={style.info__title}>{el.title}</span>
+                        <span className={style.info__desc}>{el.desc}</span>
+                      </div>
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
           </div>

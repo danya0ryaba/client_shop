@@ -3,35 +3,9 @@
 import { ChevronLeft } from "lucide-react";
 import { ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
+import { slides } from "@/libs/const/const";
 
 import style from "./Slider.module.scss";
-
-const slides = [
-  {
-    id: 1,
-    image: "https://placehold.co/1400x440",
-    title: "Свежие овощи из нашего сада",
-    subtitle: "Выращено с любовью и заботой о природе",
-  },
-  {
-    id: 2,
-    image: "https://placehold.co/1400x440",
-    title: "100% органическое земледелие",
-    subtitle: "Никаких химикатов, только натуральный уход",
-  },
-  {
-    id: 3,
-    image: "https://placehold.co/1400x440",
-    title: "Сладкие ягоды прямо с грядки",
-    subtitle: "Собираем каждое утро для максимальной свежести",
-  },
-  {
-    id: 4,
-    image: "https://placehold.co/1400x440",
-    title: "Круглогодичное выращивание",
-    subtitle: "Свежий урожай в любое время года",
-  },
-];
 
 export const Slider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);

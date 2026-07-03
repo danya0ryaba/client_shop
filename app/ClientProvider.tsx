@@ -4,16 +4,23 @@ import { Provider } from "react-redux";
 import { store } from "@/store/store";
 import { Header } from "@/components/shared/Header/Header";
 import { ToastContainer } from "react-toastify";
-import { AuthInitializer } from "@/components/shared/AuthProvider/AuthProvider ";
+import { AuthInitializer } from "@/components/shared/AuthProvider/AuthProvider";
 import { Footer } from "@/components/shared/Footer/Footer";
 
 export function ClientProvider({ children }: { children: React.ReactNode }) {
   return (
     <Provider store={store}>
       <AuthInitializer>
-        <main>
-          <Header />
-          {children}
+        <div className="page">
+          <div className="wrapper__header">
+            <Header />
+          </div>
+
+          <main className="page__content">{children}</main>
+
+          <div className="wrapper__footer">
+            <Footer />
+          </div>
           <ToastContainer
             autoClose={3000}
             limit={1}
@@ -39,9 +46,6 @@ export function ClientProvider({ children }: { children: React.ReactNode }) {
               maxWidth: "400px",
             }}
           />
-        </main>
-        <div style={{ backgroundColor: "#142539" }}>
-          <Footer />
         </div>
       </AuthInitializer>
     </Provider>

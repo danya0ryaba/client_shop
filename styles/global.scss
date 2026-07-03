@@ -2,16 +2,43 @@
 @use "scss-reset/reset";
 @import "leaflet/dist/leaflet.css";
 
-html {
+html,
+body {
+  height: 100%;
+  margin: 0;
   font-family: var(--font-roboto), sans-serif;
   font-size: 16px;
 }
 
-main {
+body {
+  min-height: 100vh;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper__header {
   width: 100%;
   max-width: 1400px;
   padding: 0 15px;
   margin: 0 auto;
+}
+
+.page__content {
+  flex: 1 0 auto;
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.wrapper__footer {
+  background-color: variables.$dark-blue;
+  width: 100%;
+  flex-shrink: 0;
 }
 
 // reset Link
