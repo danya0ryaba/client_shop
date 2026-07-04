@@ -36,7 +36,9 @@ export const Header = () => {
 
       <div className={style.buttons}>
         {isAuth ? (
-          <Button icon={<User />}>{name?.fullName}</Button>
+          <Button icon={<User />} className={style.user}>
+            {name?.fullName}
+          </Button>
         ) : (
           <Button icon={<User />} link={ROUTES.AUTH}>
             Войти

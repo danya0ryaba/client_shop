@@ -7,24 +7,25 @@ import { ROUTES } from "@/routers/routers";
 import { useDeleteProductAdminMutation } from "@/libs/api";
 
 import style from "./AdminTabletCeil.module.scss";
+import { toast } from "react-toastify";
 
 export const AdminTabletCeil: React.FC<CartProductI> = ({
   id,
   name,
   price,
-  imageUrl,
+  images,
   description,
   size,
   category,
 }) => {
   const router = useRouter();
-
+  const API_URL = process.env.NEXT_PUBLIC_API_URL_IMAGES;
   const [deleteProductMutation] = useDeleteProductAdminMutation();
 
   const removeProduct = async () => {
     try {
-      await deleteProductMutation({ id }).unwrap();
-      alert(`Товар ${name} удален`);
+      await deleteProductMutation(id).unwrap();
+      toast.success(`Товар "${name}" удален`);
     } catch (e) {
       alert("Не удалось удалить товар, ошибка в консоли");
       console.error("Не удалось удалить товар", e);
@@ -39,7 +40,7 @@ export const AdminTabletCeil: React.FC<CartProductI> = ({
     <div className={style.row} role="row" data-id={id}>
       <div className={style.cellImg}>
         <img
-          src={imageUrl || "https://placehold.co/140x100"}
+          src={API_URL + images[0].url || "https://placehold.co/140x100"}
           alt={name || "product"}
           loading="lazy"
         />

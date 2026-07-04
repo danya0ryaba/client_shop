@@ -22,7 +22,7 @@ export function ClientProvider({ children }: { children: React.ReactNode }) {
             <Footer />
           </div>
           <ToastContainer
-            autoClose={3000}
+            autoClose={1700}
             limit={1}
             hideProgressBar={false}
             newestOnTop={false}

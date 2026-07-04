@@ -1,9 +1,5 @@
 @use "../../../../styles/variables/variables.scss";
 
-// .wrapper_button {
-//   // height: 44px;
-// }
-
 .button {
   border-radius: 4px;
   padding: 10px;
@@ -29,7 +25,6 @@
 .big__btn {
   width: 100%;
   font-size: 21px;
-  // height: 56px;
   justify-content: center;
 }
 
@@ -71,7 +66,6 @@
 
 @media (max-width: variables.$mini-phone) {
   .button {
-    // height: 34px;
     padding: 3px;
     font-size: 10px;
   }

@@ -38,10 +38,10 @@ export const Footer: React.FC<FooterI> = ({ className }) => {
             </span>
             <div className={style.icons}>
               <Link href={""} className={style.icons__icon}>
-                <Camera />
+                <Camera className={style.icons__icon_svg} />
               </Link>
               <Link href={""} className={style.icons__icon}>
-                <MessageCircleQuestionMark />
+                <MessageCircleQuestionMark className={style.icons__icon_svg} />
               </Link>
             </div>
           </div>

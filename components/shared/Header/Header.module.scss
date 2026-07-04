@@ -25,6 +25,15 @@
     padding-left: 10px;
     display: flex;
     gap: 12px;
+
+    .user {
+      max-width: 130px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border: 1px solid variables.$button-green;
+      border-radius: 4px;
+    }
   }
 }
 

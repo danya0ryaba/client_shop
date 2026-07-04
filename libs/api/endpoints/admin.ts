@@ -13,10 +13,6 @@ export type ProductUpdateInput = {
   quantity?: string;
 };
 
-export type ProductDeleteInput = {
-  id: number;
-};
-
 export const adminApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     createProductAdmin: build.mutation<Product, FormData>({
@@ -37,15 +33,14 @@ export const adminApi = baseApi.injectEndpoints({
       invalidatesTags: (_res, _err, arg) => [{ type: "Product", id: arg.id }],
     }),
 
-    deleteProductAdmin: build.mutation<Product, ProductDeleteInput>({
-      query: (body) => ({
-        url: "/product-delete",
+    deleteProductAdmin: build.mutation<Product, number>({
+      query: (id) => ({
+        url: `/product-delete/${id}`,
         method: "DELETE",
-        body,
       }),
-      invalidatesTags: (_res, _err, arg) => [
+      invalidatesTags: (_res, _err, id) => [
         { type: "Product", id: "LIST" },
-        { type: "Product", id: arg.id },
+        { type: "Product", id },
       ],
     }),
   }),
