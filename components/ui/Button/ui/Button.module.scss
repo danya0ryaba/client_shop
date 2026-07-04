@@ -2,10 +2,10 @@
 
 .button {
   border-radius: 4px;
-  padding: 10px;
-  font-size: 19px;
+  padding: 12px 10px;
+  font-size: 18px;
   font-weight: 600;
-  transition: 0.3s ease;
+  transition: 0.25s ease;
   display: flex;
   align-items: center;
 
@@ -54,7 +54,7 @@
 
 @media (max-width: variables.$tablet) {
   .button {
-    padding: 5px;
+    padding: 8px;
     font-size: 14px;
 
     .icon {
@@ -66,7 +66,7 @@
 
 @media (max-width: variables.$mini-phone) {
   .button {
-    padding: 3px;
+    padding: 6px;
     font-size: 10px;
   }
 }

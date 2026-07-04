@@ -29,7 +29,6 @@ export const CartProduct: React.FC<CartProductI> = ({
   size,
   quantityProduct,
   category,
-  ...otherProps
 }) => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL_IMAGES;
 

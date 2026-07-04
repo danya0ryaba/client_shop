@@ -23,6 +23,7 @@
         height: 40px;
         border-radius: 100%;
         background-color: variables.$light-green;
+        z-index: 10;
 
         .svg {
           color: variables.$text-black;

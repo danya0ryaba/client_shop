@@ -36,6 +36,10 @@
       left: 5px;
       top: 10px;
       z-index: 2;
+      background-color: variables.$dark-blue;
+      color: variables.$button-white;
+      padding: 4px;
+      border-radius: 4px;
     }
   }
 

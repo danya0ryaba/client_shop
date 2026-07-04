@@ -3,14 +3,12 @@ import type { Product } from "../../types/apiTypes";
 
 export type ProductUpdateInput = {
   id: number;
-  name?: string;
-  imageUrl?: string;
+  name: string;
   description?: string;
-  price?: number;
-  size?: number | null;
-  categoryName?: string;
-  unit?: string;
-  quantity?: string;
+  price: number;
+  categoryId: number;
+  unit: string;
+  quantityProduct: number;
 };
 
 export const adminApi = baseApi.injectEndpoints({

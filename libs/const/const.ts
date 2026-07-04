@@ -35,3 +35,5 @@ export const slides = [
     subtitle: "Свежий урожай в любое время года",
   },
 ];
+
+export const units = ["шт", "кг", "пучок", "л"];

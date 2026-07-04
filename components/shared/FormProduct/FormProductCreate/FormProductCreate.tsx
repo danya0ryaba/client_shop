@@ -14,10 +14,9 @@ import { formSchemaCreateProduct, FormStateProductCreate } from "@/libs/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ROUTES } from "@/routers/routers";
 import { toast } from "react-toastify";
+import { units } from "@/libs/const/const";
 
 import style from "../FormProductUpdate/FormProductUpdate.module.scss";
-
-const units = ["шт", "кг", "пучок", "л"];
 
 export const FormProductCreate = () => {
   const router = useRouter();

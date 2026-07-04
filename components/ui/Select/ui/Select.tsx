@@ -1,19 +1,20 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ChevronDown } from "lucide-react";
 
 import style from "./Select.module.scss";
 
-// нужно переписывать
+export interface SelectOption {
+  label: string;
+  value: string;
+}
 
 interface CustomSelectProps {
   className?: string;
-  options: string[];
+  options: string[] | SelectOption[];
   text: string;
   error?: string;
-
-  // для RHF/Controller
   name?: string;
   value?: string;
   onChange?: (value: string) => void;
@@ -32,23 +33,47 @@ export const Select: React.FC<CustomSelectProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const [inputValue, setInputValue] = useState("");
+
   const htmlFor = `${name ?? text}`;
+
+  const normalizedOptions = useMemo(() => {
+    return options.map((opt) => {
+      if (typeof opt === "string") {
+        return { label: opt, value: opt };
+      }
+      return opt;
+    });
+  }, [options]);
+
+  useEffect(() => {
+    const selectedOpt = normalizedOptions.find((opt) => opt.value === value);
+    setInputValue(selectedOpt?.label || "");
+  }, [value, normalizedOptions]);
 
   const filteredOptions = useMemo(
     () =>
-      options.filter((option) =>
-        option.toLowerCase().includes(value.toLowerCase()),
+      normalizedOptions.filter((opt) =>
+        opt.label.toLowerCase().includes(inputValue.toLowerCase()),
       ),
-    [options, value],
+    [normalizedOptions, inputValue],
   );
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange?.(e.target.value);
+    const val = e.target.value;
+    setInputValue(val);
     setIsOpen(true);
+    const currentLabel = normalizedOptions.find(
+      (opt) => opt.value === value,
+    )?.label;
+    if (val !== currentLabel) {
+      onChange?.("");
+    }
   };
 
-  const handleOptionClick = (option: string) => {
-    onChange?.(option);
+  const handleOptionClick = (option: SelectOption) => {
+    onChange?.(option.value);
+    setInputValue(option.label);
     setIsOpen(false);
   };
 
@@ -68,7 +93,7 @@ export const Select: React.FC<CustomSelectProps> = ({
           id={htmlFor}
           name={name}
           type="text"
-          value={value}
+          value={inputValue}
           onChange={handleInputChange}
           placeholder="Выбрать"
           className={style.input}
@@ -87,13 +112,13 @@ export const Select: React.FC<CustomSelectProps> = ({
 
         {isOpen && filteredOptions.length > 0 && (
           <ul className={style.options}>
-            {options.map((option, index) => (
+            {filteredOptions.map((option) => (
               <li
-                key={option + index}
+                key={option.value}
                 onMouseDown={() => handleOptionClick(option)}
                 className={style.option}
               >
-                {option}
+                {option.label}
               </li>
             ))}
           </ul>
