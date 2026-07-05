@@ -3,27 +3,32 @@
 import { Logo } from "@/components/ui/Logo";
 import { Title } from "@/components/ui/Title";
 import Link from "next/link";
-import { useAppSelector } from "@/libs/hooks/useReduxHooks";
-import { productsApi } from "@/libs/api";
+import { useAppDispatch, useAppSelector } from "@/libs/hooks/useReduxHooks";
+import { productsApi, useGetCategoriesQuery } from "@/libs/api";
 import { ROUTES } from "@/routers/routers";
 import { Camera, MessageCircleQuestionMark } from "lucide-react";
 import { footer__info } from "@/libs/const/const";
+import { setActiveCategory } from "@/store/slices/categorySlice";
 
 import style from "./Footer.module.scss";
-
-// Проблема с навигацей в целом(чет придумать)
 
 interface FooterI {
   className?: string;
 }
 
 export const Footer: React.FC<FooterI> = ({ className }) => {
+  const dispatch = useAppDispatch();
+
   const categories = useAppSelector(
     (state) => productsApi.endpoints.getCategories.select()(state)?.data,
   );
 
-  const onHandlerCategoryes = (categories: string) => {
-    alert(categories);
+  const onHandlerCategoryes = (category: string) => {
+    dispatch(setActiveCategory(category));
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   return (
@@ -61,7 +66,6 @@ export const Footer: React.FC<FooterI> = ({ className }) => {
                   <Link href={ROUTES.CART}>Корзина</Link>
                 </li>
                 <li>
-                  {/* сначала написать личный кабинет */}
                   <Link href={""}>Личный кабинет</Link>
                 </li>
                 <li>

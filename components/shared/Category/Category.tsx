@@ -4,18 +4,17 @@ import { Title } from "@/components/ui/Title";
 import { Button } from "@/components/ui/Button";
 import { useGetCategoriesQuery } from "@/libs/api";
 import { CategoryI } from "@/libs/types/apiTypes";
+import { useAppDispatch, useAppSelector } from "@/libs/hooks/useReduxHooks";
 
 import style from "./Category.module.scss";
+import { setActiveCategory } from "@/store/slices/categorySlice";
 
-interface CategoryProps {
-  activeCategory: string;
-  setActiveCategory: (value: string) => void;
-}
+export const Category: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const activeCategory = useAppSelector(
+    (state) => state.category.activeCategory,
+  );
 
-export const Category: React.FC<CategoryProps> = ({
-  activeCategory,
-  setActiveCategory,
-}) => {
   const { data: categoriesData, isError, isLoading } = useGetCategoriesQuery();
 
   const categories: CategoryI[] | undefined = categoriesData
@@ -36,7 +35,7 @@ export const Category: React.FC<CategoryProps> = ({
           <Button
             active={el.name === activeCategory}
             key={el.id}
-            onClick={() => setActiveCategory(el.name)}
+            onClick={() => dispatch(setActiveCategory(el.name))}
           >
             {el.name}
           </Button>
