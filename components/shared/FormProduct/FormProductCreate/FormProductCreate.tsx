@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ROUTES } from "@/routers/routers";
 import { toast } from "react-toastify";
 import { units } from "@/libs/const/const";
+import { Checkbox } from "@/components/ui/Checkbox";
 
 import style from "../FormProductUpdate/FormProductUpdate.module.scss";
 
@@ -42,6 +43,7 @@ export const FormProductCreate = () => {
       quantity: "",
       size: "",
       image: undefined,
+      deliveryToCities: false,
     },
   });
 
@@ -54,6 +56,10 @@ export const FormProductCreate = () => {
       formData.append("price", data.price);
       formData.append("categoryName", data.category);
       formData.append("unit", data.unit || "шт");
+      formData.append(
+        "deliveryToCities",
+        data.deliveryToCities ? "true" : "false",
+      );
 
       if (data.size) formData.append("size", data.size);
       if (data.quantity) formData.append("quantityProduct", data.quantity);
@@ -63,7 +69,6 @@ export const FormProductCreate = () => {
           formData.append("images", file as File);
         });
       }
-
       await createProductMutation(formData).unwrap();
 
       router.push(ROUTES.ADMIN);
@@ -124,12 +129,26 @@ export const FormProductCreate = () => {
           )}
         />
       </div>
+
       <Input
         text="Размер"
         type="text"
         className={style.form__desc_item}
         {...register("size")}
         error={errors.size?.message}
+      />
+
+      <Controller
+        control={control}
+        name="deliveryToCities"
+        render={({ field }) => (
+          <Checkbox
+            label="Доставка в другие города"
+            value={field.value}
+            onChange={() => field.onChange(!field.value)}
+            error={errors.deliveryToCities?.message}
+          />
+        )}
       />
 
       <div className={style.form__desc_item} style={{ marginBottom: "20px" }}>

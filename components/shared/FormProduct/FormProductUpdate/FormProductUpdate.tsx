@@ -16,6 +16,7 @@ import { Button, ButtonTheme } from "@/components/ui/Button";
 import { InputDescription } from "@/components/ui/InputDescription";
 import { Select } from "@/components/ui/Select";
 import { units } from "@/libs/const/const";
+import { Checkbox } from "@/components/ui/Checkbox";
 
 import style from "./FormProductUpdate.module.scss";
 
@@ -50,6 +51,7 @@ export const FormProductUpdate = ({
       unit: "",
       description: "",
       quantityProduct: "",
+      deliveryToCities: false,
     },
   });
 
@@ -64,6 +66,7 @@ export const FormProductUpdate = ({
       description: product.description ?? "",
       quantityProduct:
         product.quantityProduct != null ? String(product.quantityProduct) : "",
+      deliveryToCities: product.deliveryToCities ?? false,
     });
   }, [product, reset]);
 
@@ -77,6 +80,7 @@ export const FormProductUpdate = ({
         categoryId: Number(data.categoryId),
         unit: data.unit,
         quantityProduct: Number(data.quantityProduct),
+        deliveryToCities: data.deliveryToCities,
       }).unwrap();
 
       toast.success("Товар обновлен успешно");
@@ -149,6 +153,19 @@ export const FormProductUpdate = ({
         text="Количество"
         {...register("quantityProduct")}
         error={errors.quantityProduct?.message}
+      />
+
+      <Controller
+        control={control}
+        name="deliveryToCities"
+        render={({ field }) => (
+          <Checkbox
+            label="Доставка в другие города"
+            value={field.value || false}
+            onChange={() => field.onChange(!field.value)}
+            error={errors.deliveryToCities?.message}
+          />
+        )}
       />
 
       <div className={style.form__buttons}>

@@ -1,7 +1,6 @@
 "use client";
 
 import { Check } from "lucide-react";
-
 import style from "./Checkbox.module.scss";
 
 interface CheckboxProps {
@@ -39,6 +38,8 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         cursor: disabled ? "not-allowed" : "pointer",
         opacity: disabled ? 0.5 : 1,
       }}
+      id={id}
+      data-name={name}
     >
       <div className={style.checkbox} onClick={handleClick}>
         <div className={`${style.checkbox__svg} ${activeClass}`}>

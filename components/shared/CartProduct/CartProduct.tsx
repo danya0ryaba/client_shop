@@ -29,11 +29,14 @@ export const CartProduct: React.FC<CartProductI> = ({
   size,
   quantityProduct,
   category,
+  deliveryToCities,
 }) => {
   const API_URL = process.env.NEXT_PUBLIC_API_URL_IMAGES;
 
   const mainImageUrl =
     images?.length > 0 ? `${API_URL}${images[0].url}` : "/placeholder.png";
+
+  const deliveryInOtherCity = deliveryToCities ? "доставка в города" : "";
 
   const router = useRouter();
   const [addToCart, { isLoading }] = useAddToCartMutation();
@@ -56,7 +59,6 @@ export const CartProduct: React.FC<CartProductI> = ({
   return (
     <article className={`${style.cart} ${className}`}>
       <div className={style.image}>
-        {/* не деплоить так (убрать unoptimized, и настроить оптимизацию) */}
         <Image
           src={mainImageUrl}
           alt={name || "Product"}
@@ -65,15 +67,14 @@ export const CartProduct: React.FC<CartProductI> = ({
           unoptimized
           sizes="(max-width: 480px) 160px, (max-width: 768px) 220px, 320px"
         />
-
-        <span className={style.name_product}>{name}</span>
+        <span className={style.name_product}>{deliveryInOtherCity}</span>
       </div>
       <div className={style.info}>
         <span className={style.info__category}>{category?.name}</span>
         <Title className={style.info__name} as="h6">
           {name}
         </Title>
-        <span className={style.info__desc}>{description}...</span>
+        <span className={style.info__desc}>{description}</span>
         <div className={style.info__price}>
           <div className={style.info__price_block}>
             <Title as="h3">{price} ₽</Title>

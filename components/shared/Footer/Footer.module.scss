@@ -12,53 +12,8 @@
     flex-wrap: wrap;
     gap: 30px;
     align-items: baseline;
-    padding: 0 0 30px 20px;
+    padding-bottom: 20px;
     border-bottom: 1.5px solid variables.$grey;
-
-    &__item {
-      display: flex;
-      flex-direction: column;
-      max-width: 400px;
-
-      .info {
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        gap: 14px;
-
-        &__logo {
-          margin-bottom: 20px;
-        }
-
-        span {
-          color: variables.$grey;
-          font-size: 14px;
-        }
-
-        .icons {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-
-          &__icon {
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: variables.$button-hover;
-            color: variables.$button-white;
-            transition: 0.2s ease;
-
-            &:hover {
-              transform: scale(1.1);
-            }
-          }
-        }
-      }
-    }
 
     .wrapper__nav {
       width: 100%;
@@ -67,6 +22,10 @@
 
       &__item {
         .nav {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+
           .title {
             font-size: 16px;
             font-weight: 600;
@@ -93,13 +52,18 @@
 
               .icon {
                 border-radius: 100%;
-                width: 40px;
-                height: 40px;
+                width: 30px;
+                height: 30px;
                 background-color: variables.$button-hover;
                 color: variables.$button-white;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
+                &__svg {
+                  width: 15px;
+                  height: 15px;
+                }
               }
 
               .info {
@@ -130,44 +94,11 @@
       padding: 0;
       justify-content: center;
 
-      &__item {
-        text-align: center;
-
-        .info {
-          align-items: center;
-          gap: 8px;
-
-          &__logo {
-            margin-bottom: 10px;
-          }
-
-          span {
-            font-size: 10px;
-          }
-
-          .icons {
-            gap: 6px;
-
-            &__icon {
-              width: 30px;
-              height: 30px;
-
-              &_svg {
-                width: 18px;
-                height: 18px;
-              }
-            }
-          }
-
-          span {
-            font-size: 12px;
-          }
-        }
-      }
-
       .wrapper__nav {
+        flex-wrap: wrap;
         &__item {
           .nav {
+            align-items: center;
             .title {
               font-size: 16px;
               font-weight: 400;
@@ -197,23 +128,6 @@
 
     &__wrapper {
       gap: 14px;
-
-      &__item {
-        text-align: center;
-
-        .info {
-          align-items: center;
-          gap: 8px;
-
-          &__logo {
-            margin-bottom: 10px;
-          }
-
-          span {
-            font-size: 12px;
-          }
-        }
-      }
 
       .wrapper__nav {
         &__item {
@@ -258,20 +172,6 @@
 
     &__wrapper {
       gap: 8px;
-
-      &__item {
-        .info {
-          gap: 5px;
-
-          &__logo {
-            margin-bottom: 8px;
-          }
-
-          span {
-            font-size: 10px;
-          }
-        }
-      }
 
       .wrapper__nav {
         flex-direction: column;

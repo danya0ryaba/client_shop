@@ -15,6 +15,7 @@ export interface Product {
   categoryId: number;
   size: number | null;
   unit: string;
+  deliveryToCities: boolean;
   createdAt: string;
   updatedAt: string;
 }

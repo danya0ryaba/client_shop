@@ -10,12 +10,6 @@ import { toast } from "react-toastify";
 
 import style from "./CurrentProduct.module.scss";
 
-const icons = [
-  { name: "Органика", icon: <Leaf className={style.svg} /> },
-  { name: "Доставка за 1 день", icon: <Truck className={style.svg} /> },
-  { name: "Гарантия качества", icon: <Shield className={style.svg} /> },
-];
-
 export const CurrentProduct = () => {
   const params = useParams();
   const id = params.id as string;
@@ -28,9 +22,11 @@ export const CurrentProduct = () => {
     skip: !id,
   });
 
+  console.log(product?.deliveryToCities);
+
   const [addToCart, { isLoading: loading }] = useAddToCartMutation();
 
-  const onClickButton = async (e: React.MouseEvent) => {
+  const onClickButton = async () => {
     try {
       await addToCart({ productId: id, quantity: 1 }).unwrap();
       toast.success("Добавлено в корзину");
@@ -44,6 +40,21 @@ export const CurrentProduct = () => {
   if (isLoading) return <div>Загрузка продукта...</div>;
   if (isError || !product)
     return <div>Продукт не найден или произошла ошибка</div>;
+
+  const delivery = product.deliveryToCities;
+
+  const icons = [
+    { name: "Органика", icon: <Leaf className={style.svg} /> },
+    {
+      name: delivery
+        ? "Доставка в другие города"
+        : "Нет доставки в другие города",
+      icon: (
+        <Truck className={style.svg} style={{ opacity: delivery ? 1 : 0.45 }} />
+      ),
+    },
+    { name: "Гарантия качества", icon: <Shield className={style.svg} /> },
+  ];
 
   return (
     <div className={style.wrapper__product}>
@@ -109,18 +120,27 @@ export const CurrentProduct = () => {
           </ul>
         </div>
         <div className={`${style.about__product} ${style.about__product_last}`}>
-          <span>Условия доставки</span>
-          <ul>
-            <li>
-              <span>Бесплатная доставка при заказе от 1500 ₽</span>
-            </li>
-            <li>
-              <span>Доставка в течение 1-2 дней</span>
-            </li>
-            <li>
-              <span>Возврат товара в течение 24 часов при несоответствии</span>
-            </li>
-          </ul>
+          {delivery ? (
+            <>
+              <span>Доставки</span>
+              <ul>
+                <li>
+                  <span>Почта РОССИИ</span>
+                </li>
+                <li>
+                  <span>Пункт выдачи СДЭК</span>
+                </li>
+                <li>
+                  <span>Доставка OZON</span>
+                </li>
+              </ul>
+              <span className={style.delivery}>
+                Узнать подробнее можно на страницы оформления заказа
+              </span>
+            </>
+          ) : (
+            <Title as="h5">Доставка в другие города отсутствует</Title>
+          )}
         </div>
       </div>
     </div>

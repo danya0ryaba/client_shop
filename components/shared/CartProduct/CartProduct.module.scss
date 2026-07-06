@@ -74,10 +74,10 @@
     }
 
     &__desc {
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      line-clamp: 1;
+      display: block;
+      white-space: nowrap;
       overflow: hidden;
+      text-overflow: ellipsis;
       font-size: 14px;
       color: variables.$grey;
     }

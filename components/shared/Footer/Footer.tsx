@@ -34,23 +34,6 @@ export const Footer: React.FC<FooterI> = ({ className }) => {
   return (
     <footer className={`${style.footer} ${className}`}>
       <div className={style.footer__wrapper}>
-        <div className={style.footer__wrapper__item}>
-          <div className={style.info}>
-            <Logo className={style.info__logo} />
-            <span>
-              Продаём всё, что вырастили сами — без химии и посредников. Прямо с
-              грядки к вашему столу.
-            </span>
-            <div className={style.icons}>
-              <Link href={""} className={style.icons__icon}>
-                <Camera className={style.icons__icon_svg} />
-              </Link>
-              <Link href={""} className={style.icons__icon}>
-                <MessageCircleQuestionMark className={style.icons__icon_svg} />
-              </Link>
-            </div>
-          </div>
-        </div>
         <div className={style.wrapper__nav}>
           <div className={style.wrapper__nav__item}>
             <nav className={style.nav}>
@@ -74,6 +57,24 @@ export const Footer: React.FC<FooterI> = ({ className }) => {
               </ul>
             </nav>
           </div>
+
+          <div className={style.wrapper__nav__item}>
+            <nav className={style.nav}>
+              <Title className={style.title}>Покупателям</Title>
+              <ul>
+                <li>
+                  <Link href={ROUTES.HOME}>Доставка</Link>
+                </li>
+                <li>
+                  <Link href={ROUTES.ABOUT}>Условия возврата товара</Link>
+                </li>
+                <li>
+                  <Link href={ROUTES.ABOUT}>Пользовательское соглашение</Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
           <div className={style.wrapper__nav__item}>
             <nav className={style.nav}>
               <Title className={style.title}>Категории</Title>

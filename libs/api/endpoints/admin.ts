@@ -9,6 +9,7 @@ export type ProductUpdateInput = {
   categoryId: number;
   unit: string;
   quantityProduct: number;
+  deliveryToCities?: boolean;
 };
 
 export const adminApi = baseApi.injectEndpoints({

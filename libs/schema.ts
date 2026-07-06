@@ -18,7 +18,6 @@ export const formSchemaLogin = z.object({
 });
 
 // для обновления продукта
-
 export const formSchemaUpdateProduct = z.object({
   name: z.string().min(1, { message: "Название товара обязательно" }),
   categoryId: z.string().min(1, { message: "Категория обязательна" }),
@@ -26,6 +25,7 @@ export const formSchemaUpdateProduct = z.object({
     .string()
     .regex(/^\d+(\.\d+)?$/, { message: "Цена должна быть числом" }),
   unit: z.string().min(1, { message: "Единица измерения обязательна" }),
+  deliveryToCities: z.boolean().optional(),
   description: z.string().optional(),
   quantityProduct: z
     .string()
@@ -34,7 +34,6 @@ export const formSchemaUpdateProduct = z.object({
 export type FormStateProductUpdate = z.infer<typeof formSchemaUpdateProduct>;
 
 // для создания продукта
-
 export const formSchemaCreateProduct = z.object({
   name: z.string().min(1, { message: "Название товара обязательно" }),
   category: z.string().min(1, { message: "Категория обязательна" }),
@@ -42,7 +41,7 @@ export const formSchemaCreateProduct = z.object({
     .string()
     .regex(/^\d+(\.\d+)?$/, { message: "Цена должна быть числом" }),
   unit: z.string().optional(),
-
+  deliveryToCities: z.boolean().optional(),
   image: z
     .custom<FileList>((val) => val instanceof FileList, "Выберите файлы")
     .refine((files) => files.length > 0, "Выберите хотя бы одно фото")
@@ -52,18 +51,15 @@ export const formSchemaCreateProduct = z.object({
         Array.from(files).every((file) => file.size <= 5 * 1024 * 1024),
       "Максимальный размер файла - 5MB",
     ),
-
   description: z.string().optional(),
   quantity: z
     .string()
     .regex(/^\d+(\.\d+)?$/, { message: "Количество должно быть числом" }),
   size: z.string().optional(),
 });
-
 export type FormStateProductCreate = z.infer<typeof formSchemaCreateProduct>;
 
 // для зказа
-
 export const addressSchema = z.object({
   value: z.string().min(1, "Введите адрес"),
 });
