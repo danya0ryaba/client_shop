@@ -39,15 +39,13 @@
 }
 
 @media (max-width: variables.$tablet) {
-  .wrapper {
-    .available {
-      gap: 20px;
-      flex-direction: column-reverse;
+  .available {
+    margin-top: 50px;
+    flex-direction: column-reverse;
 
-      &__filled {
-        gap: 6px;
-        width: 100%;
-      }
+    &__filled {
+      gap: 14px;
+      width: 100%;
     }
   }
 }

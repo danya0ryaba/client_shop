@@ -43,11 +43,6 @@ export const CardTotal = () => {
           <span>Товары ({itemsCount})</span>
           <span>{totalPrice} ₽</span>
         </div>
-
-        <div className={style.product__info_block}>
-          <span>Доставка</span>
-          <span className={style.price}>Бесплатно</span>
-        </div>
       </div>
 
       <div className={style.total}>

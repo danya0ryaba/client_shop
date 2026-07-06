@@ -9,7 +9,6 @@ import {
   useUpdateCartItemQuantityMutation,
 } from "@/libs/api";
 import { toast } from "react-toastify";
-import { useState } from "react";
 
 import style from "./CardBasket.module.scss";
 
@@ -63,7 +62,9 @@ export const CardBasket: React.FC<CardBasketI> = ({ item }) => {
       <div className={style.info}>
         <div className={style.info__block}>
           <div className={style.info__block_el}>
-            <Title as="h5">{item.product.name}</Title>
+            <Title as="h5" className={style.title}>
+              {item.product.name}
+            </Title>
             <span className={style.price}>{item.product.price} ₽ / кг</span>
           </div>
           <div className={style.info__block_el}>
